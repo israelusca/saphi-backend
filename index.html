@@ -1,0 +1,1109 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#FBF6EC">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Saphi">
+<title>Saphi · Cultivo Inteligente</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Nunito:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --crema:#FBF6EC;--ambar:#E4A62C;--ambar-osc:#C6871A;--terracota:#C15B33;--terracota-osc:#A94A26;
+  --tierra:#5B3A22;--tierra-2:#7A5334;--verde:#4F8B4A;--verde-bg:#E9F1E2;--verde-osc:#3F7A3B;
+  --texto:#3A2E22;--tenue:#8A7A66;--card:#FFFFFF;--linea:#EDE3D0;--crema-2:#FDF3DC;
+  --sombra:0 10px 28px rgba(91,58,34,.12);--sombra-sm:0 4px 12px rgba(91,58,34,.08);
+  --ft:'Poppins',system-ui,sans-serif;--fb:'Nunito',system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#EBE2CE;color:var(--texto);font-family:var(--fb);min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
+.app{width:100%;max-width:440px;height:100vh;height:100dvh;background:var(--crema);position:relative;overflow:hidden;box-shadow:0 0 40px rgba(0,0,0,.12);display:flex;flex-direction:column}
+@media(min-width:520px){.app{margin:18px 0;height:calc(100vh - 36px);height:calc(100dvh - 36px);border-radius:30px}}
+
+.topbar{padding:14px 18px 10px;padding-top:calc(14px + env(safe-area-inset-top,0px));background:linear-gradient(180deg,var(--crema-2),var(--crema));display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;border-bottom:1px solid var(--linea)}
+.brand{display:flex;align-items:center;gap:9px}
+.brand .bn{font-family:var(--ft);font-weight:700;font-size:20px;color:var(--tierra)}
+.tb-right{display:flex;align-items:center;gap:8px}
+.chip-mode{background:#fff;border:1px solid var(--linea);color:var(--tierra-2);font-weight:800;font-size:11px;padding:5px 9px;border-radius:999px;cursor:pointer}
+.iconbtn{background:#fff;border:1px solid var(--linea);width:36px;height:36px;border-radius:11px;font-size:16px;cursor:pointer;color:var(--tierra);display:flex;align-items:center;justify-content:center}
+.back{background:none;border:none;font-size:22px;color:var(--tierra);cursor:pointer;padding:2px 6px;line-height:1}
+
+.rain-banner{background:#E7F0FB;border-bottom:1px solid #CBD8DE;padding:9px 14px;display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px;color:#2B588F}
+.rain-banner button{background:#3B6FB0;color:#fff;border:none;padding:4px 9px;border-radius:7px;font-weight:800;font-size:10.5px;cursor:pointer}
+.frost-banner{background:#FDF1EA;border-bottom:1px solid #F3D9CB;padding:9px 14px;font-size:12px;color:var(--terracota);font-weight:700}
+
+.content{flex:1;overflow-y:auto;padding:8px 16px 90px}
+.content::-webkit-scrollbar{display:none}
+h2.sc{font-family:var(--ft);font-weight:700;font-size:20px;color:var(--tierra);margin:12px 2px 4px}
+.sub{color:var(--tenue);font-size:13px;margin:0 2px 14px}
+
+.card{background:var(--card);border:1px solid var(--linea);border-radius:20px;padding:15px;margin-top:14px;box-shadow:var(--sombra-sm)}
+.card h3{font-family:var(--ft);margin:0 0 6px;font-size:14.5px;color:var(--tierra);font-weight:700}
+.muted{color:var(--tenue);font-size:12px;margin:0;line-height:1.4}
+.plant-card{position:relative;overflow:hidden;display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--linea);border-radius:18px;padding:12px;margin-bottom:10px;box-shadow:var(--sombra-sm);cursor:pointer}
+.plant-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acc,transparent)}
+.thumb{width:60px;height:60px;border-radius:14px;flex:0 0 auto;overflow:hidden;background:linear-gradient(160deg,#F6DFA6,#D79A54);display:flex;align-items:center;justify-content:center}
+.pc-body{flex:1;min-width:0}
+.pc-name{font-family:var(--ft);font-weight:700;font-size:15px;color:var(--tierra);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-sci{font-style:italic;color:var(--tenue);font-size:12px}
+.pc-tags{display:flex;gap:5px;margin-top:5px;flex-wrap:wrap}
+.tag{font-size:10.5px;font-weight:800;padding:2px 8px;border-radius:999px}
+.tag.amb{background:#FBEFCD;color:var(--ambar-osc)}
+.tag.st{background:#F0E7D5;color:var(--tierra-2)}
+.tag.st.ok{background:var(--verde-bg);color:var(--verde-osc)}
+.qw{width:42px;height:42px;border-radius:12px;border:1.5px solid var(--linea);background:#fff;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+.qw.red{border-color:#EBB9A8;background:#FBE3D6}
+
+.home-hero{border-radius:22px;padding:18px;color:#fff;background:linear-gradient(135deg,#2E6E3F 0%,#3F7A3B 50%,#5B7A2E 100%);margin-top:4px;box-shadow:var(--sombra)}
+.hh-row{display:flex;justify-content:space-between;align-items:center}
+.hh-hi{font-family:var(--ft);font-weight:700;font-size:15px}
+.hh-moon{background:rgba(255,255,255,.2);border-radius:999px;padding:4px 10px;font-size:11.5px;font-weight:800}
+.hh-big{font-family:var(--ft);font-weight:700;font-size:24px;margin:10px 0 2px}
+
+.batch-card{background:linear-gradient(135deg,#FFF9EC,#FDF0D0);border:1.5px solid #F0DDA6;border-radius:16px;padding:12px 14px;margin-top:10px;display:flex;align-items:center;justify-content:space-between;gap:10px}
+.batch-tx{flex:1;font-size:12.5px;color:var(--tierra);font-weight:700}
+.batch-btn{background:var(--verde);color:#fff;border:none;padding:9px 13px;border-radius:11px;font-family:var(--ft);font-weight:700;font-size:12px;cursor:pointer}
+
+/* DIAGNÓSTICO IA */
+.diag-card{border:1.5px solid #EBB9A8;background:#FFFBF9;border-radius:18px;padding:14px;margin-top:14px}
+.diag-title{font-family:var(--ft);font-weight:700;font-size:14px;color:var(--terracota);margin-bottom:4px;display:flex;align-items:center;justify-content:space-between}
+.diag-res{background:#fff;border:1.5px solid #F3D9CB;border-radius:14px;padding:13px;margin-top:10px;font-size:12.5px;line-height:1.55;color:var(--tierra)}
+.diag-res h4{margin:10px 0 3px;color:var(--terracota);font-family:var(--ft);font-size:13px}
+.diag-res h4:first-child{margin-top:0}
+.api-badge{font-size:10px;padding:3px 8px;border-radius:999px;font-weight:800}
+.api-badge.on{background:var(--verde-bg);color:var(--verde-osc)}
+.api-badge.off{background:#FDF3DC;color:var(--ambar-osc)}
+
+.diag-error{background:#FDF1EA;border:1.5px solid #F3D9CB;border-radius:12px;padding:12px;margin-top:10px}
+.diag-error-h{color:var(--terracota);font-weight:800;font-size:13px;margin-bottom:4px}
+.diag-error-msg{font-size:12px;color:var(--tierra);margin-bottom:8px;word-break:break-word}
+
+.symp-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}
+.symp-btn{background:#fff;border:1px solid var(--linea);border-radius:10px;padding:8px;font-size:11.5px;font-weight:700;color:var(--tierra-2);cursor:pointer;text-align:left}
+
+/* LUXÓMETRO */
+.lux-box{background:#1E232A;color:#fff;border-radius:18px;padding:16px;margin-top:12px;text-align:center}
+.lux-val{font-family:var(--ft);font-size:38px;font-weight:700;color:var(--ambar);line-height:1;margin:6px 0}
+.lux-status{font-size:13px;font-weight:800;padding:5px 12px;border-radius:999px;display:inline-block;margin:6px 0 10px}
+.lux-cam-wrap{width:100%;height:140px;background:#000;border-radius:12px;overflow:hidden;margin-bottom:10px;display:flex;align-items:center;justify-content:center}
+.lux-cam-wrap video{width:100%;height:100%;object-fit:cover}
+.lux-btn{background:linear-gradient(180deg,var(--ambar),var(--ambar-osc));color:#3A2600;border:none;padding:11px 18px;border-radius:12px;font-family:var(--ft);font-weight:700;font-size:13px;cursor:pointer}
+
+/* DIARIO Y GRÁFICAS */
+.growth{display:flex;align-items:center;justify-content:space-between;gap:12px;background:linear-gradient(135deg,#EAF3E4,#DDEBCF);border:1px solid #CFE2D3;border-radius:14px;padding:12px 15px;margin-bottom:12px}
+.growth-big{font-family:var(--ft);font-weight:700;font-size:24px;color:var(--verde-osc);line-height:1}
+.growth-sub{font-size:12px;font-weight:700;color:var(--tierra-2);margin-top:2px}
+.spark{width:180px;height:44px;flex:0 0 auto}
+.diary-e{display:flex;gap:10px;align-items:flex-start;background:var(--crema-2);border-radius:12px;padding:10px;margin-top:8px}
+.diary-tx{font-size:12.5px;color:var(--tierra);font-weight:700;line-height:1.4}
+.diary-date{font-size:11px;color:var(--tenue);margin-top:3px}
+
+.nav{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--linea);display:flex;justify-content:space-around;padding:8px 6px calc(12px + env(safe-area-inset-bottom,0px));z-index:20}
+.nav div{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:800;color:var(--tenue);cursor:pointer}
+.nav .on{color:var(--ambar-osc)}.nav .ic{font-size:18px}
+.fab{position:absolute;right:16px;bottom:76px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,var(--terracota),var(--terracota-osc));color:#fff;border:none;font-size:26px;box-shadow:0 8px 20px rgba(169,74,38,.4);cursor:pointer;z-index:21;display:flex;align-items:center;justify-content:center}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--tierra);color:#fff;padding:10px 16px;border-radius:12px;font-size:12.5px;font-weight:700;opacity:0;transition:.25s;pointer-events:none;z-index:99;white-space:nowrap}
+.toast.show{opacity:1}
+.menu{position:absolute;right:14px;top:54px;background:#fff;border:1px solid var(--linea);border-radius:14px;box-shadow:var(--sombra);z-index:30;overflow:hidden;display:none}
+.menu.show{display:block}
+.menu button{display:block;width:100%;text-align:left;background:none;border:none;padding:11px 15px;font-size:13px;font-weight:700;color:var(--tierra);cursor:pointer}
+.btn-primary{width:100%;background:linear-gradient(180deg,var(--ambar),var(--ambar-osc));color:#3a2600;border:none;font-family:var(--ft);font-weight:700;font-size:14.5px;padding:13px;border-radius:14px;cursor:pointer;margin-top:8px}
+.btn-ghost{width:100%;background:none;border:none;color:var(--terracota);font-weight:800;font-size:13px;padding:8px 0;cursor:pointer}
+.chips{display:flex;gap:6px;margin:10px 0 2px;flex-wrap:wrap}
+.chip{background:#fff;border:1px solid var(--linea);border-radius:999px;padding:6px 10px;font-size:11.5px;font-weight:700;color:var(--tierra-2)}
+.del{width:100%;background:none;border:1.5px solid #E7C4B7;color:var(--terracota);font-weight:800;font-size:12.5px;padding:10px;border-radius:12px;cursor:pointer;margin-top:12px}
+.st-btns{display:flex;gap:8px;margin-top:10px}
+.st-btns button{flex:1;border:1.5px solid var(--linea);background:#fff;border-radius:11px;padding:10px;font-family:var(--ft);font-weight:700;font-size:12px;color:var(--tierra);cursor:pointer}
+.st-btns button.done{background:var(--verde-bg);border-color:var(--verde);color:var(--verde-osc)}
+.mix{display:flex;height:12px;border-radius:6px;overflow:hidden;margin:10px 0 8px}
+.mix i{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:5px 10px;font-size:11px;color:var(--tierra-2);font-weight:700}
+.legend span{display:flex;align-items:center;gap:4px}
+.dot{width:8px;height:8px;border-radius:3px;display:inline-block}
+.field{margin-bottom:14px}
+.field label{display:block;font-weight:800;font-size:12.5px;color:var(--tierra);margin-bottom:6px}
+.field input, .field select{width:100%;padding:11px 12px;border:1.5px solid var(--linea);border-radius:12px;font-family:var(--fb);font-size:14.5px;background:#fff}
+.opts{display:flex;gap:7px;flex-wrap:wrap}
+.opt{flex:1;min-width:calc(50% - 4px);text-align:center;padding:10px 6px;border:1.5px solid var(--linea);border-radius:12px;background:#fff;font-weight:800;font-size:12.5px;color:var(--tierra-2);cursor:pointer}
+.opt.sel{border-color:var(--ambar);background:#FDF3DC;color:var(--ambar-osc)}
+.locgrid{display:flex;flex-wrap:wrap;gap:6px}
+.locopt{border:1.5px solid var(--linea);background:#fff;border-radius:10px;padding:7px 10px;font-size:12px;font-weight:700;color:var(--tierra-2);cursor:pointer}
+.locopt.sel{border-color:var(--verde);background:var(--verde-bg);color:var(--verde-osc)}
+.cal-row{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--linea);border-radius:12px;padding:10px 12px;margin-bottom:8px}
+.cal-row .cn{font-weight:800;font-size:13px;color:var(--tierra)}
+.cal-row .cx{font-size:12px;color:var(--tenue);font-weight:700}
+.cal-row .cd{margin-left:auto;font-size:11.5px;font-weight:800;color:var(--verde-osc)}
+
+#print-area{display:none}
+@media print{
+ body{background:#fff}
+ .app,.toast,.menu,.fab,.nav{display:none!important}
+ #print-area{display:block!important;padding:10px;font-family:'Nunito',sans-serif;color:#222}
+ table{width:100%;border-collapse:collapse;margin:10px 0}
+ th,td{border:1px solid #ddd;padding:6px;text-align:left;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+  <div class="topbar">
+    <div class="brand">
+      <span style="font-size:22px">🌱</span>
+      <span class="bn">Saphi</span>
+    </div>
+    <div class="tb-right">
+      <button class="chip-mode" onclick="toggleTone()" id="btn-tone">👵 Vecina Sabia</button>
+      <button class="iconbtn" onclick="toggleMenu(event)">⋯</button>
+    </div>
+  </div>
+
+  <div id="smart-weather-bar"></div>
+
+  <div class="menu" id="menu">
+    <button onclick="openLuxometer()">💡 Luxómetro (Cámara)</button>
+    <button onclick="testNotification()">🔔 Probar notificación móvil</button>
+    <button onclick="toggleTone()">🗣️ Alternar: Vecina Sabia / Agrónomo</button>
+    <button onclick="exportBackup()">⬇️ Exportar respaldo (.json)</button>
+    <button onclick="document.getElementById('importFile').click()">⬆️ Importar respaldo</button>
+  </div>
+  <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importBackup(event)">
+
+  <div class="content" id="content"></div>
+
+  <button class="fab" id="fab" onclick="goAdd()">+</button>
+
+  <div class="nav">
+    <div id="nav-inicio" onclick="goHome()"><span class="ic">🏠</span>Inicio</div>
+    <div id="nav-plantas" onclick="goList()"><span class="ic">🌿</span>Plantas</div>
+    <div id="nav-lux" onclick="openLuxometer()"><span class="ic">☀️</span>Luz</div>
+    <div id="nav-cal" onclick="goCalendar()"><span class="ic">📅</span>Calendario</div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ==================== RUTEO INTELIGENTE AL BACKEND ====================
+// Si corre alojado en Vercel usa la ruta relativa; si corre como archivo local apunta a tu Vercel en la nube
+const VERCEL_API_URL = window.location.origin.includes('vercel.app') 
+  ? "/api/diagnose" 
+  : "https://saphi-backend.vercel.app/api/diagnose";
+
+// ==================== CATÁLOGO BOTÁNICO SAPHI ====================
+const TYPES={
+ t1:{tag:'🌵 T1',badge:'Cactus y suculentas de sol',color:'#E4A62C',mixName:'T1 Mineral',mixDesc:'Mineral-drenante: seca rápido, evita pudrición.',toneV:'Tierra arenosa que no retenga charcos.',toneA:'Porosidad de aireación >40% con fracción mineral dominante.'},
+ t2:{tag:'🌺 T2',badge:'Sombra y epífitas de selva',color:'#7FB39A',mixName:'T2 Epífita',mixDesc:'Aireado y epífito con corteza.',toneV:'Corteza y fibra como en los troncos de la Amazonía.',toneA:'Medio poroso de baja densidad aparente.'},
+ t3:{tag:'🪰 T3',badge:'Plantas carnívoras',color:'#6FA35A',mixName:'T3 Ácido',mixDesc:'Pobre y ácido: sin cal ni abono.',toneV:'Solo turba rubia y agua de lluvia o pura destilada.',toneA:'Sphagnum peat moss puro (pH 3.5–4.5, CE < 50 µS/cm).'},
+ t4:{tag:'🌿 T4',badge:'Tropicales de follaje',color:'#8FB98A',mixName:'T4 Follaje',mixDesc:'Rico y aireado: retiene humedad sin ahogar.',toneV:'Tierra esponjosa que se sienta fresca.',toneA:'Estructura balanceada con biochar y perlita.'},
+ t5:{tag:'🪴 T5',badge:'Resistentes de interior',color:'#BBAE86',mixName:'T5 Rústica',mixDesc:'Drenante y noble; aguanta olvidos.',toneV:'Para descuidar el riego un tiempo sin que muera.',toneA:'Sustrato estándar de baja tasa de evaporación.'},
+ t6:{tag:'🌸 T6',badge:'Arbustos de flor y exterior',color:'#E58BB0',mixName:'T6 Floración',mixDesc:'Fértil con drenaje; mucho sol.',toneV:'Tierra abonada rica en fósforo para que abra capullos.',toneA:'Alta saturación de bases con relación P-K equilibrada.'},
+ t7:{tag:'🥬 T7',badge:'Huerto, aromáticas y frutales',color:'#AEC468',mixName:'T7 Huerto',mixDesc:'Fértil con retención y comida.',toneV:'Tierra viva con humus para cosechar sano.',toneA:'Sustrato fértil de alta capacidad de intercambio catiónico.'},
+ t8:{tag:'🌬️ T8',badge:'Aéreas y musgos (sin tierra)',color:'#9FBFB2',mixName:'T8 Aéreo',mixDesc:'Sin tierra: sphagnum o soporte; pulverización.',toneV:'Colgada al aire libre con pulverizador.',toneA:'Fijación epífita con pulsos de aspersión.'}
+};
+
+const SPECIES=[
+ {id:'sanpedro',t:'t1',n:'San Pedro',sci:'Trichocereus pachanoi',mix:'t1_base'},
+ {id:'sabila',t:'t1',n:'Sábila',sci:'Aloe vera',mix:'t1_base'},
+ {id:'adenium',t:'t1',n:'Flor del desierto',sci:'Adenium obesum',mix:'t1_base'},
+ {id:'lophophora',t:'t1',n:'Peyote',sci:'Lophophora williamsii',mix:'t1_mineral'},
+ {id:'nopal',t:'t1',n:'Nopal / Tuna',sci:'Opuntia ficus-indica',mix:'t1_base'},
+ {id:'echeveria',t:'t1',n:'Echeveria',sci:'Echeveria sp.',mix:'t1_base'},
+ {id:'monstera',t:'t4',n:'Monstera',sci:'Monstera deliciosa',mix:'t4_trop'},
+ {id:'adansonii',t:'t4',n:'Monstera adansonii',sci:'Monstera adansonii',mix:'t4_trop'},
+ {id:'poto',t:'t4',n:'Poto',sci:'Epipremnum aureum',mix:'t4_trop'},
+ {id:'calathea',t:'t4',n:'Calathea',sci:'Calathea sp.',mix:'t4_trop'},
+ {id:'anturio',t:'t4',n:'Anturio',sci:'Anthurium sp.',mix:'t4_trop'},
+ {id:'espatifilo',t:'t4',n:'Cuna de Moisés',sci:'Spathiphyllum sp.',mix:'t4_trop'},
+ {id:'ficus',t:'t4',n:'Ficus lira',sci:'Ficus lyrata',mix:'t4_trop'},
+ {id:'albahaca',t:'t7',n:'Albahaca',sci:'Ocimum basilicum',mix:'t7_fertil'},
+ {id:'tomate',t:'t7',n:'Tomate',sci:'Solanum lycopersicum',mix:'t7_fertil',fruto:true},
+ {id:'aji',t:'t7',n:'Pimiento / Ají',sci:'Capsicum annuum',mix:'t7_fertil',fruto:true},
+ {id:'menta',t:'t7',n:'Menta',sci:'Mentha sp.',mix:'t7_fertil'},
+ {id:'romero',t:'t7',n:'Romero',sci:'Salvia rosmarinus',mix:'t7_fertil'},
+ {id:'hierbaluisa',t:'t7',n:'Hierba luisa',sci:'Aloysia citrodora',mix:'t7_fertil'},
+ {id:'tomatearbol',t:'t7',n:'Tomate de árbol',sci:'Solanum betaceum',mix:'t7_fertil',fruto:true},
+ {id:'babaco',t:'t7',n:'Babaco',sci:'Vasconcellea × heilbornii',mix:'t7_fertil',fruto:true},
+ {id:'limon',t:'t7',n:'Limón',sci:'Citrus × limon',mix:'t7_fertil',fruto:true},
+ {id:'orquidea',t:'t2',n:'Orquídea',sci:'Phalaenopsis sp.',mix:'t2_epifita'},
+ {id:'venus',t:'t3',n:'Venus atrapamoscas',sci:'Dionaea muscipula',mix:'t3_carniv'},
+ {id:'lenguasuegra',t:'t5',n:'Lengua de suegra',sci:'Dracaena trifasciata',mix:'t5_resist'},
+ {id:'zz',t:'t5',n:'ZZ Plant',sci:'Zamioculcas zamiifolia',mix:'t5_resist'},
+ {id:'buganvilla',t:'t6',n:'Buganvilla / Veranera',sci:'Bougainvillea sp.',mix:'t6_jardin'},
+ {id:'hibisco',t:'t6',n:'Cucarda / Hibisco',sci:'Hibiscus rosa-sinensis',mix:'t6_jardin'},
+ {id:'tillandsia',t:'t8',n:'Clavel del aire',sci:'Tillandsia sp.',mix:'t8_montaje'}
+];
+
+const MIX={
+ t1_base:{cost:0.21,parts:[['Pómice/Perlita',50,'#E4A62C'],['Turba rubia',35,'#8C6239'],['Humus',15,'#4F8B4A']]},
+ t1_mineral:{cost:0.25,parts:[['Pómice',60,'#E4A62C'],['Zeolita',25,'#B9A06B'],['Humus',15,'#4F8B4A']]},
+ t4_trop:{cost:0.29,parts:[['Fibra de coco',30,'#B07A4A'],['Perlita',25,'#E4A62C'],['Humus',25,'#6E4327'],['Corteza pino',20,'#7A4A22']]},
+ t7_fertil:{cost:0.18,parts:[['Humus lombriz',40,'#6E4327'],['Tierra negra',30,'#8C6239'],['Perlita',20,'#E4A62C'],['Cascarilla',10,'#B07A4A']]},
+ t2_epifita:{cost:0.38,parts:[['Corteza de pino',50,'#7A4A22'],['Fibra de coco',30,'#B07A4A'],['Carbón vegetal',20,'#3E2A19']]},
+ t3_carniv:{cost:0.25,parts:[['Turba rubia ácida',70,'#6E4327'],['Perlita',30,'#E4A62C']]},
+ t5_resist:{cost:0.20,parts:[['Turba',50,'#8C6239'],['Perlita',30,'#E4A62C'],['Humus',20,'#4F8B4A']]},
+ t6_jardin:{cost:0.22,parts:[['Tierra fértil',40,'#8C6239'],['Humus',30,'#6E4327'],['Perlita',30,'#E4A62C']]},
+ t8_montaje:{cost:0.80,parts:[['Musgo Sphagnum',80,'#8A9A5B'],['Corteza',20,'#7A4A22']]}
+};
+
+const RIEGODAYS={
+ t1:{chica:6,mediana:11,grande:17},
+ t2:{chica:6,mediana:9,grande:13},
+ t3:{chica:2,mediana:2,grande:2},
+ t4:{chica:3,mediana:6,grande:8},
+ t5:{chica:9,mediana:13,grande:21},
+ t6:{chica:2,mediana:3,grande:5},
+ t7:{chica:1,mediana:2,grande:3},
+ t8:{chica:1,mediana:1,grande:1}
+};
+
+const LUGARES={
+ patio:{n:'Patio',em:'🪴',outdoor:true},
+ terraza:{n:'Terraza',em:'🏙️',outdoor:true},
+ balcon:{n:'Balcón',em:'🌇',outdoor:true},
+ jardin:{n:'Jardín',em:'🌳',outdoor:true},
+ sala:{n:'Sala',em:'🛋️',outdoor:false},
+ cocina:{n:'Cocina',em:'🍳',outdoor:false},
+ cuarto:{n:'Dormitorio',em:'🛏️',outdoor:false},
+ ventana:{n:'Ventana',em:'🪟',outdoor:false}
+};
+
+const POTS={chica:{n:'Chica (≤1L)'},mediana:{n:'Mediana (2-4L)'},grande:{n:'Grande (5L+)'}};
+const REGIONS={sierra:{n:'Sierra',em:'⛰️'},costa:{n:'Costa',em:'🌴'},amazonia:{n:'Amazonía',em:'🌳'}};
+
+// ==================== ESTADO ====================
+let plants=[];
+let userTone=localStorage.getItem('saphi_tone')||'vecina';
+let rainDelayActive=false;
+
+function sp(id){return SPECIES.find(s=>s.id===id)||SPECIES[0];}
+function toneText(v, a){ return userTone==='vecina'?v:a; }
+function save(){try{localStorage.setItem('saphi_plants_v2',JSON.stringify(plants));}catch(e){}}
+
+function load(){
+  try{plants=JSON.parse(localStorage.getItem('saphi_plants_v2'))||null;}catch(e){plants=null;}
+  if(!plants||!plants.length){
+    plants=[
+      {id:101,nombre:'Monstera de la Sala',esp:'monstera',region:'sierra',alt:2800,pot:'grande',loc:'sala',lastWater:null,diary:[{t:new Date(Date.now()-86400000*15).toISOString(),h:32,txt:'Brote nuevo'},{t:new Date().toISOString(),h:36,txt:'Hoja abierta'}]},
+      {id:102,nombre:'San Pedro del Balcón',esp:'sanpedro',region:'sierra',alt:2800,pot:'mediana',loc:'balcon',lastWater:null,diary:[]},
+      {id:103,nombre:'Albahaca de Cocina',esp:'albahaca',region:'costa',alt:15,pot:'chica',loc:'patio',lastWater:null,diary:[]}
+    ];
+    save();
+  }
+}
+
+function toggleTone(){
+  userTone=(userTone==='vecina'?'agronomo':'vecina');
+  localStorage.setItem('saphi_tone',userTone);
+  document.getElementById('btn-tone').textContent=(userTone==='vecina'?'👵 Vecina Sabia':'🎓 Agrónomo');
+  toast(userTone==='vecina'?'Modo: Vecina Sabia 👵':'Modo: Agrónomo 🎓');
+  if(view==='ficha'&&currentFichaId) goFicha(currentFichaId);
+  else goHome();
+}
+
+// ==================== COMPRESIÓN Y DIAGNÓSTICO ====================
+function resizeImageToBase64(file, maxSide=800, quality=0.8){
+  return new Promise((resolve, reject)=>{
+    const reader=new FileReader();
+    reader.onload=(e)=>{
+      const img=new Image();
+      img.onload=()=>{
+        let w=img.width, h=img.height;
+        if(w>maxSide || h>maxSide){
+          if(w>h){ h=Math.round((h*maxSide)/w); w=maxSide; }
+          else{ w=Math.round((w*maxSide)/h); h=maxSide; }
+        }
+        const canvas=document.createElement('canvas');
+        canvas.width=w; canvas.height=h;
+        const ctx=canvas.getContext('2d');
+        ctx.drawImage(img,0,0,w,h);
+        const dataUrl=canvas.toDataURL('image/jpeg',quality);
+        resolve({ base64: dataUrl.split(',')[1], dataUrl, mimeType:'image/jpeg' });
+      };
+      img.onerror=()=>reject(new Error('No se pudo procesar la imagen'));
+      img.src=e.target.result;
+    };
+    reader.onerror=()=>reject(new Error('Error al leer el archivo'));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleLeafUpload(plantId, inputEl){
+  const file = inputEl.files[0];
+  if(!file) return;
+
+  const p = plants.find(x => x.id == plantId);
+  const box = document.getElementById('diag-box-' + plantId);
+  if(!box) return;
+
+  box.style.display = 'block';
+  box.innerHTML = `<div style="padding:10px;text-align:center">
+    <div style="font-size:22px;margin-bottom:6px">🔍</div>
+    <b>Analizando hoja con Saphi IA...</b><br>
+    <small style="color:var(--tenue)">Identificando hongos, plagas o deficiencias...</small>
+  </div>`;
+
+  try {
+    const { base64, dataUrl, mimeType } = await resizeImageToBase64(file, 800, 0.8);
+
+    const response = await fetch(VERCEL_API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        imageBase64: base64,
+        mimeType: mimeType,
+        tone: userTone,
+        plantData: {
+          nombre: p.nombre,
+          species: sp(p.esp).sci,
+          type: TYPES[sp(p.esp).t].badge
+        }
+      })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+      throw new Error(data.error || 'Error en el servidor');
+    }
+
+    box.innerHTML = `<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+      <img src="${dataUrl}" style="width:52px;height:52px;border-radius:10px;object-fit:cover;border:1.5px solid var(--verde)">
+      <div>
+        <span class="api-badge on">🟢 Diagnóstico Completado</span>
+        <div style="font-size:11px;color:var(--tenue);margin-top:2px">${p.nombre} analizada</div>
+      </div>
+    </div>
+    <div>${data.result}</div>`;
+
+  } catch(err) {
+    box.innerHTML = `<div class="diag-error">
+      <div class="diag-error-h">⚠️ Aviso del diagnóstico</div>
+      <div class="diag-error-msg">${err.message}</div>
+      <button onclick="showSymptomFallback(${plantId},'')" style="padding:6px 10px;border-radius:8px;background:var(--terracota);color:#fff;border:none;cursor:pointer">Usar Diagnóstico Manual</button>
+    </div>`;
+  }
+}
+
+function showSymptomFallback(plantId, dataUrl){
+  const box=document.getElementById('diag-box-'+plantId);
+  box.innerHTML=`<div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+    ${dataUrl?`<img src="${dataUrl}" style="width:48px;height:48px;border-radius:8px;object-fit:cover;border:1px solid var(--linea)">`:''}
+    <div>
+      <span class="api-badge off">Modo Asistido (Manual)</span>
+      <div style="font-size:11.5px;color:var(--tierra);font-weight:700">Elige qué síntoma observas en la hoja:</div>
+    </div>
+  </div>
+  <div class="symp-grid">
+    <button class="symp-btn" onclick="applySymptomDiag(${plantId},'amarillo')">🟡 Hojas amarillas / blandas</button>
+    <button class="symp-btn" onclick="applySymptomDiag(${plantId},'hongo')">🟤 Manchas circulares oscuras</button>
+    <button class="symp-btn" onclick="applySymptomDiag(${plantId},'seco')">🍂 Puntas tostadas y crujientes</button>
+    <button class="symp-btn" onclick="applySymptomDiag(${plantId},'bichos')">🐛 Bultos algodonosos blancos</button>
+    <button class="symp-btn" onclick="applySymptomDiag(${plantId},'oidio')">⚪ Polvo blanco harinoso</button>
+    <button class="symp-btn" onclick="applySymptomDiag(${plantId},'sol')">☀️ Quemadura pálida por sol</button>
+  </div>`;
+}
+
+function applySymptomDiag(plantId, symptom){
+  const box=document.getElementById('diag-box-'+plantId);
+  const catalog={
+    amarillo:{d:'Exceso de riego / Raíces sofocadas',c:'La tierra retuvo agua en exceso y las raíces no reciben oxígeno.',s:'1. No riegues hasta que el sustrato seque por completo.\n2. Asegúrate de vaciar el plato inferior de la maceta.'},
+    hongo:{d:'Infección por Hongos (Mancha Foliar)',c:'Gotas de agua retenidas en la hoja combinadas con poca ventilación.',s:'1. Corta las hojas con manchas negras para frenar el contagio.\n2. Riega directo a la tierra sin mojar el follaje.'},
+    seco:{d:'Falta de Humedad Ambiental / Golpe de aire seco',c:'El aire de la habitación está muy seco o hay corrientes de viento frío.',s:'1. Agrupa la planta con otras para crear microclima.\n2. Pulveriza agua suavemente alrededor de las hojas.'},
+    bichos:{d:'Cochinilla Algodonosa',c:'Insectos chupadores de savia anidados en axilas y nervaduras.',s:'1. Retíralos con un hisopo empapado en alcohol.\n2. Aplica jabón potásico o solución jabonosa suave al atardecer.'},
+    oidio:{d:'Oídio (Cenicilla)',c:'Hongo superficial común en ambientes con poca luz y aire estancado.',s:'1. Limpia las hojas con una solución de 1 parte de leche y 9 de agua.\n2. Muévela a un rincón con mejor claridad y aireación.'},
+    sol:{d:'Quemadura Solar Directa',c:'Exposición brusca a rayos solares intensos sin aclimatación.',s:'1. Reubícala donde reciba luz brillante pero indirecta.\n2. Las quemaduras no sanan, pero los nuevos brotes saldrán intactos.'}
+  };
+  const item=catalog[symptom];
+  box.innerHTML=`<h4>🩺 Diagnóstico:</h4>${item.d}<h4>🔬 Causa:</h4>${item.c}<h4>💊 Tratamiento:</h4><div style="white-space:pre-line">${item.s}</div>`;
+}
+
+// ==================== LUXÓMETRO CÁMARA (FIXED PARA MÓVIL) ====================
+let luxStream=null;
+let luxInterval=null;
+
+function openLuxometer(targetPlantType){
+  view='lux';
+  document.getElementById('fab').style.display='none';
+  setNav('lux');
+  closeMenu();
+  
+  let h=`<h2 class="sc">☀️ Luxómetro Inteligente</h2>
+  <p class="sub">${toneText('Apunta la cámara hacia donde quieres poner tu planta para verificar la luz real.','Medición fotométrica en tiempo real mediante sensor CMOS.')}</p>
+  
+  <div class="lux-box">
+    <div class="lux-cam-wrap">
+      <video id="lux-video" autoplay playsinline muted></video>
+    </div>
+    <div class="lux-val" id="lux-reading">--- LUX</div>
+    <div class="lux-status" id="lux-pill" style="background:#444">Iniciando cámara...</div>
+    <p id="lux-desc" style="font-size:12px;opacity:.9;margin:0 0 12px">Coloca el celular en el lugar de la planta.</p>
+    <button class="lux-btn" onclick="stopLuxometer();goHome();">Detener y volver</button>
+  </div>`;
+
+  content.innerHTML=h;
+  startLuxCamera(targetPlantType||'t4');
+}
+
+function startLuxCamera(expectedType){
+  const video = document.getElementById('lux-video');
+  const reading = document.getElementById('lux-reading');
+  const pill = document.getElementById('lux-pill');
+  const desc = document.getElementById('lux-desc');
+  const canvas = document.createElement('canvas');
+  canvas.width = 32; canvas.height = 32;
+  const ctx = canvas.getContext('2d');
+
+  if (location.protocol === 'file:') {
+    reading.textContent = 'Abre con HTTPS';
+    pill.style.background = '#C15B33';
+    pill.textContent = '⚠️ Bloqueo de seguridad móvil';
+    desc.innerHTML = 'En celulares, los navegadores bloquean la cámara si abres el archivo local (<code>file://</code>). Abre la app desde tu enlace <b>https://saphi-backend.vercel.app</b> para que funcione.';
+    return;
+  }
+
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    reading.textContent = 'No soportado';
+    pill.textContent = 'Navegador incompatible';
+    desc.textContent = 'Tu navegador móvil no permite acceso a sensores de cámara.';
+    return;
+  }
+
+  video.muted = true;
+  video.playsInline = true;
+  video.setAttribute('playsinline', '');
+  video.setAttribute('muted', '');
+
+  const constraints = {
+    video: {
+      facingMode: { ideal: 'environment' },
+      width: { ideal: 640 },
+      height: { ideal: 480 }
+    },
+    audio: false
+  };
+
+  navigator.mediaDevices.getUserMedia(constraints)
+    .catch(() => navigator.mediaDevices.getUserMedia({ video: true, audio: false }))
+    .then(stream => {
+      luxStream = stream;
+      video.srcObject = stream;
+      
+      video.onloadedmetadata = () => {
+        video.play().catch(() => {});
+      };
+
+      luxInterval = setInterval(() => {
+        if (video.videoWidth > 0 && !video.paused) {
+          ctx.drawImage(video, 0, 0, 32, 32);
+          const data = ctx.getImageData(0, 0, 32, 32).data;
+          let sum = 0;
+          for (let i = 0; i < data.length; i += 4) {
+            sum += (0.299 * data[i] + 0.587 * data[i+1] + 0.114 * data[i+2]);
+          }
+          const avg = sum / (data.length / 4);
+          const approxLux = Math.round(Math.pow(avg / 255, 2.1) * 12000);
+          reading.textContent = approxLux.toLocaleString() + ' LUX';
+
+          if (approxLux < 800) {
+            pill.style.background = '#C15B33';
+            pill.textContent = '🔴 Muy oscuro';
+            desc.textContent = toneText('Demasiada sombra. Tu planta se estirará débil buscando luz.','Intensidad sub-óptima para fotosíntesis (<800 lx).');
+          } else if (approxLux < 3500) {
+            pill.style.background = '#4F8B4A';
+            pill.textContent = '🟢 Luz Indirecta Brillante';
+            desc.textContent = toneText('¡Lugar ideal para Monsteras, Potos, Orquídeas y follaje!','Rango óptimo para especies de sotobosque tropical.');
+          } else {
+            pill.style.background = '#E4A62C';
+            pill.textContent = '☀️ Sol Directo Fuerte';
+            desc.textContent = toneText('Sol pleno: perfecto para cactus, suculentas y huerto.','Radiación directa (>3500 lx). Adecuado para heliófilas.');
+          }
+        }
+      }, 400);
+    })
+    .catch(err => {
+      reading.textContent = 'Error de cámara';
+      pill.style.background = '#C15B33';
+      pill.textContent = err.name === 'NotAllowedError' ? 'Permiso denegado' : 'No disponible';
+      desc.textContent = 'Asegúrate de conceder permiso de cámara en los ajustes de tu navegador.';
+    });
+}
+
+function stopLuxometer(){
+  if(luxInterval) clearInterval(luxInterval);
+  if(luxStream){luxStream.getTracks().forEach(t=>t.stop());luxStream=null;}
+}
+
+// ==================== NOTIFICACIONES Y GOOGLE CALENDAR ====================
+async function requestMobileNotif(){
+  if(!('Notification' in window)) return false;
+  const perm=await Notification.requestPermission();
+  return perm==='granted';
+}
+
+function sendNativeAlert(title,body){
+  if('Notification' in window && Notification.permission==='granted'){
+    new Notification(title,{
+      body:body,
+      icon:'https://cdn-icons-png.flaticon.com/512/628/628283.png'
+    });
+  }
+}
+
+function testNotification(){
+  closeMenu();
+  requestMobileNotif().then(ok=>{
+    if(ok){
+      sendNativeAlert('💧 Saphi · ¡Alerta de prueba!','Las notificaciones directas al celular están activas.');
+      toast('🔔 Notificación enviada');
+    }else{
+      toast('Debes permitir las notificaciones en el navegador');
+    }
+  });
+}
+
+function googleCalUrl(plant, nextDateStr){
+  const title=`💧 Regar ${plant.nombre}`;
+  const details=`Recordatorio de Saphi para ${plant.nombre} en maceta ${POTS[plant.pot].n}.`;
+  const start=nextDateStr.replace(/-/g,'')+'T083000';
+  const end=nextDateStr.replace(/-/g,'')+'T090000';
+  return `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(title)}&details=${encodeURIComponent(details)}&dates=${start}/${end}`;
+}
+
+// ==================== CLIMA Y RIEGO EN LOTE ====================
+function checkSmartWeather(){
+  const bar=document.getElementById('smart-weather-bar');
+  if(!bar) return;
+  const sierraPlant=plants.find(p=>p.region==='sierra'&&p.alt>=2400);
+  let html='';
+  if(sierraPlant){
+    html+=`<div class="frost-banner">❄️ <b>Radar Sierra:</b> Noche fría prevista (${sierraPlant.alt} msnm). `
+      + toneText('Mete o cubre tus orquídeas y plantitas tiernas para que no se quemen.','Gradiente térmico nocturno marcado: riesgo de helada.')
+      +`</div>`;
+  }
+  if(rainDelayActive){
+    html+=`<div class="rain-banner">🌧️ <b>Lluvia activa:</b> Riego exterior pospuesto 48h. `
+      +`<button onclick="toggleRainDelay(false)">Quitar</button></div>`;
+  }
+  bar.innerHTML=html;
+}
+
+function toggleRainDelay(val){
+  rainDelayActive=val;
+  checkSmartWeather();
+  if(view==='home') renderHome();
+}
+
+function batchWaterLocation(locKey){
+  const targets=plants.filter(p=>p.loc===locKey);
+  const t=new Date().toISOString().split('T')[0];
+  targets.forEach(p=>{p.lastWater=t;});
+  save();
+  toast(`💧 Regadas ${targets.length} plantas de ${LUGARES[locKey].n}`);
+  renderHome();
+}
+
+// ==================== CÁLCULO LUNAR ====================
+function getMoon(){
+  const SYN=29.53058867;
+  const ref=Date.UTC(2000,0,6,18,14)/86400000;
+  let a=((Date.now()/86400000)-ref)%SYN;if(a<0)a+=SYN;
+  const idx=Math.floor((a/SYN)*8+0.5)%8;
+  const names=['Luna nueva','Luna creciente','Cuarto creciente','Gibosa creciente','Luna llena','Gibosa menguante','Cuarto menguante','Luna menguante'];
+  const em=['🌑','🌒','🌓','🌔','🌕','🌖','🌗','🌘'];
+  return {name:names[idx],em:em[idx],idx};
+}
+
+// ==================== DIARIO Y SPARKLINE ====================
+function addDiaryEntry(plantId){
+  const txt=document.getElementById('diary-input-'+plantId).value.trim();
+  const hVal=parseFloat(document.getElementById('diary-h-'+plantId).value);
+  if(!txt && isNaN(hVal)){ toast('Ingresa una nota o la altura'); return; }
+  
+  const p=plants.find(x=>x.id==plantId);
+  if(!p.diary) p.diary=[];
+  p.diary.push({
+    t:new Date().toISOString(),
+    h:isNaN(hVal)?null:hVal,
+    txt:txt||'Registro de crecimiento'
+  });
+  save();
+  toast('Entrada guardada en el diario ✓');
+  goFicha(plantId);
+}
+
+function renderSparkline(diary){
+  const pts=diary.filter(d=>d.h!==null).map(d=>d.h);
+  if(pts.length<2) return '';
+  const min=Math.min(...pts), max=Math.max(...pts);
+  const range=(max-min)||1;
+  const w=180, h=44;
+  const coords=pts.map((val, idx)=>{
+    const x=(idx/(pts.length-1))*w;
+    const y=h-((val-min)/range)*(h-10)-5;
+    return `${x},${y}`;
+  }).join(' ');
+
+  const diff=pts[pts.length-1]-pts[0];
+  return `<div class="growth">
+    <div>
+      <div class="growth-big">${diff>=0?'+':''}${diff.toFixed(1)} cm</div>
+      <div class="growth-sub">Crecimiento registrado</div>
+    </div>
+    <svg class="spark"><polyline fill="none" stroke="#4F8B4A" stroke-width="3" points="${coords}"/></svg>
+  </div>`;
+}
+
+// ==================== EXPORTACIONES: CSV, PDF Y CANVAS ====================
+function exportDiaryCSV(plantId){
+  const p=plants.find(x=>x.id==plantId);
+  if(!p.diary||!p.diary.length){ toast('El diario está vacío'); return; }
+  let csv='Fecha,Altura_cm,Nota\n';
+  p.diary.forEach(d=>{
+    csv+=`"${d.t.split('T')[0]}","${d.h||''}","${d.txt.replace(/"/g,'""')}"\n`;
+  });
+  const blob=new Blob([csv],{type:'text/csv'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download=`diario_${p.nombre.replace(/\s+/g,'_')}.csv`;
+  a.click();
+}
+
+function printFichaPDF(plantId){
+  const p=plants.find(x=>x.id==plantId);
+  const s=sp(p.esp);
+  const m=MIX[s.mix];
+  let h=`<h2>Ficha de Cultivo · Saphi</h2>
+  <h3>${p.nombre} (${s.n} - <i>${s.sci}</i>)</h3>
+  <p><b>Categoría:</b> ${TYPES[s.t].badge} | <b>Maceta:</b> ${POTS[p.pot].n} | <b>Ubicación:</b> ${p.loc?LUGARES[p.loc].n:'Interior'}</p>
+  <hr>
+  <h4>Receta de Sustrato (${TYPES[s.t].mixName})</h4>
+  <table><tr><th>Componente</th><th>Porcentaje</th></tr>
+  ${m.parts.map(pt=>`<tr><td>${pt[0]}</td><td>${pt[1]}%</td></tr>`).join('')}
+  </table>
+  <h4>Historial del Diario</h4>
+  <table><tr><th>Fecha</th><th>Altura</th><th>Notas</th></tr>
+  ${(p.diary||[]).map(d=>`<tr><td>${d.t.split('T')[0]}</td><td>${d.h?d.h+' cm':'-'}</td><td>${d.txt}</td></tr>`).join('')}
+  </table>`;
+
+  let area=document.getElementById('print-area');
+  if(!area){ area=document.createElement('div'); area.id='print-area'; document.body.appendChild(area); }
+  area.innerHTML=h;
+  window.print();
+}
+
+function generateShareCard(plantId){
+  const p=plants.find(x=>x.id==plantId);
+  const s=sp(p.esp);
+  const canvas=document.createElement('canvas');
+  canvas.width=800; canvas.height=1000;
+  const ctx=canvas.getContext('2d');
+
+  ctx.fillStyle='#FBF6EC'; ctx.fillRect(0,0,800,1000);
+  ctx.fillStyle='#3F7A3B'; ctx.fillRect(0,0,800,280);
+  ctx.fillStyle='#FFFFFF'; ctx.font='bold 44px Poppins, sans-serif'; ctx.fillText('🌱 Saphi Cultivo',50,80);
+  ctx.font='bold 56px Poppins, sans-serif'; ctx.fillText(p.nombre,50,170);
+  ctx.font='italic 28px Nunito, sans-serif'; ctx.fillText(s.sci+' · '+TYPES[s.t].badge,50,225);
+
+  ctx.fillStyle='#FFFFFF'; ctx.roundRect(50,330,700,560,24); ctx.fill();
+  ctx.strokeStyle='#EDE3D0'; ctx.lineWidth=3; ctx.stroke();
+
+  ctx.fillStyle='#5B3A22'; ctx.font='bold 34px Poppins, sans-serif'; ctx.fillText('Cuidados Esenciales',90,400);
+  ctx.font='600 26px Nunito, sans-serif'; ctx.fillStyle='#7A5334';
+  ctx.fillText('💧 Riego estimado: Cada '+RIEGODAYS[s.t][p.pot]+' días',90,470);
+  ctx.fillText('🪴 Maceta: '+POTS[p.pot].n,90,530);
+  ctx.fillText('📍 Ubicación recomendada: '+toneText(TYPES[s.t].toneV, TYPES[s.t].toneA),90,590);
+  ctx.fillText('🧪 Sustrato: '+TYPES[s.t].mixName,90,650);
+
+  ctx.fillStyle='#4F8B4A'; ctx.font='bold 24px Nunito, sans-serif';
+  ctx.fillText('Cultivado con la app móvil de Saphi · Ecuador',90,830);
+
+  const a=document.createElement('a');
+  a.download=`tarjeta_${p.nombre.replace(/\s+/g,'_')}.png`;
+  a.href=canvas.toDataURL('image/png');
+  a.click();
+  toast('Tarjeta descargada en alta resolución 📸');
+}
+
+// ==================== VISTAS Y NAVEGACIÓN ====================
+let view='home';
+let currentFichaId=null;
+
+function setNav(k){
+  ['inicio','plantas','lux','cal'].forEach(x=>{
+    const el=document.getElementById('nav-'+x);
+    if(el) el.classList.toggle('on',x===k);
+  });
+}
+
+function goHome(){
+  stopLuxometer(); view='home';
+  setNav('inicio');
+  document.getElementById('fab').style.display='none';
+  renderHome();
+}
+
+function goList(){
+  stopLuxometer(); view='list';
+  setNav('plantas');
+  document.getElementById('fab').style.display='flex';
+  renderList();
+}
+
+function goCalendar(){
+  stopLuxometer(); view='cal';
+  setNav('cal');
+  document.getElementById('fab').style.display='none';
+  renderCalendar();
+}
+
+function goFicha(id){
+  stopLuxometer(); view='ficha';
+  currentFichaId=id;
+  document.getElementById('fab').style.display='none';
+  renderFicha(plants.find(x=>x.id==id));
+}
+
+function renderHome(){
+  const mo=getMoon();
+  let pendingCount=0;
+  const locGroups={};
+
+  plants.forEach(p=>{
+    const days=RIEGODAYS[sp(p.esp).t][p.pot]||7;
+    let needsWater=true;
+    if(p.lastWater){
+      const diff=Math.round((Date.now()-new Date(p.lastWater))/(86400000));
+      if(diff<days) needsWater=false;
+    }
+    if(needsWater){
+      pendingCount++;
+      const lk=p.loc||'patio';
+      locGroups[lk]=(locGroups[lk]||0)+1;
+    }
+  });
+
+  let h=`<div class="home-hero">
+    <div class="hh-row">
+      <div class="hh-hi">Mi Jardín Saphi 🌿</div>
+      <div class="hh-moon">${mo.em} ${mo.name}</div>
+    </div>
+    <div class="hh-big">${pendingCount>0?pendingCount+' por regar':'¡Todo al día!'}</div>
+    <div style="font-size:12px;opacity:.9">${plants.length} plantas · Modo: ${toneText('Vecina Sabia 👵','Agrónomo 🎓')}</div>
+  </div>`;
+
+  Object.keys(locGroups).forEach(lk=>{
+    if(locGroups[lk]>1){
+      h+=`<div class="batch-card">
+        <div class="batch-tx">🚿 Tienes <b>${locGroups[lk]} plantas</b> por regar en <b>${LUGARES[lk]?LUGARES[lk].n:lk}</b>.</div>
+        <button class="batch-btn" onclick="batchWaterLocation('${lk}')">Regar todas</button>
+      </div>`;
+    }
+  });
+
+  h+=`<h2 class="sc" style="margin-top:16px">Tus plantas</h2>`;
+  plants.forEach(p=>{
+    const s=sp(p.esp);
+    const isOutdoor=p.loc&&LUGARES[p.loc]&&LUGARES[p.loc].outdoor;
+    h+=`<div class="plant-card" onclick="goFicha(${p.id})" style="--acc:${TYPES[s.t].color}">
+      <div class="thumb">🌱</div>
+      <div class="pc-body">
+        <div class="pc-name">${p.nombre}</div>
+        <div class="pc-sci">${p.loc?LUGARES[p.loc].em+' '+LUGARES[p.loc].n:'Casa'} · ${TYPES[s.t].badge}</div>
+        <div class="pc-tags">
+          <span class="tag amb">${TYPES[s.t].tag}</span>
+          ${isOutdoor&&rainDelayActive?'<span class="tag st ok">🌧️ Pausa lluvia</span>':''}
+        </div>
+      </div>
+      <button class="qw red" onclick="waterSingle(${p.id},event)" title="Regar">💧</button>
+    </div>`;
+  });
+
+  document.getElementById('content').innerHTML=h;
+  checkSmartWeather();
+}
+
+function waterSingle(id,ev){
+  if(ev) ev.stopPropagation();
+  const p=plants.find(x=>x.id==id);
+  if(!p) return;
+  p.lastWater=new Date().toISOString().split('T')[0];
+  save();
+
+  const days=RIEGODAYS[sp(p.esp).t][p.pot]||7;
+  const nextDate=new Date(); nextDate.setDate(nextDate.getDate()+days);
+  const nextStr=nextDate.toISOString().split('T')[0];
+
+  sendNativeAlert(`💧 ${p.nombre} regada`, `Próximo riego estimado para el ${nextStr}.`);
+  toast('💧 Riego registrado ✓');
+  if(view==='ficha') goFicha(id);
+  else renderHome();
+}
+
+function renderList(){
+  let h=`<h2 class="sc">Colección (${plants.length})</h2><p class="sub">${toneText('Todas tus plantas registradas.','Inventario botánico y estado de sustrato.')}</p>`;
+  plants.forEach(p=>{
+    const s=sp(p.esp);
+    h+=`<div class="plant-card" onclick="goFicha(${p.id})" style="--acc:${TYPES[s.t].color}">
+      <div class="thumb">🪴</div>
+      <div class="pc-body">
+        <div class="pc-name">${p.nombre}</div>
+        <div class="pc-sci">${s.sci}</div>
+        <div class="pc-tags">
+          <span class="tag amb">${TYPES[s.t].tag}</span>
+          <span class="tag st">${POTS[p.pot].n}</span>
+        </div>
+      </div>
+      <span style="font-size:18px;color:var(--tenue)">›</span>
+    </div>`;
+  });
+  document.getElementById('content').innerHTML=h;
+}
+
+function renderFicha(p){
+  const s=sp(p.esp);
+  const meta=TYPES[s.t];
+  const m=MIX[s.mix];
+  const days=RIEGODAYS[s.t][p.pot]||7;
+  const nextD=new Date(); nextD.setDate(nextD.getDate()+days);
+  const nextStr=nextD.toISOString().split('T')[0];
+  const gCal=googleCalUrl(p,nextStr);
+
+  let h=`<button class="btn-ghost" onclick="goHome()">‹ Volver al inicio</button>
+  <h2 class="sc" style="margin-top:4px">${p.nombre}</h2>
+  <div style="font-style:italic;color:var(--tenue);margin-bottom:8px">${s.sci} · ${meta.badge}</div>
+
+  <div class="chips">
+    <span class="chip">${POTS[p.pot].n}</span>
+    <span class="chip">${p.loc?LUGARES[p.loc].em+' '+LUGARES[p.loc].n:'Sin lugar'}</span>
+    <span class="chip">${REGIONS[p.region]?REGIONS[p.region].em+' '+REGIONS[p.region].n:'Ecuador'}</span>
+  </div>
+
+  <div class="card">
+    <h3>💧 Riego y Calendario</h3>
+    <p class="muted">${toneText(
+      `Riega cada ~${days} días. Toca la tierra primero: si sale el dedo seco, le toca agua.`,
+      `Frecuencia base: cada ${days} días según capacidad de maceta ${POTS[p.pot].n}.`
+    )}</p>
+    <div class="st-btns">
+      <button class="done" onclick="waterSingle(${p.id})">💧 Registrar Riego</button>
+      <a href="${gCal}" target="_blank" style="flex:1;text-decoration:none">
+        <button style="width:100%">📅 Google Calendar</button>
+      </a>
+    </div>
+  </div>
+
+  <!-- DIAGNÓSTICO IA VERCEL (AUTOMÁTICO SIN CLAVES) -->
+  <div class="diag-card">
+    <div class="diag-title">
+      <span>🩺 Diagnóstico de Hojas con IA</span>
+      <span class="api-badge on">🟢 Servidor Conectado</span>
+    </div>
+    <p class="muted" style="margin-bottom:8px">${toneText('Sube una foto de la hoja afectada para que la IA la diagnostique al instante.','Análisis fitopatológico asistido por IA.')}</p>
+    
+    <label class="btn-primary" style="display:inline-block;text-align:center;padding:11px;margin:0">
+      📷 Analizar foto de la hoja
+      <input type="file" accept="image/*" style="display:none" onchange="handleLeafUpload(${p.id},this)">
+    </label>
+    <div id="diag-box-${p.id}" class="diag-res" style="display:none"></div>
+  </div>
+
+  <div class="card">
+    <h3>🪴 Sustrato Recomendado (${meta.mixName})</h3>
+    <p class="muted">${toneText(meta.toneV, meta.toneA)}</p>
+    <div class="mix">${m.parts.map(pt=>`<i style="width:${pt[1]}%;background:${pt[2]}"></i>`).join('')}</div>
+    <div class="legend">${m.parts.map(pt=>`<span><i class="dot" style="background:${pt[2]}"></i>${pt[0]} ${pt[1]}%</span>`).join('')}</div>
+  </div>
+
+  <!-- DIARIO DE CRECIMIENTO -->
+  <div class="card">
+    <h3>📔 Diario de la Planta</h3>
+    ${renderSparkline(p.diary||[])}
+    <div style="display:flex;gap:6px;margin-bottom:8px">
+      <input id="diary-input-${p.id}" placeholder="Nota (ej. brote nuevo, poda)" style="flex:2;padding:8px;border:1px solid var(--linea);border-radius:8px">
+      <input id="diary-h-${p.id}" type="number" placeholder="cm" style="flex:1;padding:8px;border:1px solid var(--linea);border-radius:8px">
+      <button onclick="addDiaryEntry(${p.id})" style="background:var(--verde);color:#fff;border:none;padding:0 12px;border-radius:8px;font-weight:700">+</button>
+    </div>
+    <div style="max-height:160px;overflow-y:auto">
+      ${(p.diary||[]).slice().reverse().map(d=>`<div class="diary-e">
+        <div style="flex:1">
+          <div class="diary-tx">${d.txt} ${d.h?`<b>(${d.h} cm)</b>`:''}</div>
+          <div class="diary-date">${d.t.split('T')[0]}</div>
+        </div>
+      </div>`).join('')}
+    </div>
+    <div style="display:flex;gap:8px;margin-top:10px">
+      <button onclick="exportDiaryCSV(${p.id})" style="flex:1;background:#fff;border:1px solid var(--linea);padding:7px;border-radius:8px;font-size:11px;font-weight:700">⬇️ Exportar CSV</button>
+      <button onclick="printFichaPDF(${p.id})" style="flex:1;background:#fff;border:1px solid var(--linea);padding:7px;border-radius:8px;font-size:11px;font-weight:700">📄 Imprimir PDF</button>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>📸 Tarjeta para Redes</h3>
+    <button class="btn-primary" style="background:linear-gradient(180deg,#C15B33,#A94A26);color:#fff" onclick="generateShareCard(${p.id})">
+      Generar tarjeta gráfica en imagen
+    </button>
+  </div>
+
+  <button class="del" onclick="deletePlant(${p.id})">Eliminar planta</button>`;
+
+  document.getElementById('content').innerHTML=h;
+}
+
+function deletePlant(id){
+  if(confirm('¿Eliminar esta planta?')){
+    plants=plants.filter(p=>p.id!=id);
+    save();
+    toast('Planta eliminada');
+    goHome();
+  }
+}
+
+// ==================== NUEVA PLANTA ====================
+function goAdd(){
+  view='add';
+  document.getElementById('fab').style.display='none';
+  let h=`<h2 class="sc">Nueva Planta</h2>
+  <div class="field">
+    <label>Nombre</label>
+    <input id="add-nombre" placeholder="Ej. Mi Monstera gigante">
+  </div>
+  <div class="field">
+    <label>Especie</label>
+    <select id="add-esp">
+      ${SPECIES.map(s=>`<option value="${s.id}">${s.n} (${TYPES[s.t].tag})</option>`).join('')}
+    </select>
+  </div>
+  <div class="field">
+    <label>Ubicación</label>
+    <div class="locgrid" id="add-loc-grid">
+      ${Object.keys(LUGARES).map(k=>`<div class="locopt ${k==='patio'?'sel':''}" onclick="selectLocOpt('${k}')" data-loc="${k}">${LUGARES[k].em} ${LUGARES[k].n}</div>`).join('')}
+    </div>
+  </div>
+  <div class="field">
+    <label>Maceta</label>
+    <div class="opts" id="add-pot-opts">
+      <div class="opt sel" onclick="selectPotOpt('mediana')" data-pot="mediana">Mediana (2-4L)</div>
+      <div class="opt" onclick="selectPotOpt('grande')" data-pot="grande">Grande (5L+)</div>
+      <div class="opt" onclick="selectPotOpt('chica')" data-pot="chica">Chica (≤1L)</div>
+    </div>
+  </div>
+  <button class="btn-primary" onclick="createPlant()">Guardar Planta 🌱</button>
+  <button class="btn-ghost" onclick="goHome()">Cancelar</button>`;
+
+  document.getElementById('content').innerHTML=h;
+}
+
+let selectedNewLoc='patio';
+let selectedNewPot='mediana';
+
+function selectLocOpt(l){
+  selectedNewLoc=l;
+  document.querySelectorAll('#add-loc-grid .locopt').forEach(el=>el.classList.toggle('sel',el.dataset.loc===l));
+}
+function selectPotOpt(p){
+  selectedNewPot=p;
+  document.querySelectorAll('#add-pot-opts .opt').forEach(el=>el.classList.toggle('sel',el.dataset.pot===p));
+}
+
+function createPlant(){
+  const nm=document.getElementById('add-nombre').value.trim();
+  if(!nm){ toast('Ingresa un nombre'); return; }
+  const esp=document.getElementById('add-esp').value;
+  const newP={
+    id:Date.now(),
+    nombre:nm,
+    esp:esp,
+    region:'sierra',
+    alt:2800,
+    pot:selectedNewPot,
+    loc:selectedNewLoc,
+    lastWater:null,
+    diary:[]
+  };
+  plants.unshift(newP);
+  save();
+  toast('¡Planta guardada! 🌱');
+  goFicha(newP.id);
+}
+
+// ==================== CALENDARIO LUNAR ====================
+function renderCalendar(){
+  const mo=getMoon();
+  let h=`<h2 class="sc">Calendario Lunar</h2>
+  <p class="sub">${mo.em} <b>${mo.name}</b> · ${toneText('Aprovecha la fuerza de la savia natural.','Bio-ritmo astronómico de desarrollo.')}</p>
+
+  <div class="card" style="background:#20264A;color:#fff">
+    <h3 style="color:#fff">${mo.em} Actividades según la fase</h3>
+    <p style="font-size:12.5px;line-height:1.5;opacity:.95">
+      ${mo.idx<=3
+        ? toneText('🌱 Fase Creciente: La savia sube hacia las ramas y hojas. Buen momento para sembrar, hacer esquejes y regar. Evita podas fuertes.','Vigor vegetativo ascendente. Favorable para desarrollo foliar y trasplantes.')
+        : toneText('🌾 Fase Menguante: La energía baja a las raíces. Momento ideal para podar, controlar plagas y abonar la tierra.','Concentración radicular. Idóneo para poda estructural y fitosanidad.')}
+    </p>
+  </div>
+
+  <h3 style="margin:16px 2px 8px;font-family:var(--ft);color:var(--tierra)">Próximos riegos programados</h3>`;
+
+  plants.forEach(p=>{
+    const s=sp(p.esp);
+    const days=RIEGODAYS[s.t][p.pot]||7;
+    h+=`<div class="cal-row">
+      <span class="cn">${p.nombre}</span>
+      <span class="cx">Cada ${days} días</span>
+      <span class="cd">💧 Programado</span>
+    </div>`;
+  });
+
+  document.getElementById('content').innerHTML=h;
+}
+
+// ==================== UTILIDADES Y RESPALDOS ====================
+function toast(m){
+  const t=document.getElementById('toast');
+  t.textContent=m;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2400);
+}
+function toggleMenu(e){e.stopPropagation();document.getElementById('menu').classList.toggle('show');}
+function closeMenu(){document.getElementById('menu').classList.remove('show');}
+document.addEventListener('click',closeMenu);
+
+function exportBackup(){
+  closeMenu();
+  const data=JSON.stringify(plants,null,2);
+  const blob=new Blob([data],{type:'application/json'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='saphi_respaldo.json';
+  a.click();
+  toast('Respaldo exportado');
+}
+
+function importBackup(ev){
+  const f=ev.target.files[0];
+  if(!f) return;
+  const r=new FileReader();
+  r.onload=e=>{
+    try{
+      plants=JSON.parse(e.target.result);
+      save();
+      toast('Respaldo cargado con éxito');
+      goHome();
+    }catch(err){
+      toast('Archivo no válido');
+    }
+  };
+  r.readAsText(f);
+}
+
+// ==================== ARRANQUE ====================
+load();
+const btnT=document.getElementById('btn-tone');
+if(btnT) btnT.textContent=(userTone==='vecina'?'👵 Vecina Sabia':'🎓 Agrónomo');
+
+goHome();
+</script>
+</body>
+</html>
