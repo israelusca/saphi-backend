@@ -37,6 +37,18 @@ body{margin:0;background:#EBE2CE;color:var(--texto);font-family:var(--fb);
 .iconbtn{background:#fff;border:1px solid var(--linea);width:36px;height:36px;border-radius:11px;
   font-size:16px;cursor:pointer;box-shadow:var(--sombra-sm);color:var(--tierra)}
 .back{background:none;border:none;font-size:20px;color:var(--tierra);cursor:pointer;padding:4px 6px}
+/* selector de perfil (cabecera) */
+.prof-seg{display:flex;gap:2px;background:#fff;border:1px solid var(--linea);border-radius:11px;padding:3px;box-shadow:var(--sombra-sm)}
+.prof-seg .ps{border:none;background:none;width:30px;height:30px;border-radius:8px;font-size:15px;cursor:pointer;line-height:1;opacity:.45;padding:0}
+.prof-seg .ps.on{background:var(--crema-2);opacity:1;box-shadow:inset 0 0 0 1.5px var(--ambar)}
+/* Modo Sol Fuerte (alto contraste para leer bajo el sol) */
+.app.sol{--crema:#fff;--crema-2:#f2f2f2;--card:#fff;--texto:#000;--tierra:#000;--tierra-2:#111;--tenue:#3a3a3a;--linea:#000;--verde:#0a6b2f;--verde-osc:#075a27;--ambar-osc:#7a4f00;--terracota:#9a1f0d}
+.app.sol{background:#fff}
+.app.sol *{box-shadow:none!important;text-shadow:none!important}
+.app.sol .home-hero,.app.sol .moon-hero,.app.sol .home-tip,.app.sol .reto{background:#000!important;color:#fff!important}
+.app.sol .fchip,.app.sol .opt,.app.sol .locopt,.app.sol .toolbtn,.app.sol .tbtn,.app.sol .card,.app.sol .plant-card,.app.sol .gtile,.app.sol .statuscard,.app.sol .metric,.app.sol .searchbar,.app.sol .field input,.app.sol .field select,.app.sol .diary-add input,.app.sol .prof-seg,.app.sol .iconbtn{border:2px solid #000!important}
+.app.sol .btn-primary,.app.sol .diary-save,.app.sol .sharebtn,.app.sol .cta,.app.sol .lux-use,.app.sol .fab{background:#000!important;color:#fff!important;border:2px solid #000!important}
+.app.sol .fab{color:#fff!important}
 
 /* content */
 .content{flex:1;overflow-y:auto;padding:6px 16px 96px}
@@ -181,6 +193,12 @@ h2.sc{font-family:var(--ft);font-weight:700;font-size:20px;color:var(--tierra);m
 .tbtn{border:1.5px solid var(--linea);background:#fff;border-radius:14px;padding:11px 4px;cursor:pointer;box-shadow:var(--sombra-sm);display:flex;flex-direction:column;align-items:center;gap:4px;font-family:var(--ft);font-weight:700;font-size:10.5px;color:var(--tierra-2);line-height:1.1;text-align:center}
 .tbtn .tb-e{font-size:19px;line-height:1}
 .tbtn:active{transform:scale(.97)}
+/* pie "más herramientas" en Mis Plantas + calculadoras */
+.more-sec{margin:22px 2px 10px;border-top:1px solid var(--linea);padding-top:14px}
+.more-h{font-family:var(--ft);font-weight:700;font-size:13px;color:var(--tenue);margin:0 2px 10px}
+.more-item{display:flex;flex-direction:column;align-items:flex-start;gap:1px;width:100%;text-align:left;background:var(--card);border:1px solid var(--linea);border-radius:12px;padding:12px 14px;margin-bottom:8px;font-family:var(--ft);font-weight:700;font-size:13.5px;color:var(--tierra);cursor:pointer;box-shadow:var(--sombra-sm)}
+.more-item span{font-family:var(--fb);font-weight:700;font-size:11px;color:var(--tenue);margin-top:1px}
+.calc-res{background:var(--crema-2);border:1px solid var(--linea);border-radius:12px;padding:12px 14px;margin-top:12px;font-size:13px;color:var(--tierra);line-height:1.7}
 /* luxómetro: comparación con el tipo + escala + usar medición */
 .lux-scale{display:flex;gap:4px;margin:12px 8px 0}
 .lux-scale .ls-seg{flex:1;height:8px;border-radius:4px;opacity:.3}
@@ -571,13 +589,13 @@ h2.sc{font-family:var(--ft);font-weight:700;font-size:20px;color:var(--tierra);m
   </div>
 
   <div class="menu" id="menu">
+    <button onclick="openDiagGlobal()">🔬  Analizar planta con IA (salud)</button>
+    <button onclick="openTools()">🧮  Calculadoras agronómicas</button>
     <button onclick="openLuxGlobal()">☀️  Medir la luz de un rincón</button>
     <button onclick="toggleNotif()">🔔  Recordatorios de riego</button>
     <button onclick="openBiblioteca()">📚  Biblioteca botánica</button>
-    <button onclick="toggleProfile()">👤  Cambiar perfil (Hogar / Agrónomo)</button>
+    <button onclick="toggleSol()">🕶️  Modo sol fuerte (alto contraste)</button>
     <button onclick="renderWelcome()">🌿  Cómo funciona Saphi</button>
-    <button onclick="exportBackup()">⬇️  Exportar respaldo (.json)</button>
-    <button onclick="document.getElementById('importFile').click()">⬆️  Importar respaldo</button>
   </div>
   <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importBackup(event)">
 
@@ -1091,8 +1109,12 @@ function setTop(mode,plant){
     r.innerHTML='<button class="iconbtn" title="Editar" onclick="goEdit('+plant.id+')">✏️</button><span class="chip-region">'+REGIONS[plant.region].em+' '+REGIONS[plant.region].n+(plant.region==='sierra'&&plant.alt?' · '+plant.alt+' m':'')+'</span>';}
   else if(mode==='add'){l.innerHTML='<button class="back" onclick="goList()">‹</button><span class="bn" style="margin-left:2px">'+(editingId?'Editar planta':'Nueva planta')+'</span>';r.innerHTML='';}
   else{l.innerHTML='<svg class="mark" viewBox="0 0 100 100"><circle cx="50" cy="44" r="22" fill="#E4A62C"/><g stroke="#C6871A" stroke-width="5" stroke-linecap="round"><line x1="50" y1="10" x2="50" y2="18"/><line x1="24" y1="20" x2="29" y2="27"/><line x1="76" y1="20" x2="71" y2="27"/></g><g stroke="#5B3A22" stroke-width="4" fill="none" stroke-linecap="round"><path d="M50 64 L50 84"/><path d="M50 72 Q40 76 36 88"/><path d="M50 72 Q60 76 64 88"/></g></svg><span class="bn">Saphi</span>';
-    r.innerHTML='<button class="iconbtn" onclick="toggleMenu(event)">⋯</button>';}
+    r.innerHTML='<div class="prof-seg" title="Modo Hogar / Técnico">'
+      +'<button class="ps'+(!isTech()?' on':'')+'" onclick="setProfileMode(\'hogar\',event)" title="Hogar">🏡</button>'
+      +'<button class="ps'+(isTech()?' on':'')+'" onclick="setProfileMode(\'tecnico\',event)" title="Técnico">🎓</button></div>'
+      +'<button class="iconbtn" onclick="toggleMenu(event)">⋯</button>';}
 }
+function setProfileMode(p,ev){if(ev)ev.stopPropagation();if(getProfile()===p)return;setProfile(p);buzz(15);toast(p==='tecnico'?'🎓 Modo Técnico':'🏡 Modo Hogar');setTop('list');if(view==='home')renderHome();else if(view==='calendar')renderCalendar();else renderList();}
 let editingId=null,view='list';
 function setNav(k){['inicio','plantas','cal','tienda'].forEach(x=>{const el=document.getElementById('nav-'+x);if(el)el.classList.toggle('on',x===k);});}
 function goHome(){closeMenu();editingId=null;view='home';setTop('list');document.getElementById('fab').style.display='none';const nav=document.querySelector('.nav');if(nav)nav.style.display='';setNav('inicio');renderHome();}
@@ -1177,7 +1199,7 @@ function renderHome(){
   maybeNotifyToday();
 }
 function renderList(){
-  if(!plants.length){content.innerHTML='<h2 class="sc">Mis plantas</h2><div class="empty"><div class="big">🌱</div><b style="color:var(--tierra);font-family:var(--ft)">Aún no tienes plantas</b><p>Toca el botón + para registrar tu primera planta y recibir su receta y cuidados.</p></div>';return;}
+  if(!plants.length){content.innerHTML='<h2 class="sc">Mis plantas</h2><div class="empty"><div class="big">🌱</div><b style="color:var(--tierra);font-family:var(--ft)">Aún no tienes plantas</b><p>Toca el botón + para registrar tu primera planta y recibir su receta y cuidados.</p></div>'+moreSection();playView();return;}
   const tot={};let total=0;plants.forEach(p=>{const t=sp(p.esp).t,c=p.cant||1;tot[t]=(tot[t]||0)+c;total+=c;});
   const order=['t1','t2','t3','t4','t5','t6','t7','t8'].filter(t=>tot[t]);
   const locTot={};plants.forEach(p=>{if(p.loc&&LUGARES[p.loc])locTot[p.loc]=(locTot[p.loc]||0)+(p.cant||1);});
@@ -1203,8 +1225,15 @@ function renderList(){
   else if(listFilter==='luz')h+='<div class="filter-cap">🔆 Revisar luz · mal ubicadas por luz</div>';
   else if(listFilter==='repot')h+='<div class="filter-cap">🪴 Les toca trasplante</div>';
   h+='<div id="plant-results"></div>';
+  h+=moreSection();
   content.innerHTML=h;playView();
   fillCards();
+}
+function moreSection(){
+  return '<div class="more-sec"><div class="more-h">💾 Respaldo</div>'
+   +'<button class="more-item" onclick="exportBackup()">⬇️ Exportar respaldo (.json)<span>Guarda una copia de tus plantas y diario</span></button>'
+   +'<button class="more-item" onclick="document.getElementById(\'importFile\').click()">⬆️ Importar respaldo<span>Restaura desde un archivo .json</span></button>'
+   +'</div>';
 }
 function fillCards(){
   const box=document.getElementById('plant-results');if(!box)return;
@@ -1388,7 +1417,7 @@ function isoLocal(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMont
 function pd(iso){if(!iso)return new Date();const a=(''+iso).split('-');return new Date(+a[0],(+a[1]||1)-1,+a[2]||1,12,0,0);}
 function todayISO(){return isoLocal(new Date());}
 function isToday(v){return v&&v===todayISO();}
-function logAction(){try{const s=new Set(JSON.parse(localStorage.getItem('saphi_actions'))||[]);s.add(todayISO());localStorage.setItem('saphi_actions',JSON.stringify([...s].slice(-400)));}catch(e){}}
+function logAction(){buzz();try{const s=new Set(JSON.parse(localStorage.getItem('saphi_actions'))||[]);s.add(todayISO());localStorage.setItem('saphi_actions',JSON.stringify([...s].slice(-400)));}catch(e){}}
 function streakCount(){let s;try{s=new Set(JSON.parse(localStorage.getItem('saphi_actions'))||[]);}catch(e){return 0;}let cur=new Date();cur.setHours(12,0,0,0);if(!s.has(isoLocal(cur))){cur.setDate(cur.getDate()-1);if(!s.has(isoLocal(cur)))return 0;}let n=0;while(s.has(isoLocal(cur))){n++;cur.setDate(cur.getDate()-1);}return n;}
 function nextRiego(p,s){const days=RIEGODAYS[s.t][p.pot];if(!p.lastWater)return{txt:'sin registro',cls:'warn'};
   const last=pd(p.lastWater),next=new Date(last);next.setDate(last.getDate()+days);
@@ -1697,6 +1726,7 @@ function saveNew(){
   if(!draft.nombre.trim()){toast('Ponle un nombre a tu planta');return;}
   if(!draft.esp){toast('Busca o elige tu planta');return;}
   if(!draft.region){toast('Elige tu región');return;}
+  buzz(20);
   const data={nombre:draft.nombre.trim(),esp:draft.esp,region:draft.region,alt:draft.alt?parseInt(draft.alt):null,pot:draft.pot,cant:draft.cant||1,loc:draft.loc||'',light:(draft.light===0||draft.light===1||draft.light===2)?draft.light:null};
   if(draft.pot!=='tierra'){const tot=(draft.potY||0)*12+(draft.potM||0);const d=new Date();d.setMonth(d.getMonth()-tot);data.potSince=isoLocal(d);data.lastRepot=null;}
   if(editingId){const p=plants.find(x=>x.id===editingId);Object.assign(p,data);save();toast('Cambios guardados ✔️');const id=editingId;editingId=null;goFicha(id);return;}
@@ -1930,7 +1960,7 @@ async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;
   if(res)res.innerHTML='<div class="diag-loading">🔎 Analizando la foto…</div>';
   let im;try{im=await resizeImageToBase64(f);}catch(e){if(res)res.innerHTML='<div class="diag-card warn">No pude procesar la foto.</div>';return;}
   if(prev){prev.style.display='';prev.style.backgroundImage='url('+im.dataUrl+')';}
-  const payload={imageBase64:im.base64,mimeType:im.mimeType,tone:isTech()?'agronomo':'vecina',plantData:{nombre:p?p.nombre:'',species:s?s.sci:'',type:s?TYPES[s.t].badge:''}};
+  const payload={imageBase64:im.base64,mimeType:im.mimeType,tone:isTech()?'agronomo':'hogar',plantData:{nombre:p?p.nombre:'',species:s?s.sci:'',type:s?TYPES[s.t].badge:''}};
   try{const r=await fetch(VERCEL_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     aiQuotaInc(); // el backend fue consultado: cuenta para la cuota del día
     const j=await r.json().catch(()=>null);
@@ -1940,15 +1970,74 @@ async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;
   }catch(e){if(res)res.innerHTML='<div class="diag-card warn"><b>No pude conectar con el diagnóstico por IA.</b><br>Funciona en la versión instalada/hosteada con internet. Mientras tanto, elige el síntoma que ves abajo. 👇</div>';}
 }
 function openDiag(pid){view='diag';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderDiag(pid);}
-function renderDiag(pid){const p=plants.find(x=>x.id===pid);const s=p?sp(p.esp):null;
-  let h='<button class="back-lnk" onclick="goFicha('+pid+')">‹ Volver a la ficha</button>';
-  h+='<h2 class="sc">🔬 Revisar salud'+(p?' · '+esc(p.nombre):'')+'</h2><p class="sub">Sube o toma una foto de la hoja y te decimos qué puede tener.</p>';
+function openDiagGlobal(){closeMenu();openDiag(null);}
+function renderDiag(pid){const p=(pid!=null)?plants.find(x=>x.id===pid):null;const s=p?sp(p.esp):null;
+  const back=(pid!=null)?'goFicha('+pid+')':'goList()';
+  let h='<button class="back-lnk" onclick="'+back+'">‹ '+(pid!=null?'Volver a la ficha':'Volver a Mis Plantas')+'</button>';
+  h+='<h2 class="sc">🔬 '+(p?'Revisar salud · '+esc(p.nombre):'Analizar planta con IA')+'</h2><p class="sub">Sube o toma una foto de la hoja y te decimos qué puede tener.</p>';
   h+='<label class="diag-up"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handleLeafUpload('+pid+',event)"><span>📷 Tomar o subir foto de la hoja</span></label>';
   h+='<p class="hint" style="text-align:center;margin-top:8px">🤖 Análisis por IA: te quedan <b>'+aiQuotaLeft()+' de '+AI_DAILY_LIMIT+'</b> hoy.</p>';
   h+='<div id="diag-prev" class="diag-prev" style="display:none"></div>';
   h+='<div id="diag-result" class="diag-result"></div>';
   h+='<div class="diag-manual"><div class="dm-h">¿Sin internet? Elige el síntoma que ves:</div><div class="dm-grid">'+Object.keys(SYMPTOM_DIAG).map(k=>'<button class="dm-btn" onclick="applySymptomDiag('+pid+',\''+k+'\')">'+SYMPTOM_DIAG[k].ic+' '+SYMPTOM_DIAG[k].t+'</button>').join('')+'</div></div>';
   content.innerHTML=h;playView();}
+// ---------- Herramientas · calculadoras agronómicas (offline) ----------
+function openTools(){closeMenu();view='tools';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderTools();}
+function numv(id){const el=document.getElementById(id);if(!el)return 0;const n=parseFloat((el.value||'').replace(',','.'));return isNaN(n)?0:n;}
+function nf(x,d){return (Math.round(x*Math.pow(10,d||1))/Math.pow(10,d||1)).toLocaleString('es-EC');}
+function renderTools(){
+  let h='<button class="back-lnk" onclick="goList()">‹ Volver a Mis Plantas</button>';
+  h+='<h2 class="sc">🧮 Calculadoras</h2><p class="sub">Herramientas agronómicas que funcionan sin internet.</p>';
+  // 1) Fertilizante N-P-K
+  h+='<details class="calsec" open><summary>🧪 Fertilizante N-P-K → sacos</summary><div style="margin-top:10px">'
+    +'<div class="field"><label>Objetivo por hectárea (kg/ha)</label><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'
+    +'<input id="c-n" type="number" inputmode="decimal" placeholder="N"><input id="c-p" type="number" inputmode="decimal" placeholder="P₂O₅"><input id="c-k" type="number" inputmode="decimal" placeholder="K₂O"></div></div>'
+    +'<div class="field"><label>Área del lote (m²)</label><input id="c-area" type="number" inputmode="decimal" placeholder="Ej. 1000 — si lo dejas vacío = 1 ha"></div>'
+    +'<button class="btn-primary" onclick="calcNPK()">Calcular</button><div id="c-npk-res"></div></div></details>';
+  // 2) Incidencia y severidad
+  h+='<details class="calsec"><summary>🦠 Incidencia y severidad</summary><div style="margin-top:10px">'
+    +'<div class="field"><label>Incidencia (plantas afectadas)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
+    +'<input id="s-enf" type="number" inputmode="decimal" placeholder="Enfermas"><input id="s-tot" type="number" inputmode="decimal" placeholder="Total"></div></div>'
+    +'<div class="field"><label>Severidad — n° de plantas por grado (escala 0–4)</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">'
+    +[0,1,2,3,4].map(i=>'<input id="g'+i+'" type="number" inputmode="numeric" placeholder="G'+i+'">').join('')+'</div>'
+    +'<div class="hint">G0 = sana · G4 = severa (casi/muerta). Grado máximo = 4.</div></div>'
+    +'<button class="btn-primary" onclick="calcSev()">Calcular</button><div id="c-sev-res"></div></div></details>';
+  // 3) Volumen de sustrato
+  h+='<details class="calsec"><summary>🪴 Volumen de sustrato</summary><div style="margin-top:10px">'
+    +'<div class="field"><label>¿Cuántas macetas?</label><input id="u-cant" type="number" inputmode="numeric" placeholder="Ej. 20"></div>'
+    +'<div class="field"><label>Litros por maceta</label><input id="u-lit" type="number" inputmode="decimal" placeholder="Ej. 17 (Airpot), 30, 50…"></div>'
+    +'<button class="btn-primary" onclick="calcSust()">Calcular</button><div id="c-sust-res"></div></div></details>';
+  content.innerHTML=h;playView();
+}
+function calcNPK(){
+  const n=numv('c-n'),p=numv('c-p'),k=numv('c-k');let area=numv('c-area');if(area<=0)area=10000;const ha=area/10000;
+  const dap=p>0?p/0.46:0;const nDap=dap*0.18;let restoN=n-nDap;const cubierto=restoN<0;if(restoN<0)restoN=0;const urea=restoN/0.46;const mop=k>0?k/0.60:0;
+  const dapT=dap*ha,ureaT=urea*ha,mopT=mop*ha;const sac=x=>x/50;
+  let h='<div class="calc-res">Para <b>'+nf(area,0)+' m²</b> · objetivo '+nf(n,0)+'-'+nf(p,0)+'-'+nf(k,0)+' kg/ha:<br>'
+    +'🟦 <b>Urea (46-0-0):</b> '+nf(ureaT,1)+' kg · '+nf(sac(ureaT),1)+' sacos de 50 kg<br>'
+    +'🟩 <b>DAP (18-46-0):</b> '+nf(dapT,1)+' kg · '+nf(sac(dapT),1)+' sacos<br>'
+    +'🟥 <b>Muriato de potasio (0-0-60):</b> '+nf(mopT,1)+' kg · '+nf(sac(mopT),1)+' sacos'
+    +(cubierto?'<br><span style="color:var(--terracota)">El DAP ya aporta todo el N necesario: no hace falta urea.</span>':'')
+    +'<div class="tech-src">Método: DAP para cubrir el P₂O₅ → se resta el N que aporta el DAP → la urea cubre el N restante → el muriato cubre el K₂O. Fuentes: FUNAAB PCP 301; Univ. of Arkansas Extension FSA2223.</div></div>';
+  document.getElementById('c-npk-res').innerHTML=h;buzz(15);
+}
+function calcSev(){
+  const enf=numv('s-enf'),tot=numv('s-tot');const inc=tot>0?(enf/tot*100):0;
+  const g=[numv('g0'),numv('g1'),numv('g2'),numv('g3'),numv('g4')];const N=g.reduce((a,b)=>a+b,0);const sum=g.reduce((a,b,i)=>a+b*i,0);const sev=N>0?(sum/(N*4)*100):0;
+  let h='<div class="calc-res">'
+    +'🦠 <b>Incidencia:</b> '+nf(inc,1)+' %'+(tot>0?' ('+nf(enf,0)+' de '+nf(tot,0)+')':'')+'<br>'
+    +'📊 <b>Severidad (Townsend-Heuberger):</b> '+nf(sev,1)+' %'+(N>0?' · n='+nf(N,0)+' plantas':'')
+    +'<div class="tech-src">Incidencia = (enfermas ÷ total) × 100. Severidad = [ Σ(grado × n° plantas) ÷ (total × grado máximo) ] × 100. Fuente: Townsend & Heuberger (1943), Plant Disease Reporter 27:340-343.</div></div>';
+  document.getElementById('c-sev-res').innerHTML=h;buzz(15);
+}
+function calcSust(){
+  const cant=numv('u-cant');const pl=numv('u-lit');const fill=0.9;const tot=cant*pl*fill;const bags=b=>tot>0?Math.ceil(tot/b):0;
+  let h='<div class="calc-res">Para <b>'+nf(cant,0)+'</b> macetas de <b>'+nf(pl,0)+' L</b>:<br>'
+    +'≈ <b>'+nf(tot,1)+' L</b> de sustrato (llenado ~90%).<br>'
+    +'En sacos: <b>'+bags(15)+'</b> de 15 L · <b>'+bags(30)+'</b> de 30 L · <b>'+bags(50)+'</b> de 50 L.'
+    +'<div class="tech-src">Volumen = n° macetas × litros por maceta × 0,9 (factor de llenado). Ajusta el factor si compactas más o riegas por inundación.</div></div>';
+  document.getElementById('c-sust-res').innerHTML=h;buzz(15);
+}
 // ---------- luxómetro ----------
 function stopLuxCamera(){try{if(luxInterval){clearInterval(luxInterval);luxInterval=null;}if(luxStream){luxStream.getTracks().forEach(t=>t.stop());luxStream=null;}}catch(e){}}
 // ⚠️ CÓDIGO CRÍTICO PARA FUNCIONAMIENTO EN ANDROID / IOS
@@ -2155,6 +2244,13 @@ async function subscribeWebPush(){
 }
 
 // ---------- init ----------
-load();registerSW();if(!seenOnboarding())renderWelcome();else goHome();
+// ---------- ergonomía de campo ----------
+function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms||25);}catch(e){}}
+function solOn(){try{return localStorage.getItem('saphi_sol')==='1';}catch(e){return false;}}
+function applySol(){const a=document.querySelector('.app');if(a)a.classList.toggle('sol',solOn());}
+function toggleSol(){closeMenu();try{localStorage.setItem('saphi_sol',solOn()?'0':'1');}catch(e){}applySol();buzz(15);toast(solOn()?'🕶️ Modo sol fuerte activado':'☀️ Modo normal');}
+
+// ---------- init ----------
+applySol();load();registerSW();if(!seenOnboarding())renderWelcome();else goHome();
 setInterval(maybeNotifyToday,30*60*1000);
 </script>
