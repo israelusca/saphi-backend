@@ -1,145 +1,134 @@
-const crypto = require('crypto');
-const attempts = globalThis.__saphiIdentifyAttempts || new Map();
-globalThis.__saphiIdentifyAttempts = attempts;
+// api/identify.js  ·  Backend serverless (Vercel) para Saphi
+// ─────────────────────────────────────────────────────────────
+// Identifica la ESPECIE de la foto SOLO contra el catálogo que envía la app.
+// Entra: {imageBase64, mimeType, catalogue:[[id,n,sci,t],...], instruction?}
+// Sale : {identification:{matchId, confidence, alternatives:[id,...]}, quota}
+//
+// Variables de entorno: las mismas que api/diagnose.js
+//   GEMINI_API_KEY (obligatoria), GEMINI_MODEL, AI_DAILY_LIMIT,
+//   UPSTASH_REDIS_REST_URL/TOKEN, ALLOWED_ORIGIN, SAPHI_OWNER_KEY.
+// ─────────────────────────────────────────────────────────────
 
-function cors(res) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Saphi-Owner-Key');
-  res.setHeader('Cache-Control', 'no-store');
+const DEFAULT_MODEL = 'gemini-3.6-flash';
+const FALLBACK_MODEL = 'gemini-3.5-flash-lite';
+const DEPRECATED_RE = /^(models\/)?gemini-(0|1|1\.5|2|2\.0|2\.5)([.\-]|$)/i;
+
+function pickModel() {
+  const env = (process.env.GEMINI_MODEL || '').trim();
+  if (env && !DEPRECATED_RE.test(env)) return env.replace(/^models\//, '');
+  return DEFAULT_MODEL;
 }
-
-function dayKey() {
-  return new Date().toISOString().slice(0, 10);
-}
-
-function allowAttempt(deviceId) {
-  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
-  const count = attempts.get(key) || 0;
-  if (count >= 5) return false;
-  return true;
-}
-
-function countAttempt(deviceId) {
-  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
-  const count = attempts.get(key) || 0;
-  attempts.set(key, count + 1);
-  if (attempts.size > 5000) {
-    for (const storedKey of attempts.keys()) {
-      if (!storedKey.startsWith(`${dayKey()}:`)) attempts.delete(storedKey);
+async function callGemini(apiKey, model, body) {
+  const call = (m) => fetch(
+    'https://generativelanguage.googleapis.com/v1beta/models/' + m + ':generateContent?key=' + apiKey,
+    { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) }
+  );
+  let r = await call(model);
+  if (!r.ok) {
+    const txt = await r.text();
+    if ((r.status === 404 || /not (found|available)|no longer available|deprecat/i.test(txt)) && model !== FALLBACK_MODEL) {
+      return { r: await call(FALLBACK_MODEL), firstErr: txt };
     }
+    return { r, firstErr: txt };
   }
-  return Math.max(0, 5 - (count + 1));
+  return { r, firstErr: null };
 }
-
-function remainingAttempts(deviceId) {
-  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
-  return Math.max(0, 5 - (attempts.get(key) || 0));
+async function rateLimit(ip, limit) {
+  const url = process.env.UPSTASH_REDIS_REST_URL, token = process.env.UPSTASH_REDIS_REST_TOKEN;
+  if (!url || !token) return null;
+  const day = new Date().toISOString().slice(0, 10);
+  const key = 'saphi:idrl:' + day + ':' + ip;
+  try {
+    const inc = await fetch(url + '/INCR/' + encodeURIComponent(key), { headers: { Authorization: 'Bearer ' + token } });
+    const j = await inc.json();
+    const count = (j && typeof j.result === 'number') ? j.result : parseInt(j && j.result, 10) || 1;
+    if (count === 1) await fetch(url + '/EXPIRE/' + encodeURIComponent(key) + '/93600', { headers: { Authorization: 'Bearer ' + token } });
+    return { blocked: count > limit, remaining: Math.max(0, limit - count) };
+  } catch (e) { return null; }
 }
+function stripFences(s) { return String(s || '').replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/,'').trim(); }
 
-function safeEqual(a, b) {
-  const left = Buffer.from(String(a || ''));
-  const right = Buffer.from(String(b || ''));
-  return left.length === right.length && left.length > 0 && crypto.timingSafeEqual(left, right);
-}
-
-function requestIp(req) {
-  return String(req.headers['x-vercel-forwarded-for'] || req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '')
-    .split(',')[0].trim().replace(/^::ffff:/, '');
-}
-
-function isOwner(req) {
-  const secret = process.env.SAPHI_OWNER_KEY || '';
-  const supplied = req.headers['x-saphi-owner-key'] || '';
-  if (secret && safeEqual(supplied, secret)) return true;
-  const allowedIps = String(process.env.SAPHI_OWNER_IPS || '').split(',').map(value => value.trim()).filter(Boolean);
-  return allowedIps.includes(requestIp(req));
-}
-
-function quotaStatus(owner, deviceId) {
-  return owner ? { limit: null, remaining: null, unlimited: true } : { limit: 5, remaining: remainingAttempts(deviceId), unlimited: false };
-}
-
-function cleanBase64(value) {
-  return String(value || '').replace(/^data:[^;]+;base64,/, '').replace(/\s/g, '');
-}
-
-module.exports = async function handler(req, res) {
-  cors(res);
+export default async function handler(req, res) {
+  const ALLOWED = process.env.ALLOWED_ORIGIN || '*';
+  res.setHeader('Access-Control-Allow-Origin', ALLOWED);
+  res.setHeader('Vary', 'Origin');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Saphi-Owner-Key');
+  res.setHeader('Access-Control-Max-Age', '86400');
   if (req.method === 'OPTIONS') return res.status(204).end();
-  if (req.method !== 'POST') return res.status(405).json({ error: 'Método no permitido' });
-
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GOOGLE_API_KEY || process.env.GOOGLE_GENERATIVE_AI_API_KEY;
-  if (!apiKey) return res.status(503).json({ error: 'Falta configurar la clave de Gemini en Vercel.' });
-
-  const body = req.body || {};
-  const owner = isOwner(req);
-  const imageBase64 = cleanBase64(body.imageBase64);
-  const mimeType = /^image\/(jpeg|png|webp|heic|heif)$/i.test(body.mimeType || '')
-    ? body.mimeType
-    : 'image/jpeg';
-  const catalogue = Array.isArray(body.catalogue) ? body.catalogue.slice(0, 600) : [];
-
-  if (!imageBase64 || imageBase64.length > 9_000_000) {
-    return res.status(400).json({ error: 'La imagen está vacía o supera el tamaño permitido.', quota: quotaStatus(owner, body.deviceId) });
-  }
-  if (!catalogue.length) return res.status(400).json({ error: 'No se recibió el catálogo de Saphi.', quota: quotaStatus(owner, body.deviceId) });
-  if (!owner && !allowAttempt(body.deviceId)) {
-    return res.status(429).json({ error: 'Alcanzaste el límite de 5 identificaciones de hoy.', quota: { limit: 5, remaining: 0 } });
-  }
-
-  const allowedIds = new Set(catalogue.map(row => Array.isArray(row) ? String(row[0]) : '').filter(Boolean));
-  const prompt = [
-    'Actúa como taxónomo botánico prudente.',
-    'Identifica la planta visible usando exclusivamente una especie del catálogo proporcionado.',
-    'Evalúa hojas, nervaduras, tallo, hábito de crecimiento, disposición foliar y estructuras visibles.',
-    'No inventes una coincidencia. Si la fotografía no permite distinguirla o no está en el catálogo, usa matchId null.',
-    'Devuelve solo JSON válido con matchId, confidence entre 0 y 1 y hasta tres alternatives.',
-    `CATÁLOGO: ${JSON.stringify(catalogue)}`
-  ].join('\n');
+  if (req.method !== 'POST') return res.status(405).json({ message: 'Usa POST.' });
 
   try {
-    const model = process.env.GEMINI_MODEL || 'gemini-2.5-flash';
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          contents: [{ role: 'user', parts: [{ text: prompt }, { inline_data: { mime_type: mimeType, data: imageBase64 } }] }],
-          generationConfig: {
-            temperature: 0.1,
-            responseMimeType: 'application/json',
-            responseSchema: {
-              type: 'OBJECT',
-              properties: {
-                matchId: { type: 'STRING', nullable: true },
-                confidence: { type: 'NUMBER' },
-                alternatives: { type: 'ARRAY', items: { type: 'STRING' } }
-              },
-              required: ['matchId', 'confidence', 'alternatives']
-            }
-          }
-        })
-      }
-    );
-    const data = await response.json().catch(() => ({}));
-    if (!response.ok) {
-      const message = data?.error?.message || 'Gemini no pudo procesar la identificación.';
-      return res.status(response.status).json({ error: message });
+    const { imageBase64, mimeType, catalogue, instruction } = req.body || {};
+    if (!imageBase64 || typeof imageBase64 !== 'string') return res.status(400).json({ message: 'Falta la imagen.' });
+    if (imageBase64.length > 8000000) return res.status(413).json({ message: 'La imagen es demasiado grande. Toma una foto más liviana.' });
+    if (!Array.isArray(catalogue) || !catalogue.length) return res.status(400).json({ message: 'Falta el catálogo de referencia.' });
+    const OK_MIME = ['image/jpeg', 'image/png', 'image/webp', 'image/heic'];
+    const mime = OK_MIME.includes(mimeType) ? mimeType : 'image/jpeg';
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) return res.status(500).json({ message: 'Falta configurar GEMINI_API_KEY en Vercel.' });
+    const model = pickModel();
+
+    const ownerKey = process.env.SAPHI_OWNER_KEY || '', sentKey = req.headers['x-saphi-owner-key'] || '';
+    const isOwner = ownerKey && sentKey && String(sentKey) === String(ownerKey);
+    const LIMIT = parseInt(process.env.AI_DAILY_LIMIT || '10', 10);
+    let quota = null;
+    if (!isOwner) {
+      const ip = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim() || 'anon';
+      const rl = await rateLimit(ip, LIMIT);
+      if (rl && rl.blocked) return res.status(429).json({ message: 'Llegaste al límite de identificaciones por IA de hoy. Vuelve mañana 🌱', quota: { remaining: 0 } });
+      if (rl) quota = { remaining: rl.remaining };
+    } else { quota = { unlimited: true }; }
+
+    // Catálogo compacto: id | nombre | científico  (recortado por seguridad de tokens)
+    const ids = new Set();
+    const lines = catalogue.slice(0, 600).map(row => {
+      const id = String(row[0] || '').slice(0, 40); ids.add(id);
+      return id + ' | ' + String(row[1] || '').slice(0, 60) + ' | ' + String(row[2] || '').slice(0, 60);
+    }).join('\n');
+
+    const prompt =
+'Eres un botánico de Saphi (Ecuador). Identifica la planta de la IMAGEN comparándola ÚNICAMENTE con este catálogo (formato: id | nombre común | nombre científico):\n' +
+lines + '\n\n' +
+(instruction ? instruction + '\n' : '') +
+'Reglas estrictas:\n' +
+'- matchId DEBE ser exactamente uno de los id del catálogo, o null si no hay coincidencia razonable.\n' +
+'- No inventes id que no estén en la lista.\n' +
+'- confidence es un número entre 0 y 1 (qué tan seguro estás).\n' +
+'- alternatives: hasta 3 id del catálogo que también podrían ser, ordenados por probabilidad.\n' +
+'- Si la foto está borrosa, oscura o no muestra una planta reconocible, devuelve matchId null y confidence baja.\n' +
+'Responde SOLO con JSON válido: {"matchId": string|null, "confidence": number, "alternatives": string[]}';
+
+    const body = {
+      contents: [{ parts: [ { text: prompt }, { inlineData: { mimeType: mime, data: imageBase64 } } ] }],
+      generationConfig: { responseMimeType: 'application/json', temperature: 0.1 }
+    };
+    const { r, firstErr } = await callGemini(apiKey, model, body);
+    if (!r.ok) {
+      const errText = await r.text();
+      return res.status(502).json({ message: 'El servicio de identificación respondió con un error. Intenta de nuevo.', debug: (firstErr || errText || '').slice(0, 300), quota });
     }
+    const j = await r.json();
+    const raw = j && j.candidates && j.candidates[0] && j.candidates[0].content && j.candidates[0].content.parts
+      ? j.candidates[0].content.parts.map(x => x.text || '').join('') : '';
+    let parsed = null;
+    try { parsed = JSON.parse(stripFences(raw)); } catch (e) { parsed = null; }
+    if (!parsed || typeof parsed !== 'object') {
+      return res.status(200).json({ identification: { matchId: null, confidence: 0, alternatives: [] }, quota });
+    }
+    // Validación: solo ids reales del catálogo.
+    let matchId = parsed.matchId && ids.has(String(parsed.matchId)) ? String(parsed.matchId) : null;
+    let confidence = Number(parsed.confidence); if (!isFinite(confidence)) confidence = 0;
+    if (confidence > 1 && confidence <= 100) confidence = confidence / 100;
+    confidence = Math.max(0, Math.min(1, confidence));
+    const alternatives = (Array.isArray(parsed.alternatives) ? parsed.alternatives : [])
+      .map(x => String(typeof x === 'object' && x ? (x.matchId || x.id || '') : x))
+      .filter(id => id && ids.has(id) && id !== matchId)
+      .filter((id, i, a) => a.indexOf(id) === i).slice(0, 3);
 
-    const text = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('') || '';
-    const parsed = JSON.parse(text.replace(/^```(?:json)?\s*/i, '').replace(/\s*```$/, ''));
-    const matchId = allowedIds.has(String(parsed.matchId)) ? String(parsed.matchId) : null;
-    const confidence = Math.max(0, Math.min(1, Number(parsed.confidence) || 0));
-    const alternatives = [...new Set(Array.isArray(parsed.alternatives) ? parsed.alternatives.map(String) : [])]
-      .filter(id => id !== matchId && allowedIds.has(id))
-      .slice(0, 3);
-
-    const remaining = owner ? null : countAttempt(body.deviceId);
-    return res.status(200).json({ identification: { matchId, confidence, alternatives }, quota: owner ? quotaStatus(true, body.deviceId) : { limit: 5, remaining, unlimited: false } });
-  } catch (error) {
-    return res.status(502).json({ error: 'La identificación no produjo una respuesta válida. Intenta con otra fotografía.', quota: quotaStatus(owner, body.deviceId) });
+    return res.status(200).json({ identification: { matchId, confidence, alternatives }, quota });
+  } catch (e) {
+    return res.status(500).json({ message: 'Ocurrió un error identificando la imagen. Intenta de nuevo.' });
   }
 }
