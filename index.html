@@ -2334,7 +2334,7 @@ function setTop(mode,plant){
       +'<button class="ps'+(isTech()?' on':'')+'" aria-pressed="'+isTech()+'" onclick="setProfileMode(\'tecnico\',event)"><span aria-hidden="true">◇</span> Campo</button></div>'
       +'<button class="iconbtn menu-trigger" aria-label="Abrir herramientas" aria-expanded="false" onclick="toggleMenu(event,this)"><span class="menu-dots"><i></i></span></button>';}
 }
-function setProfileMode(p,ev){if(ev)ev.stopPropagation();if(getProfile()===p)return;setProfile(p);buzz(15);toast(p==='tecnico'?'Modo Campo activo':'Modo Hogar activo');setTop('list');if(view==='home')renderHome();else if(view==='calendar')renderCalendar();else renderList();}
+function setProfileMode(p,ev){if(ev)ev.stopPropagation();if(getProfile()===p)return;setProfile(p);buzz(15);toast(p==='tecnico'?'Modo Campo activo':'Modo Hogar activo');setTop('list');if(view==='home')renderHome();else if(view==='calendar')renderCalendar();else if(view==='tools')renderTools();else renderList();}
 let editingId=null,view='list';
 function sameId(a,b){return String(a)===String(b);}
 function plantById(id){return plants.find(x=>sameId(x.id,id));}
