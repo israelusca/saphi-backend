@@ -12,17 +12,28 @@ function dayKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
+function quotaKey(deviceId) {
+  return `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
+}
+
 function allowAttempt(deviceId) {
-  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
+  return (attempts.get(quotaKey(deviceId)) || 0) < 5;
+}
+
+function countAttempt(deviceId) {
+  const key = quotaKey(deviceId);
   const count = attempts.get(key) || 0;
-  if (count >= 5) return false;
   attempts.set(key, count + 1);
   if (attempts.size > 5000) {
     for (const storedKey of attempts.keys()) {
       if (!storedKey.startsWith(`${dayKey()}:`)) attempts.delete(storedKey);
     }
   }
-  return true;
+  return Math.max(0, 5 - (count + 1));
+}
+
+function remainingAttempts(deviceId) {
+  return Math.max(0, 5 - (attempts.get(quotaKey(deviceId)) || 0));
 }
 
 function cleanBase64(value) {
@@ -45,10 +56,14 @@ module.exports = async function handler(req, res) {
   const catalogue = Array.isArray(body.catalogue) ? body.catalogue.slice(0, 600) : [];
 
   if (!imageBase64 || imageBase64.length > 9_000_000) {
-    return res.status(400).json({ error: 'La imagen está vacía o supera el tamaño permitido.' });
+    return res.status(400).json({ error: 'La imagen está vacía o supera el tamaño permitido.', quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
   }
-  if (!catalogue.length) return res.status(400).json({ error: 'No se recibió el catálogo de Saphi.' });
-  if (!allowAttempt(body.deviceId)) return res.status(429).json({ error: 'Alcanzaste el límite de 5 identificaciones de hoy.' });
+  if (!catalogue.length) {
+    return res.status(400).json({ error: 'No se recibió el catálogo de Saphi.', quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
+  }
+  if (!allowAttempt(body.deviceId)) {
+    return res.status(429).json({ error: 'Alcanzaste el límite de 5 identificaciones de hoy.', quota: { limit: 5, remaining: 0 } });
+  }
 
   const allowedIds = new Set(catalogue.map(row => Array.isArray(row) ? String(row[0]) : '').filter(Boolean));
   const prompt = [
@@ -88,7 +103,7 @@ module.exports = async function handler(req, res) {
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
       const message = data?.error?.message || 'Gemini no pudo procesar la identificación.';
-      return res.status(response.status).json({ error: message });
+      return res.status(response.status).json({ error: message, quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
     }
 
     const text = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('') || '';
@@ -99,8 +114,9 @@ module.exports = async function handler(req, res) {
       .filter(id => id !== matchId && allowedIds.has(id))
       .slice(0, 3);
 
-    return res.status(200).json({ identification: { matchId, confidence, alternatives } });
+    const remaining = countAttempt(body.deviceId);
+    return res.status(200).json({ identification: { matchId, confidence, alternatives }, quota: { limit: 5, remaining } });
   } catch (error) {
-    return res.status(502).json({ error: 'La identificación no produjo una respuesta válida. Intenta con otra fotografía.' });
+    return res.status(502).json({ error: 'La identificación no produjo una respuesta válida. Intenta con otra fotografía.', quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
   }
 }
