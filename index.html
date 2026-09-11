@@ -1430,6 +1430,17 @@ h2.sc{
 
 /* Herramientas según contexto */
 .tools-shell{max-width:900px;margin:0 auto}
+.tool-hub{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 14px}
+.tool-hub button{min-width:0;min-height:112px;display:flex;flex-direction:column;align-items:flex-start;justify-content:space-between;gap:10px;padding:14px;border:1px solid var(--linea);border-radius:17px 17px 17px 6px;background:#fff;color:var(--tierra);text-align:left;cursor:pointer;transition:border-color .16s ease,transform .16s ease}
+.tool-hub button:hover{border-color:var(--verde);transform:translateY(-1px)}
+.tool-hub button.current{background:var(--verde-bg);border-color:#BCD4C7}
+.tool-hub-icon{width:39px;height:39px;display:grid;place-items:center;border-radius:12px 12px 12px 4px;background:var(--brand-root);color:#fff;font-size:18px}
+.tool-hub button.current .tool-hub-icon{background:var(--tierra)}
+.tool-hub-copy b{display:block;font-size:13px;line-height:1.25}
+.tool-hub-copy span{display:block;margin-top:3px;color:var(--tenue);font-size:10.5px;line-height:1.35}
+.tools-section-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:22px 2px 10px}
+.tools-section-title h3{margin:0;color:var(--tierra);font-size:18px}
+.tools-section-title span{color:var(--tenue);font-size:11px;font-weight:800}
 .tools-head{margin:7px 0 14px;padding:20px;border-radius:var(--radio-lg) var(--radio-lg) var(--radio-lg) 9px;background:var(--brand-root);color:#fff}
 .tools-head small{color:#C9DED5;font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
 .tools-head h2{margin:7px 0 5px;color:#fff;font-size:clamp(25px,4vw,33px)}
@@ -1551,6 +1562,7 @@ h2.sc{
 .app.sol .lineage-card,.app.sol .lineage-children button,.app.sol .prop-status-card,.app.sol .mother-strip,
 .app.sol .method-card,.app.sol .prop-guide,.app.sol .prop-node,.app.sol .prop-environment div,
 .app.sol .tool-intro div,.app.sol .share-controls,.app.sol .share-preview,.app.sol .share-privacy,
+.app.sol .tool-hub button,
 .app.sol .shop-diagnosis,.app.sol .shop-card-top,.app.sol .shop-followup,.app.sol .shop-note,
 .app.sol .delete-zone,.app.sol .confirm-dialog,.app.sol .luzcard,.app.sol .care-rule,
 .app.sol .diag-card,.app.sol .diag-manual,.app.sol .calsec,.app.sol .rem{
@@ -1563,16 +1575,19 @@ h2.sc{
 .app.sol .lineage-card *,.app.sol .prop-status-card *,.app.sol .mother-strip *,
 .app.sol .method-card *,.app.sol .prop-guide *,.app.sol .prop-node *,.app.sol .prop-environment div *,
 .app.sol .tool-intro div *,.app.sol .share-controls *,.app.sol .share-privacy *,
+.app.sol .tool-hub button * ,
 .app.sol .shop-preview *,.app.sol .shop-question *,.app.sol .shop-card-body *,.app.sol .shop-diagnosis *,
 .app.sol .shop-trust *,.app.sol .shop-followup *,.app.sol .shop-note *,
 .app.sol .delete-zone *,.app.sol .confirm-dialog *,.app.sol .luzcard *,.app.sol .care-rule *,
 .app.sol .diag-card *,.app.sol .diag-manual *,.app.sol .rem *{color:#000!important}
 .app.sol .fchip.on,.app.sol .opt.sel,.app.sol .locopt.sel,.app.sol .method-card.sel,
+.app.sol .tool-hub button.current,
 .app.sol .shop-context button.on,.app.sol .shop-needs button.on,.app.sol .share-option.sel,
 .app.sol .moment-option.sel,.app.sol .ficha-nav button.on,.app.sol .nav button.on{
   background:#000!important;color:#fff!important;border-color:#000!important
 }
 .app.sol .fchip.on *,.app.sol .opt.sel *,.app.sol .locopt.sel *,.app.sol .method-card.sel *,
+.app.sol .tool-hub button.current *,
 .app.sol .shop-context button.on *,.app.sol .shop-needs button.on *,.app.sol .share-option.sel *,
 .app.sol .moment-option.sel *,.app.sol .ficha-nav button.on *,.app.sol .nav button.on *{color:#fff!important}
 .app.sol .agenda-action,.app.sol .agenda-add,.app.sol .agenda-notif,.app.sol .reminder-form-actions button,
@@ -1618,6 +1633,8 @@ h2.sc{
   .moment-grid{grid-template-columns:1fr 1fr}
   .calc-grid .calsec.wide{grid-column:auto}
   .tool-intro{grid-template-columns:1fr}
+  .tool-hub{grid-template-columns:1fr 1fr}
+  .tool-hub button{min-height:104px}
   .prop-status-actions{grid-template-columns:1fr}
 }
 
@@ -1693,15 +1710,11 @@ h2.sc{
 
   <div class="menu" id="menu">
     <div class="menu-head"><small>Caja de herramientas</small><strong>Observar, medir y aprender</strong></div>
-    <button onclick="openDiagGlobal()"><span class="menu-ic">🔬</span><span class="menu-copy"><b>Salud con IA</b><small>Analiza síntomas visibles en una fotografía</small></span></button>
-    <button onclick="openTools()"><span class="menu-ic">🧮</span><span class="menu-copy"><b>Calculadoras</b><small>Prepara jornadas, mezclas y mediciones</small></span></button>
-    <button onclick="openSmartShop()"><span class="menu-ic">🛍️</span><span class="menu-copy"><b>Tienda con criterio</b><small>Soluciones según las necesidades de tus plantas</small></span></button>
-    <button onclick="openOwnerAccess()"><span class="menu-ic">🔐</span><span class="menu-copy"><b>Acceso propietario</b><small>Activa tus herramientas de IA sin límite</small></span></button>
-    <button onclick="openLuxGlobal()"><span class="menu-ic">☀️</span><span class="menu-copy"><b>Medir luz</b><small>Evalúa un rincón con la cámara</small></span></button>
+    <button onclick="openSmartShop()"><span class="menu-ic">🛍️</span><span class="menu-copy"><b>Tienda</b><small>Soluciones según las necesidades de tus plantas</small></span></button>
     <button onclick="toggleNotif()"><span class="menu-ic">🔔</span><span class="menu-copy"><b>Recordatorios</b><small>Configura los avisos de cuidado</small></span></button>
-    <button onclick="openBiblioteca()"><span class="menu-ic">📚</span><span class="menu-copy"><b>Biblioteca botánica</b><small>Consulta especies y criterios de manejo</small></span></button>
     <button onclick="toggleSol()"><span class="menu-ic">🕶️</span><span class="menu-copy"><b>Modo sol fuerte</b><small>Activa contraste alto para trabajo exterior</small></span></button>
     <button onclick="renderWelcome()"><span class="menu-ic">🌿</span><span class="menu-copy"><b>Cómo funciona Saphi</b><small>Vuelve a la introducción del producto</small></span></button>
+    <button onclick="openOwnerAccess()"><span class="menu-ic">🔐</span><span class="menu-copy"><b>Acceso propietario</b><small>Activa tus herramientas de IA sin límite</small></span></button>
   </div>
   <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importBackup(event)">
 
@@ -2313,7 +2326,7 @@ function setTop(mode,plant){
     r.innerHTML='<button class="iconbtn" title="Editar" onclick="goEdit('+plant.id+')">✏️</button><span class="chip-region">'+REGIONS[plant.region].em+' '+REGIONS[plant.region].n+(plant.region==='sierra'&&plant.alt?' · '+plant.alt+' m':'')+'</span>';}
   else if(mode==='prop'){l.innerHTML='<button class="back" onclick="goFicha('+plant.id+')">‹</button><span class="bn" style="margin-left:2px">Nueva propagación</span>';r.innerHTML='';}
   else if(mode==='share'){l.innerHTML='<button class="back" onclick="goFicha('+plant.id+')">‹</button><span class="bn" style="margin-left:2px">Compartir</span>';r.innerHTML='';}
-  else if(mode==='shop'){l.innerHTML='<button class="back" onclick="'+(plant?'goFicha('+plant.id+')':'goHome()')+'">‹</button><span class="bn" style="margin-left:2px">Tienda con criterio</span>';r.innerHTML='';}
+  else if(mode==='shop'){l.innerHTML='<button class="back" onclick="'+(plant?'goFicha('+plant.id+')':'goHome()')+'">‹</button><span class="bn" style="margin-left:2px">Tienda</span>';r.innerHTML='';}
   else if(mode==='add'){l.innerHTML='<button class="back" onclick="goList()">‹</button><span class="bn" style="margin-left:2px">'+(editingId?'Editar planta':'Nueva planta')+'</span>';r.innerHTML='';}
   else{l.innerHTML='<span class="brand-slot" aria-hidden="true">S</span><span class="brand-copy"><span class="bn">Saphi</span><span class="brand-caption">Cultiva con criterio</span></span>';
     r.innerHTML='<div class="prof-seg" role="group" aria-label="Modo de uso">'
@@ -2355,8 +2368,8 @@ function shopRecommendationData(p,forced){
   else if(s.t==='t2'&&p.potSince&&monthsBetween(pd(p.potSince),new Date())>=18){add('mix_t2','Las epífitas necesitan revisar la estructura de la corteza cuando envejece y se compacta.','sustrato','Revisar');add('orchid_pot','Útil solo si las raíces ya ocupan el contenedor o falta ventilación.','trasplante','Condicional');}
   return {title:items.length?'Una necesidad, una solución razonada':'No detectamos una compra urgente',copy:items.length?'La recomendación parte del estado de '+p.nombre+'. Verifica la condición indicada antes de comprar.':'Los cuidados registrados no justifican comprar algo ahora. Puedes declarar una necesidad concreta si estás resolviendo otro problema.',items:items};
 }
-function renderShopPreview(p){const d=shopRecommendationData(p,'auto'),r=d.items[0],pr=r&&SHOP_PRODUCTS[r.id];if(!r||!pr)return '<div class="shop-preview clear"><div class="shop-preview-head"><div><div class="shop-preview-kicker">Tienda con criterio</div><h3>No necesitas comprar algo hoy</h3><p>Tu ficha no muestra una necesidad de compra activa. Saphi también recomienda esperar.</p></div><span class="shop-need-badge">Sin urgencia</span></div><div class="shop-preview-product"><div class="shop-preview-icon">✓</div><div><b>¿Tienes otra necesidad?</b><small>Declárala y compara una solución razonada.</small></div><button onclick="openSmartShop('+p.id+')">Revisar</button></div></div>';
-  return '<div class="shop-preview"><div class="shop-preview-head"><div><div class="shop-preview-kicker">Tienda con criterio</div><h3>'+d.title+'</h3><p>'+d.copy+'</p></div><span class="shop-need-badge">'+SHOP_NEEDS[r.need]+'</span></div><div class="shop-preview-product"><div class="shop-preview-icon">'+pr.em+'</div><div><b>'+pr.name+'</b><small>'+r.why+'</small></div><button onclick="openSmartShop('+p.id+')">Ver solución</button></div></div>';
+function renderShopPreview(p){const d=shopRecommendationData(p,'auto'),r=d.items[0],pr=r&&SHOP_PRODUCTS[r.id];if(!r||!pr)return '<div class="shop-preview clear"><div class="shop-preview-head"><div><div class="shop-preview-kicker">Tienda</div><h3>No necesitas comprar algo hoy</h3><p>Tu ficha no muestra una necesidad de compra activa. Saphi también recomienda esperar.</p></div><span class="shop-need-badge">Sin urgencia</span></div><div class="shop-preview-product"><div class="shop-preview-icon">✓</div><div><b>¿Tienes otra necesidad?</b><small>Declárala y compara una solución razonada.</small></div><button onclick="openSmartShop('+p.id+')">Revisar</button></div></div>';
+  return '<div class="shop-preview"><div class="shop-preview-head"><div><div class="shop-preview-kicker">Tienda</div><h3>'+d.title+'</h3><p>'+d.copy+'</p></div><span class="shop-need-badge">'+SHOP_NEEDS[r.need]+'</span></div><div class="shop-preview-product"><div class="shop-preview-icon">'+pr.em+'</div><div><b>'+pr.name+'</b><small>'+r.why+'</small></div><button onclick="openSmartShop('+p.id+')">Ver solución</button></div></div>';
 }
 function openSmartShop(pid,need){closeMenu();let p=pid!=null?plantById(pid):null;if(!p&&plants.length)p=plants.find(x=>shopRecommendationData(x,'auto').items.length)||plants[0];shopPlantId=p?p.id:null;shopNeed=need||'auto';shopContactProduct=null;view='shop';setTop('shop',p);document.getElementById('fab').style.display='none';const nav=document.querySelector('.nav');if(nav)nav.style.display='';setNav('');trackShop('shop_open',null,shopPlantId,shopNeed);renderSmartShop();}
 function chooseShopPlant(pid){shopPlantId=pid;shopNeed='auto';shopContactProduct=null;trackShop('context_change',null,pid,'auto');renderSmartShop();}
@@ -2909,7 +2922,7 @@ function toggleProfile(){setProfile(isTech()?'hogar':'tecnico');closeMenu();toas
 function finishOnboarding(){try{localStorage.setItem('saphi_onboarded','1');}catch(e){}setProfile(draftProfile);goHome();}
 function openBiblioteca(){closeMenu();view='biblio';editingId=null;document.getElementById('fab').style.display='none';const nav=document.querySelector('.nav');if(nav)nav.style.display='';setTop('list');renderBiblioteca();}
 function renderBiblioteca(){
-  let h='<button class="back-lnk" onclick="goHome()">‹ Volver al inicio</button>';
+  let h='<button class="back-lnk" onclick="openTools()">‹ Volver a Herramientas</button>';
   h+='<h2 class="sc">📚 Biblioteca botánica</h2><p class="sub">Material de estudio: cómo organizamos el cuidado por tipos y las fuentes para profundizar.</p>';
   h+='<div class="card"><h3>Los 8 tipos de cuidado</h3><p class="muted" style="margin-bottom:10px">Saphi agrupa las plantas por necesidades parecidas (luz, agua, sustrato). Es una guía práctica de manejo, no una clasificación taxonómica.</p>';
   h+=['t1','t2','t3','t4','t5','t6','t7','t8'].map(t=>'<div class="bib-t"><span class="tl-dot" style="background:'+TACC[t]+'"></span><div><b style="color:var(--tierra)">'+TYPES[t].badge+'</b><div class="muted" style="margin-top:2px">'+TYPES[t].mixDesc+'</div></div></div>').join('')+'</div>';
@@ -3516,8 +3529,8 @@ async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;
 function openDiag(pid){view='diag';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderDiag(pid);}
 function openDiagGlobal(){closeMenu();openDiag(null);}
 function renderDiag(pid){const p=(pid!=null)?plants.find(x=>x.id===pid):null;const s=p?sp(p.esp):null;
-  const back=(pid!=null)?'goFicha('+pid+')':'goList()';
-  let h='<button class="back-lnk" onclick="'+back+'">‹ '+(pid!=null?'Volver a la ficha':'Volver a Mis Plantas')+'</button>';
+  const back=(pid!=null)?'goFicha('+pid+')':'openTools()';
+  let h='<button class="back-lnk" onclick="'+back+'">‹ '+(pid!=null?'Volver a la ficha':'Volver a Herramientas')+'</button>';
   h+='<h2 class="sc">🔬 '+(p?'Revisar salud · '+esc(p.nombre):'Analizar planta con IA')+'</h2><p class="sub">Sube o toma una foto de la hoja y te decimos qué puede tener.</p>';
   h+='<label class="diag-up"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handleLeafUpload('+pid+',event)"><span>📷 Tomar o subir foto de la hoja</span></label>';
   h+='<p class="hint" style="text-align:center;margin-top:8px">🤖 Diagnóstico por IA: <b>'+aiQuotaLabel('health')+'</b>.</p>';
@@ -3530,10 +3543,12 @@ function openTools(){closeMenu();view='tools';const nav=document.querySelector('
 function numv(id){const el=document.getElementById(id);if(!el)return 0;const n=parseFloat((el.value||'').replace(',','.'));return isNaN(n)?0:n;}
 function nf(x,d){const dec=d==null?1:d;return (Math.round(x*Math.pow(10,dec))/Math.pow(10,dec)).toLocaleString('es-EC');}
 function setToolsMode(mode){setProfile(mode);setTop('list');renderTools();toast(mode==='tecnico'?'Herramientas de Campo activas':'Herramientas de Hogar activas');}
+function jumpToolsCalculators(){const el=document.getElementById('tools-calculators');if(el)el.scrollIntoView({behavior:'smooth',block:'start'});}
 function renderTools(){
   const field=isTech();let h='<section class="tools-shell"><button class="back-lnk" onclick="goList()">‹ Volver a Mis Plantas</button>';
-  h+='<header class="tools-head"><small>'+ (field?'MODO CAMPO':'MODO HOGAR') +' · DECISIONES CON DATOS</small><h2>'+(field?'Calcula antes de aplicar':'Medidas claras para cuidar')+'</h2><p>'+(field?'Convierte observaciones y objetivos de manejo en cantidades verificables.':'Calculadoras simples para preparar mezclas, medir sustrato y reducir errores cotidianos.')+'</p><div class="tools-mode"><button class="'+(!field?'on':'')+'" onclick="setToolsMode(\'hogar\')">Hogar</button><button class="'+(field?'on':'')+'" onclick="setToolsMode(\'tecnico\')">Campo</button></div></header>';
-  h+='<div class="tool-intro"><div><b>1 · Mide</b><span>Usa datos reales del recipiente, área o muestra.</span></div><div><b>2 · Calcula</b><span>Saphi hace la aritmética y muestra el supuesto.</span></div><div><b>3 · Verifica</b><span>Etiqueta, análisis y observación deciden la aplicación.</span></div></div><div class="calc-grid">';
+  h+='<header class="tools-head"><small>'+ (field?'MODO CAMPO':'MODO HOGAR') +' · CENTRO DE HERRAMIENTAS</small><h2>'+(field?'Observa, mide y decide':'Todo lo útil, en un solo lugar')+'</h2><p>'+(field?'Diagnóstico visual, medición, consulta técnica y cálculos para tomar decisiones verificables.':'Revisa la salud, compara la luz, aprende y calcula sin saltar entre menús.')+'</p><div class="tools-mode"><button class="'+(!field?'on':'')+'" onclick="setToolsMode(\'hogar\')">Hogar</button><button class="'+(field?'on':'')+'" onclick="setToolsMode(\'tecnico\')">Campo</button></div></header>';
+  h+='<div class="tool-hub" aria-label="Herramientas disponibles"><button onclick="openDiagGlobal()"><span class="tool-hub-icon">🔬</span><span class="tool-hub-copy"><b>Salud con IA</b><span>Analiza síntomas visibles</span></span></button><button onclick="openLuxGlobal()"><span class="tool-hub-icon">☀️</span><span class="tool-hub-copy"><b>Medir luz</b><span>Evalúa una ubicación</span></span></button><button onclick="openBiblioteca()"><span class="tool-hub-icon">📚</span><span class="tool-hub-copy"><b>Biblioteca</b><span>Consulta criterios y fuentes</span></span></button><button class="current" onclick="jumpToolsCalculators()"><span class="tool-hub-icon">🧮</span><span class="tool-hub-copy"><b>Calculadoras</b><span>Prepara cantidades reales</span></span></button></div>';
+  h+='<div class="tools-section-title" id="tools-calculators"><h3>Calculadoras</h3><span>'+(field?'Campo':'Hogar')+'</span></div><div class="tool-intro"><div><b>1 · Mide</b><span>Usa datos reales del recipiente, área o muestra.</span></div><div><b>2 · Calcula</b><span>Saphi hace la aritmética y muestra el supuesto.</span></div><div><b>3 · Verifica</b><span>Etiqueta, análisis y observación deciden la aplicación.</span></div></div><div class="calc-grid">';
   h+='<details class="calsec" open><summary>🪴 '+(field?'Sustrato para camas o bancales':'Sustrato según la maceta')+'</summary><div style="margin-top:10px">'+(field?'<div class="field"><label>Número de camas</label><input id="u-beds" type="number" inputmode="numeric" placeholder="Ej. 4"></div><div class="field"><label>Largo de cada cama (m)</label><input id="u-length" type="number" inputmode="decimal" placeholder="Ej. 8"></div><div class="field"><label>Ancho (m)</label><input id="u-width" type="number" inputmode="decimal" placeholder="Ej. 1,2"></div><div class="field"><label>Profundidad útil de sustrato (cm)</label><input id="u-depth" type="number" inputmode="decimal" placeholder="Ej. 25"></div>':'<div class="field"><label>Número de macetas</label><input id="u-count" type="number" inputmode="numeric" placeholder="Ej. 6"></div><div class="field"><label>Diámetro superior (cm)</label><input id="u-top" type="number" inputmode="decimal" placeholder="Ej. 24"></div><div class="field"><label>Diámetro de la base (cm)</label><input id="u-bottom" type="number" inputmode="decimal" placeholder="Ej. 17"></div><div class="field"><label>Altura interior (cm)</label><input id="u-height" type="number" inputmode="decimal" placeholder="Ej. 22"></div>')+'<button class="btn-primary" onclick="calcSust()">Calcular compra de sustrato</button><div id="c-sust-res"></div></div></details>';
   h+='<details class="calsec" open><summary>💧 Preparación de la jornada</summary><div style="margin-top:10px"><div class="field"><label>Dosis de la etiqueta (ml o g por litro)</label><input id="d-dose" type="number" inputmode="decimal" placeholder="Ej. 2"></div>'+(field?'<div class="field"><label>Área a tratar (m²)</label><input id="d-area" type="number" inputmode="decimal" placeholder="Ej. 1800"></div><div class="field"><label>Volumen de aplicación (L/ha)</label><input id="d-volume" type="number" inputmode="decimal" placeholder="Ej. 200"></div>':'<div class="field"><label>Número de macetas o plantas</label><input id="d-count" type="number" inputmode="numeric" placeholder="Ej. 18"></div><div class="field"><label>Solución que usarás por planta (ml)</label><input id="d-per" type="number" inputmode="decimal" placeholder="Ej. 250"></div>')+'<div class="field"><label>Capacidad del tanque o regadera (L)</label><input id="d-tank" type="number" inputmode="decimal" placeholder="Ej. '+(field?'20':'5')+'"></div><button class="btn-primary" onclick="calcDilution()">Calcular producto y cargas</button><div id="c-dil-res"></div></div></details>';
   if(field){
@@ -3673,7 +3688,7 @@ function renderLux(pid){luxCurLevel=null;luxCurLux=0;
   const expectedType=s?s.t:regType;
   let back;
   if(luxMode==='register')back='<button class="back-lnk" onclick="backToAddKeepDraft()">‹ Volver al registro</button>';
-  else if(luxMode==='global')back='<button class="back-lnk" onclick="goHome()">‹ Volver al inicio</button>';
+  else if(luxMode==='global')back='<button class="back-lnk" onclick="openTools()">‹ Volver a Herramientas</button>';
   else back='<button class="back-lnk" onclick="goFicha('+pid+')">‹ Volver a la ficha</button>';
   let h=back;
   h+='<h2 class="sc">☀️ Luxómetro</h2><p class="sub">'+(luxMode==='global'?'Apunta la cámara hacia el rincón que quieras evaluar.':'Apunta la cámara hacia donde está (o pondrás) la planta.')+'</p>';
@@ -3726,7 +3741,8 @@ document.addEventListener('click',closeMenu);
 // Las acciones que redibujan la misma vista conservan el punto de lectura.
 document.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||!content)return;
-  if(button.closest('.ficha-nav')||String(button.getAttribute('onclick')||'').indexOf('applySymptomDiag')>=0)return;
+  const action=String(button.getAttribute('onclick')||'');
+  if(button.closest('.ficha-nav')||action.indexOf('applySymptomDiag')>=0||action.indexOf('jumpToolsCalculators')>=0)return;
   const beforeView=view,beforeTop=content.scrollTop;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{if(view===beforeView&&content.scrollTop!==beforeTop)content.scrollTop=beforeTop;}));
 },true);
