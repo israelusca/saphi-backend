@@ -2,7 +2,7 @@
    - Offline: cachea el shell de la app (arregla el "app no disponible").
    - Web Push (Fase B): muestra notificaciones enviadas desde el backend.
    Sube la versión de CACHE cuando cambie la app para refrescar la caché. */
-const CACHE = 'saphi-v2';
+const CACHE = 'saphi-v3';
 const SHELL = [
   './',
   './index.html',
