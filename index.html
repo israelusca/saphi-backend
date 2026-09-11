@@ -30,7 +30,7 @@ body{margin:0;background:#DDE3DD;color:var(--texto);font-family:var(--fb);font-s
 @media(min-width:520px){.app{margin:18px 0;height:calc(100vh - 36px);height:calc(100dvh - 36px);border-radius:28px}}
 .topbar{min-height:70px;padding:13px 18px;background:rgba(246,245,239,.97);border-bottom:1px solid rgba(24,62,52,.08);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;backdrop-filter:blur(16px)}
 .brand{display:flex;align-items:center;gap:11px}
-.brand-slot{width:36px;height:36px;display:grid;place-items:center;border-radius:11px 11px 11px 4px;background:var(--tierra);color:#fff;font-family:var(--font-botanical);font-size:22px;font-style:italic;font-weight:600}
+.brand-slot{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:var(--tierra);color:#fff;font-family:var(--font-botanical);font-size:22px;font-style:italic;font-weight:600}
 .brand-copy{display:flex;flex-direction:column;line-height:1.05}
 .bn{font-family:var(--ft);font-weight:700;font-size:21px;color:var(--tierra)}
 .brand-caption{margin-top:4px;font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--tenue)}
@@ -42,8 +42,8 @@ body{margin:0;background:#DDE3DD;color:var(--texto);font-family:var(--fb);font-s
 .nav button{flex:1;min-height:54px;border:0;border-radius:15px;background:transparent;color:var(--tenue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:800;cursor:pointer}
 .nav button.on{background:var(--verde-bg);color:var(--verde-osc)}
 .fab{position:absolute;right:22px;bottom:84px;width:58px;height:58px;border-radius:18px;background:var(--terracota);color:#fff;border:none;font-size:29px;box-shadow:0 14px 28px rgba(146,59,39,.28);cursor:pointer;z-index:21}
-.home-shell{max-width:980px;margin:0 auto}
-.home-hero{position:relative;overflow:hidden;margin-top:10px;padding:26px 24px;border-radius:26px 26px 26px 9px;color:#fff;background:var(--brand-root)}
+.home-shell,.collection-shell,.add-shell,.agenda-shell,.tools-shell{max-width:980px;margin:0 auto}
+.home-hero{position:relative;overflow:hidden;margin-top:10px;padding:26px 24px;border-radius:26px;color:#fff;background:var(--brand-root)}
 .hh-hi{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#D6E8DF}
 .hh-big{margin:15px 0 8px;font-size:32px;letter-spacing:-1px}
 .hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
@@ -85,8 +85,37 @@ body{margin:0;background:#DDE3DD;color:var(--texto);font-family:var(--fb);font-s
 <div class="toast" id="toast"></div>
 
 <script>
-let plants = JSON.parse(localStorage.getItem('saphi_plants_v2')) || [];
+const TYPES={
+ t1:{tag:'🌵 T1',badge:'🌵 T1 · Cactus y suculentas de sol'},
+ t2:{tag:'🌺 T2',badge:'🌺 T2 · Sombra y epífitas de selva'},
+ t3:{tag:'🪰 T3',badge:'🪰 T3 · Plantas carnívoras'},
+ t4:{tag:'🌿 T4',badge:'🌿 T4 · Tropicales de follaje'},
+ t5:{tag:'🪴 T5',badge:'🪴 T5 · Resistentes de interior'},
+ t6:{tag:'🌸 T6',badge:'🌸 T6 · Exterior y arbustos de flor'},
+ t7:{tag:'🥬 T7',badge:'🥬 T7 · Aromáticas, hortalizas y frutales'},
+ t8:{tag:'🌬️ T8',badge:'🌬️ T8 · Aéreas y musgos'}
+};
+
+const SPECIES=[
+ {id:'sanpedro',t:'t1',n:'San Pedro',sci:'Trichocereus pachanoi',nota:'Cactus columnar; sol y poco riego.'},
+ {id:'sabila',t:'t1',n:'Sábila',sci:'Aloe vera',nota:'Suculenta medicinal; buen drenaje.'},
+ {id:'monstera',t:'t4',n:'Monstera',sci:'Monstera deliciosa',nota:'Luz indirecta brillante; tutor de musgo.'},
+ {id:'poto',t:'t4',n:'Poto',sci:'Epipremnum aureum',nota:'Muy resistente; luz indirecta.'},
+ {id:'albahaca',t:'t7',n:'Albahaca',sci:'Ocimum basilicum',nota:'Sol directo y riego constante.'},
+ {id:'menta',t:'t7',n:'Menta',sci:'Mentha sp.',nota:'Invasora; tener en maceta aparte.'},
+ {id:'durazno',t:'t7',n:'Durazno / Melocotón',sci:'Prunus persica',nota:'Frutal de clima templado; sol y poda anual.'},
+ {id:'manzana',t:'t7',n:'Manzana',sci:'Malus domestica',nota:'Frutal de Sierra; requiere horas de frío.'},
+ {id:'tomate',t:'t7',n:'Tomate',sci:'Solanum lycopersicum',nota:'Tutor + P-K en floración.'},
+ {id:'papa',t:'t7',n:'Papa',sci:'Solanum tuberosum',nota:'Tubérculo andino; aporca al crecer.'}
+];
+  let plants = JSON.parse(localStorage.getItem('saphi_plants_v2')) || [
+  {id:'ex1', speciesId:'sanpedro', name:'San Pedro de prueba', potSize:10, date:new Date().toISOString()}
+];
 const content = document.getElementById('content');
+
+function savePlants() {
+  localStorage.setItem('saphi_plants_v2', JSON.stringify(plants));
+}
 
 function updateNav(activeId) {
   document.querySelectorAll('.nav button').forEach(b => b.classList.remove('on'));
@@ -126,45 +155,81 @@ function goList() {
       </div>`;
   } else {
     plants.forEach(p => {
-      html += `<div style="background:#fff;padding:14px;border-radius:14px;margin-bottom:10px;font-weight:700;">${p.name} (Maceta: ${p.potSize}L)</div>`;
+      const sp = SPECIES.find(s => s.id === p.speciesId) || SPECIES[0];
+      html += `
+        <div style="background:#fff;padding:14px;border-radius:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--sombra-sm);">
+          <div>
+            <div style="font-weight:800;color:var(--tierra);font-size:16px;">${p.name}</div>
+            <div style="font-size:12px;color:var(--tenue);">${sp.n} · Maceta ${p.potSize}L</div>
+          </div>
+          <button onclick="deletePlant('${p.id}')" style="background:#FBE3D6;color:var(--terracota);border:none;padding:6px 10px;border-radius:8px;font-weight:800;cursor:pointer;">Eliminar</button>
+        </div>`;
     });
   }
-  content.innerHTML = `<div><h2>Mis Plantas</h2>${html}</div>`;
+  content.innerHTML = `<div><h2>Mis Plantas</h2><div style="margin-top:10px;">${html}</div></div>`;
   updateNav('nav-plantas');
 }
 
 function goCalendar() {
-  content.innerHTML = `<div><h2>Agenda de Cuidados</h2><p>Próximamente tareas de riego y abono.</p></div>`;
+  content.innerHTML = `<div><h2>Agenda de Cuidados</h2><p>Tareas de riego y control lunar al día.</p></div>`;
   updateNav('nav-cal');
 }
 
 function openTools() {
-  content.innerHTML = `<div><h2>Herramientas</h2><p>Calculadoras y utilidades agronómicas.</p></div>`;
+  content.innerHTML = `<div><h2>Herramientas</h2><p>Calculadoras y utilidades agronómicas para tu growshop.</p></div>`;
   updateNav('nav-tools');
 }
 
 function goAdd() {
+  let opts = '';
+  SPECIES.forEach(s => {
+    opts += `<option value="${s.id}">${s.n} (${s.sci})</option>`;
+  });
+
   content.innerHTML = `
     <div>
       <h2>Agregar Planta</h2>
       <div style="margin-top:14px;">
-        <label style="font-weight:800;display:block;margin-bottom:6px;">Nombre de la planta</label>
-        <input type="text" id="pName" placeholder="Ej. Mi San Pedro" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;">
+        <label style="font-weight:800;display:block;margin-bottom:6px;">Nombre personalizado</label>
+        <input type="text" id="pName" placeholder="Ej. Mi San Pedro del patio" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;outline:none;">
+        
+        <label style="font-weight:800;display:block;margin:14px 0 6px;">Especie</label>
+        <select id="pSpecies" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;background:#fff;outline:none;">${opts}</select>
+
         <label style="font-weight:800;display:block;margin:14px 0 6px;">Tamaño de maceta (Litros)</label>
-        <input type="number" id="pPot" value="5" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;">
+        <input type="number" id="pPot" value="5" min="0.5" step="0.5" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;outline:none;">
+        
         <button class="btn-primary" style="margin-top:20px;" onclick="savePlant()">Guardar en el dispositivo</button>
-        <button onclick="goHome()" style="width:100%;margin-top:10px;padding:12px;background:none;border:none;color:#666;font-weight:800;cursor:pointer;">Cancelar</button>
+        <button onclick="goList()" style="width:100%;margin-top:10px;padding:12px;background:none;border:none;color:#666;font-weight:800;cursor:pointer;">Cancelar</button>
       </div>
     </div>`;
 }
 
 function savePlant() {
-  const name = document.getElementById('pName').value.trim() || 'Planta sin nombre';
+  const name = document.getElementById('pName').value.trim() || 'Planta nueva';
+  const speciesId = document.getElementById('pSpecies').value;
   const potSize = parseFloat(document.getElementById('pPot').value) || 3;
-  plants.push({id: 'p_' + Date.now(), name, potSize});
-  localStorage.setItem('saphi_plants_v2', JSON.stringify(plants));
+  
+  plants.push({
+    id: 'p_' + Date.now(),
+    speciesId: speciesId,
+    name: name,
+    potSize: potSize,
+    date: new Date().toISOString()
+  });
+  
+  savePlants();
   showToast("¡Planta guardada con éxito!");
   goList();
+}
+
+function deletePlant(id) {
+  if(confirm("¿Eliminar esta planta?")) {
+    plants = plants.filter(p => p.id !== id);
+    savePlants();
+    showToast("Planta eliminada");
+    goList();
+  }
 }
 
 function showToast(msg) {
