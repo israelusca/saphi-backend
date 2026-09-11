@@ -1,10 +1,11 @@
+const crypto = require('crypto');
 const attempts = globalThis.__saphiIdentifyAttempts || new Map();
 globalThis.__saphiIdentifyAttempts = attempts;
 
 function cors(res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST,OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Saphi-Owner-Key');
   res.setHeader('Cache-Control', 'no-store');
 }
 
@@ -12,16 +13,15 @@ function dayKey() {
   return new Date().toISOString().slice(0, 10);
 }
 
-function quotaKey(deviceId) {
-  return `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
-}
-
 function allowAttempt(deviceId) {
-  return (attempts.get(quotaKey(deviceId)) || 0) < 5;
+  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
+  const count = attempts.get(key) || 0;
+  if (count >= 5) return false;
+  return true;
 }
 
 function countAttempt(deviceId) {
-  const key = quotaKey(deviceId);
+  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
   const count = attempts.get(key) || 0;
   attempts.set(key, count + 1);
   if (attempts.size > 5000) {
@@ -33,7 +33,31 @@ function countAttempt(deviceId) {
 }
 
 function remainingAttempts(deviceId) {
-  return Math.max(0, 5 - (attempts.get(quotaKey(deviceId)) || 0));
+  const key = `${dayKey()}:${String(deviceId || 'anon').slice(0, 120)}`;
+  return Math.max(0, 5 - (attempts.get(key) || 0));
+}
+
+function safeEqual(a, b) {
+  const left = Buffer.from(String(a || ''));
+  const right = Buffer.from(String(b || ''));
+  return left.length === right.length && left.length > 0 && crypto.timingSafeEqual(left, right);
+}
+
+function requestIp(req) {
+  return String(req.headers['x-vercel-forwarded-for'] || req.headers['x-forwarded-for'] || req.socket?.remoteAddress || '')
+    .split(',')[0].trim().replace(/^::ffff:/, '');
+}
+
+function isOwner(req) {
+  const secret = process.env.SAPHI_OWNER_KEY || '';
+  const supplied = req.headers['x-saphi-owner-key'] || '';
+  if (secret && safeEqual(supplied, secret)) return true;
+  const allowedIps = String(process.env.SAPHI_OWNER_IPS || '').split(',').map(value => value.trim()).filter(Boolean);
+  return allowedIps.includes(requestIp(req));
+}
+
+function quotaStatus(owner, deviceId) {
+  return owner ? { limit: null, remaining: null, unlimited: true } : { limit: 5, remaining: remainingAttempts(deviceId), unlimited: false };
 }
 
 function cleanBase64(value) {
@@ -49,6 +73,7 @@ module.exports = async function handler(req, res) {
   if (!apiKey) return res.status(503).json({ error: 'Falta configurar la clave de Gemini en Vercel.' });
 
   const body = req.body || {};
+  const owner = isOwner(req);
   const imageBase64 = cleanBase64(body.imageBase64);
   const mimeType = /^image\/(jpeg|png|webp|heic|heif)$/i.test(body.mimeType || '')
     ? body.mimeType
@@ -56,12 +81,10 @@ module.exports = async function handler(req, res) {
   const catalogue = Array.isArray(body.catalogue) ? body.catalogue.slice(0, 600) : [];
 
   if (!imageBase64 || imageBase64.length > 9_000_000) {
-    return res.status(400).json({ error: 'La imagen está vacía o supera el tamaño permitido.', quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
+    return res.status(400).json({ error: 'La imagen está vacía o supera el tamaño permitido.', quota: quotaStatus(owner, body.deviceId) });
   }
-  if (!catalogue.length) {
-    return res.status(400).json({ error: 'No se recibió el catálogo de Saphi.', quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
-  }
-  if (!allowAttempt(body.deviceId)) {
+  if (!catalogue.length) return res.status(400).json({ error: 'No se recibió el catálogo de Saphi.', quota: quotaStatus(owner, body.deviceId) });
+  if (!owner && !allowAttempt(body.deviceId)) {
     return res.status(429).json({ error: 'Alcanzaste el límite de 5 identificaciones de hoy.', quota: { limit: 5, remaining: 0 } });
   }
 
@@ -103,7 +126,7 @@ module.exports = async function handler(req, res) {
     const data = await response.json().catch(() => ({}));
     if (!response.ok) {
       const message = data?.error?.message || 'Gemini no pudo procesar la identificación.';
-      return res.status(response.status).json({ error: message, quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
+      return res.status(response.status).json({ error: message });
     }
 
     const text = data?.candidates?.[0]?.content?.parts?.map(part => part.text || '').join('') || '';
@@ -114,9 +137,9 @@ module.exports = async function handler(req, res) {
       .filter(id => id !== matchId && allowedIds.has(id))
       .slice(0, 3);
 
-    const remaining = countAttempt(body.deviceId);
-    return res.status(200).json({ identification: { matchId, confidence, alternatives }, quota: { limit: 5, remaining } });
+    const remaining = owner ? null : countAttempt(body.deviceId);
+    return res.status(200).json({ identification: { matchId, confidence, alternatives }, quota: owner ? quotaStatus(true, body.deviceId) : { limit: 5, remaining, unlimited: false } });
   } catch (error) {
-    return res.status(502).json({ error: 'La identificación no produjo una respuesta válida. Intenta con otra fotografía.', quota: { limit: 5, remaining: remainingAttempts(body.deviceId) } });
+    return res.status(502).json({ error: 'La identificación no produjo una respuesta válida. Intenta con otra fotografía.', quota: quotaStatus(owner, body.deviceId) });
   }
 }
