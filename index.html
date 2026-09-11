@@ -39,8 +39,6 @@
   --card:#FFFFFF;
   --linea:#D7DDD6;
   --linea-fuerte:#BBC7BF;
-  --info:var(--brand-sky);
-  --alerta:var(--brand-earth);
   --sombra:0 18px 48px rgba(22,61,52,.12);
   --sombra-sm:0 4px 16px rgba(22,61,52,.06);
 
@@ -63,40 +61,39 @@ body{margin:0;background:#DDE3DD;color:var(--texto);font-family:var(--fb);min-he
 .brand-caption{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tenue);margin-top:2px}
 .tb-right{display:flex;align-items:center;gap:8px}
 
-/* Selector integrado de perfiles */
-.prof-seg{display:flex;background:#E7ECE8;border:1px solid var(--linea-fuerte);border-radius:13px;padding:2px}
-.prof-seg .ps{border:none;background:none;padding:6px 11px;border-radius:10px;font-size:11.5px;font-weight:800;color:var(--tenue);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:4px}
+/* Selector integrado Hogar / Campo */
+.prof-seg{display:flex;background:#E7ECE8;border:1px solid var(--linea-fuerte);border-radius:14px;padding:3px;gap:2px}
+.prof-seg .ps{border:none;background:none;padding:6px 12px;border-radius:11px;font-size:11.5px;font-weight:800;color:var(--tenue);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:5px}
 .prof-seg .ps.on{background:#fff;color:var(--tierra);box-shadow:0 2px 6px rgba(22,61,52,.12)}
 .iconbtn{width:36px;height:36px;border-radius:12px;background:#fff;border:1px solid var(--linea-fuerte);color:var(--tierra);font-size:15px;display:grid;place-items:center;cursor:pointer}
 .back{background:none;border:none;font-size:24px;color:var(--tierra);cursor:pointer;padding:2px 8px;line-height:1}
 
 /* Contenido */
-.content{flex:1;overflow-y:auto;padding:12px 18px 100px}
+.content{flex:1;overflow-y:auto;padding:14px 18px 100px}
 .content::-webkit-scrollbar{display:none}
-h2.sc{font-family:var(--ft);font-weight:800;font-size:24px;color:var(--tierra);margin:14px 0 4px;letter-spacing:-.5px}
+h2.sc{font-family:var(--ft);font-weight:800;font-size:22px;color:var(--tierra);margin:14px 0 4px;letter-spacing:-.4px}
 .sub{color:var(--tenue);font-size:13px;margin:0 0 16px;line-height:1.45}
 
-/* Botones principales y corrección de hover */
-.btn-primary,.ha-primary{width:100%;min-height:48px;background:var(--tierra);color:#fff;border:none;font-family:var(--ft);font-weight:800;font-size:14.5px;padding:13px;border-radius:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s ease;text-decoration:none}
-.btn-primary:hover,.ha-primary:hover{background:#112F28!important;color:#fff!important;transform:translateY(-1px)}
+/* Botones principales con HOVER CORREGIDO */
+.btn-primary,.ha-primary{width:100%;min-height:50px;background:var(--brand-root)!important;color:#ffffff!important;border:none;font-family:var(--ft);font-weight:800;font-size:14.5px;padding:13px;border-radius:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s ease;text-decoration:none;box-shadow:0 4px 14px rgba(22,61,52,.15)}
+.btn-primary:hover,.ha-primary:hover{background:#0e2620!important;color:#ffffff!important;transform:translateY(-1px);box-shadow:0 6px 18px rgba(22,61,52,.25)}
 .btn-ghost{width:100%;background:none;border:none;color:var(--terracota);font-weight:800;font-size:13px;padding:10px;cursor:pointer}
 
-/* Cards y elementos */
+/* Cards y listas */
 .card{background:var(--card);border:1px solid var(--linea);border-radius:20px;padding:16px;margin-top:14px;box-shadow:var(--sombra-sm)}
 .card h3{font-family:var(--ft);margin:0 0 6px;font-size:15px;color:var(--tierra);font-weight:800}
 .plant-card{position:relative;overflow:hidden;display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--linea);border-radius:18px;padding:12px;margin-bottom:10px;cursor:pointer;box-shadow:var(--sombra-sm);transition:.15s}
 .plant-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acc,transparent)}
-.plant-card:hover{border-color:var(--linea-fuerte)}
 .thumb{width:60px;height:60px;border-radius:14px;flex:0 0 auto;overflow:hidden;background:#EDE2C8;display:flex;align-items:center;justify-content:center}
 .pc-body{flex:1;min-width:0}
 .pc-name{font-family:var(--ft);font-weight:800;font-size:15.5px;color:var(--tierra);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .pc-sci{font-style:italic;color:var(--tenue);font-size:12.5px;font-family:var(--font-botanical)}
-.tag{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#F0E7D5;color:var(--tierra-2)}
+.tag{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#F0E7D5;color:var(--tierra-2);display:inline-block}
 .tag.amb{background:#FBEFCD;color:var(--ambar-osc)}
 .tag.warn{background:#FBE3D6;color:var(--terracota)}
 .tag.ok{background:var(--verde-bg);color:var(--verde-osc)}
 
-/* Módulo de Esquejes y Mortalidad */
+/* Módulo de Esquejes con Conteo de Mortalidad */
 .prop-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
 .prop-stat-box{background:#F7FAF8;border:1px solid #C8DDD0;border-radius:14px;padding:10px;text-align:center}
 .prop-stat-box strong{display:block;font-size:22px;color:var(--tierra);font-family:var(--ft)}
@@ -117,16 +114,16 @@ h2.sc{font-family:var(--ft);font-weight:800;font-size:24px;color:var(--tierra);m
 .share-ratio button{flex:1;padding:8px;border-radius:11px;border:1.5px solid var(--linea);background:#fff;font-size:12px;font-weight:800;cursor:pointer}
 .share-ratio button.sel{border-color:var(--tierra);background:var(--tierra);color:#fff}
 
-/* Agenda / Calendario Accionable */
+/* Agenda / Calendario Accionable Directo */
 .agenda-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--linea);border-radius:16px;padding:12px 14px;margin-bottom:8px}
 .agenda-card.due{border-left:4px solid var(--terracota);background:#FFFDFC}
 .agenda-info{flex:1;min-width:0}
 .agenda-title{font-weight:800;font-size:14px;color:var(--tierra)}
 .agenda-sub{font-size:12px;color:var(--tenue);margin-top:2px}
-.agenda-btn{min-height:38px;padding:8px 12px;border-radius:11px;border:none;background:var(--verde);color:#fff;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
+.agenda-btn{min-height:38px;padding:8px 14px;border-radius:11px;border:none;background:var(--verde);color:#fff;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
 .agenda-btn.warn{background:var(--terracota)}
 
-/* Navegación y generales */
+/* Navegación inferior */
 .nav{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--linea);display:flex;justify-content:space-around;padding:8px 6px calc(10px + env(safe-area-inset-bottom,0px));z-index:20}
 .nav button{flex:1;background:none;border:none;color:var(--tenue);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:800;cursor:pointer}
 .nav button.on{color:var(--verde-osc)}
@@ -158,8 +155,8 @@ h2.sc{font-family:var(--ft);font-weight:800;font-size:24px;color:var(--tierra);m
   </div>
 
   <div class="menu" id="menu" style="display:none;position:absolute;right:16px;top:60px;background:#fff;border:1px solid var(--linea);border-radius:16px;padding:8px;box-shadow:var(--sombra);z-index:90">
-    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="openDiagGlobal()">🔬 Diagnóstico IA</button>
-    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="openTools()">🧮 Calculadoras Agronómicas</button>
+    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="openDiagGlobal()">🔬 Diagnóstico de Hojas (IA)</button>
+    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="openTools()">🧮 Calculadoras de Campo</button>
     <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="exportBackup()">⬇️ Exportar datos (.json)</button>
     <button class="btn-ghost" style="text-align:left;color:var(--terracota)" onclick="closeMenu()">✕ Cerrar</button>
   </div>
@@ -177,10 +174,17 @@ h2.sc{font-family:var(--ft);font-weight:800;font-size:24px;color:var(--tierra);m
 <div class="toast" id="toast"></div>
 
 <script>
-// ==================== ESTADO Y DATOS BOTÁNICOS ====================
+// ==================== CONFIGURACIÓN Y MODELOS BOTÁNICOS ====================
 const VERCEL_API_URL = "https://saphi-backend.vercel.app/api/diagnose";
 let currentProfile = localStorage.getItem('saphi_profile') || 'hogar';
 let plants = [];
+
+const TYPES = {
+  t1: {tag:'🌵 T1', badge:'Cactus y suculentas de sol', color:'#E4A62C'},
+  t2: {tag:'🌺 T2', badge:'Epífitas y orquídeas de selva', color:'#7FB39A'},
+  t4: {tag:'🌿 T4', badge:'Tropicales y follaje', color:'#8FB98A'},
+  t7: {tag:'🥬 T7', badge:'Huerto, aromáticas y cannabis', color:'#AEC468'}
+};
 
 const SPECIES = [
   {id:'monstera', n:'Monstera Deliciosa', sci:'Monstera deliciosa', t:'t4'},
@@ -199,7 +203,7 @@ function setAppProfile(p){
   localStorage.setItem('saphi_profile', p);
   document.getElementById('btn-hogar').classList.toggle('on', p === 'hogar');
   document.getElementById('btn-campo').classList.toggle('on', p === 'tecnico');
-  toast(p === 'tecnico' ? 'Modo Campo / Técnico activado' : 'Modo Hogar activado');
+  toast(p === 'tecnico' ? 'Modo Campo / Técnico activo' : 'Modo Hogar activo');
   if(view === 'home') renderHome();
   else if(view === 'list') renderList();
   else if(view === 'cal') renderCalendar();
@@ -209,7 +213,7 @@ function load(){
   try{ plants = JSON.parse(localStorage.getItem('saphi_plants_v2')) || []; }catch(e){ plants = []; }
   if(!plants.length){
     plants = [
-      {id: 101, nombre: 'Monstera Sala', esp: 'monstera', pot: '15L', loc: 'sala', lastWater: null, cant: 1, lotesEsquejes: []}
+      {id: 101, nombre: 'Monstera Sala', esp: 'monstera', pot: '15L', loc: 'sala', lastWater: null, lotesEsquejes: []}
     ];
     save();
   }
@@ -225,12 +229,12 @@ function renderHome(){
   let h = `<div style="background:var(--tierra);color:#fff;padding:24px 20px;border-radius:24px;margin-top:4px">
     <div style="font-size:12px;opacity:.9;text-transform:uppercase;letter-spacing:.08em">PANEL GENERAL</div>
     <div style="font-family:var(--ft);font-size:26px;font-weight:800;margin:6px 0">${plants.length} Plantas en Monitoreo</div>
-    <div style="font-size:13px;color:#D3E4DB">${pending.length ? pending.length + ' necesitan comprobación hoy' : 'Todo al día con el riego'}</div>
+    <div style="font-size:13px;color:#D3E4DB">${pending.length ? pending.length + ' requieren comprobación de riego' : 'Todo al día con el riego'}</div>
   </div>
 
   <div style="display:flex;gap:10px;margin:16px 0">
     <button class="ha-primary" onclick="goAdd()">🌱 Registrar Planta</button>
-    <button class="btn-primary" style="background:#fff;border:1.5px solid var(--linea-fuerte);color:var(--tierra)" onclick="openDiagGlobal()">📷 Diagnóstico IA</button>
+    <button class="btn-primary" style="background:#fff!important;border:1.5px solid var(--linea-fuerte);color:var(--tierra)!important" onclick="openDiagGlobal()">📷 Diagnóstico IA</button>
   </div>
 
   <h2 class="sc">Revisión de Cultivo</h2>`;
@@ -242,7 +246,7 @@ function renderHome(){
         <div class="pc-name">${p.nombre}</div>
         <div class="pc-sci">${sp(p.esp).sci}</div>
         <div style="margin-top:4px">
-          <span class="tag ${p.lastWater?'ok':'warn'}">${p.lastWater ? '✓ Regada recientemente' : '💧 Toca revisar'}</span>
+          <span class="tag ${p.lastWater?'ok':'warn'}">${p.lastWater ? '✓ Regada' : '💧 Toca revisar'}</span>
           ${p.lotesEsquejes && p.lotesEsquejes.length ? `<span class="tag amb">✂️ ${p.lotesEsquejes.length} lote(s) enraizando</span>` : ''}
         </div>
       </div>
@@ -258,18 +262,19 @@ function quickWater(id){
   if(!p) return;
   p.lastWater = new Date().toISOString().split('T')[0];
   save();
-  toast('💧 Riego confirmado para ' + p.nombre);
-  if(navigator.vibrate) navigator.vibrate(20);
+  toast('💧 Riego registrado para ' + p.nombre);
+  if(navigator.vibrate) navigator.vibrate(25);
   if(view === 'home') renderHome();
   else if(view === 'cal') renderCalendar();
+  else if(view === 'ficha') goFicha(id);
 }
 
-// ==================== VISTA: AGENDA / CALENDARIO DIRECTO ====================
+// ==================== VISTA: AGENDA ACCIONABLE DIRECTA ====================
 function goCalendar(){ view = 'cal'; setNav('cal'); renderCalendar(); }
 
 function renderCalendar(){
   let h = `<h2 class="sc">Agenda de Tareas</h2>
-  <p class="sub">Toma decisiones y registra acciones directamente sin pasos extra.</p>`;
+  <p class="sub">Toma decisiones y confirma riegos directamente sin rodeos.</p>`;
 
   plants.forEach(p => {
     const isDue = !p.lastWater;
@@ -277,23 +282,22 @@ function renderCalendar(){
       <div style="font-size:24px">${isDue ? '💧' : '✅'}</div>
       <div class="agenda-info">
         <div class="agenda-title">${p.nombre}</div>
-        <div class="agenda-sub">${isDue ? 'Revisión de humedad requerida' : 'Último riego: ' + p.lastWater}</div>
+        <div class="agenda-sub">${isDue ? 'Comprobación de sustrato pendiente' : 'Último riego registrado: ' + p.lastWater}</div>
       </div>
       <button class="agenda-btn ${isDue ? 'warn' : ''}" onclick="quickWater(${p.id})">
         ${isDue ? 'Regar ahora' : 'Regar de nuevo'}
       </button>
     </div>`;
 
-    // Tareas para lotes de esquejes si existen
     if(p.lotesEsquejes && p.lotesEsquejes.length){
-      p.lotesEsquejes.forEach((lote, idx) => {
+      p.lotesEsquejes.forEach(lote => {
         h += `<div class="agenda-card" style="border-left:4px solid var(--ambar)">
           <div style="font-size:24px">✂️</div>
           <div class="agenda-info">
             <div class="agenda-title">Esquejes: ${lote.nombre}</div>
-            <div class="agenda-sub">${lote.vivos} vivos de ${lote.inicial} · Revisar aireación y agua</div>
+            <div class="agenda-sub">${lote.vivos} vivos de ${lote.inicial} iniciales · Ventilar y revisar humedad</div>
           </div>
-          <button class="agenda-btn" style="background:var(--ambar-osc)" onclick="goFicha(${p.id})">Revisar lote</button>
+          <button class="agenda-btn" style="background:var(--ambar-osc)" onclick="goFicha(${p.id})">Ver lote</button>
         </div>`;
       });
     }
@@ -302,27 +306,27 @@ function renderCalendar(){
   document.getElementById('content').innerHTML = h;
 }
 
-// ==================== ESQUEJES CON CONTEO DE MORTALIDAD ====================
+// ==================== ESQUEJES: CONTEO DE MORTALIDAD Y CONDICIONES ====================
 function openModalEsquejes(plantId){
   const p = plants.find(x => x.id === plantId);
-  const cant = prompt('¿Cuántos esquejes vas a cortar para este lote?', '6');
+  const cant = prompt('¿Cuántos esquejes sacaste en este lote?', '6');
   if(!cant || isNaN(cant) || parseInt(cant) <= 0) return;
 
   const nInicial = parseInt(cant);
   const nuevoLote = {
     id: Date.now(),
-    nombre: 'Lote ' + (p.lotesEsquejes ? p.lotesEsquejes.length + 1 : 1),
+    nombre: 'Lote #' + ((p.lotesEsquejes ? p.lotesEsquejes.length : 0) + 1),
     inicial: nInicial,
     vivos: nInicial,
     bajas: 0,
-    fechaInicio: new Date().toISOString().split('T')[0],
-    enraizados: false
+    fechaInicio: new Date().toISOString().split('T')[0]
   };
 
   if(!p.lotesEsquejes) p.lotesEsquejes = [];
   p.lotesEsquejes.push(nuevoLote);
   save();
-  toast('✂️ Lote de ' + nInicial + ' esquejes registrado');
+  toast('✂️ Lote de ' + nInicial + ' esquejes iniciado');
+  triggerCelebration('esqueje', 'Iniciaste un lote de ' + nInicial + ' esquejes');
   goFicha(plantId);
 }
 
@@ -334,11 +338,11 @@ function updateMortalidad(plantId, loteId, delta){
   if(delta === -1 && lote.vivos > 0){
     lote.vivos--;
     lote.bajas++;
-    toast('Descarte registrado. Vivos: ' + lote.vivos);
+    toast('Pérdida registrada. Vivos: ' + lote.vivos);
   } else if(delta === 1 && lote.bajas > 0){
     lote.vivos++;
     lote.bajas--;
-    toast('Corregido. Vivos: ' + lote.vivos);
+    toast('Recuperado. Vivos: ' + lote.vivos);
   }
   save();
   goFicha(plantId);
@@ -347,7 +351,7 @@ function updateMortalidad(plantId, loteId, delta){
 function graduarEsquejes(plantId, loteId){
   const p = plants.find(x => x.id === plantId);
   const lote = p.lotesEsquejes.find(l => l.id === loteId);
-  const exito = prompt(`¿Cuántos esquejes enraizaron con éxito para plantar a tierra? (Vivos: ${lote.vivos})`, lote.vivos);
+  const exito = prompt(`¿Cuántos esquejes enraizaron con éxito para pasar a maceta? (Vivos: ${lote.vivos})`, lote.vivos);
   if(exito === null) return;
 
   const nEnraizados = parseInt(exito);
@@ -356,37 +360,35 @@ function graduarEsquejes(plantId, loteId){
       id: Date.now(),
       nombre: p.nombre + ' (Hijo de Esqueje)',
       esp: p.esp,
-      pot: 'Chica (1L)',
+      pot: '1L',
       loc: p.loc,
       lastWater: new Date().toISOString().split('T')[0],
-      cant: nEnraizados,
       lotesEsquejes: []
     });
   }
 
-  // Quitar lote enraizado
   p.lotesEsquejes = p.lotesEsquejes.filter(l => l.id !== loteId);
   save();
-  triggerCelebration('raices', nEnraizados + ' esqueje(s) enraizado(s)');
+  triggerCelebration('raices', nEnraizados + ' esqueje(s) con raíces listas para tierra');
   goFicha(plantId);
 }
 
-// ==================== FICHA DE PLANTA Y ESQUEJES ====================
+// ==================== FICHA DE PLANTA ====================
 function goFicha(id){
   view = 'ficha';
   const p = plants.find(x => x.id === id);
   if(!p) return goHome();
 
-  let h = `<button class="btn-ghost" onclick="goHome()">‹ Volver</button>
+  let h = `<button class="btn-ghost" onclick="goHome()">‹ Volver a la lista</button>
   <h2 class="sc">${p.nombre}</h2>
-  <div style="font-style:italic;color:var(--tenue);margin-bottom:12px">${sp(p.esp).sci}</div>
+  <div style="font-style:italic;color:var(--tenue);margin-bottom:14px">${sp(p.esp).sci}</div>
 
   <div style="display:flex;gap:8px;margin-bottom:14px">
-    <button class="agenda-btn" onclick="openShareModal(${p.id})">📸 Tarjeta para Redes</button>
+    <button class="agenda-btn" onclick="openShareModal(${p.id})">📸 Crear Tarjeta</button>
     <button class="agenda-btn" style="background:#fff;border:1.5px solid var(--verde);color:var(--verde-osc)" onclick="openModalEsquejes(${p.id})">✂️ Sacar Esquejes</button>
   </div>`;
 
-  // SECCIÓN DE ESQUEJES EN CURSO (CON PARÁMETROS REALES DE ESQUEJE)
+  // LOTES DE ESQUEJES EN ENRAIZAMIENTO
   if(p.lotesEsquejes && p.lotesEsquejes.length){
     h += `<h3 style="color:var(--tierra);margin:16px 0 8px">✂️ Lotes de Esquejes en Proceso</h3>`;
     p.lotesEsquejes.forEach(l => {
@@ -394,57 +396,54 @@ function goFicha(id){
       h += `<div class="card" style="border-left:4px solid var(--ambar)">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <strong>${l.nombre} (${l.fechaInicio})</strong>
-          <span class="tag ok">${pct}% Viabilidad</span>
+          <span class="tag ok">${pct}% Éxito</span>
         </div>
         
         <div class="prop-stats">
-          <div class="prop-stat-box"><strong>${l.inicial}</strong><span>Iniciales</span></div>
+          <div class="prop-stat-box"><strong>${l.inicial}</strong><span>Cortados</span></div>
           <div class="prop-stat-box"><strong>${l.vivos}</strong><span>Vivos</span></div>
           <div class="prop-stat-box"><strong style="color:var(--terracota)">${l.bajas}</strong><span>Bajas</span></div>
         </div>
 
         <div class="prop-mortality-ctrls">
-          <button class="prop-ctrl-btn loss" onclick="updateMortalidad(${p.id}, ${l.id}, -1)">−1 Pérdida / Pudrición</button>
-          <button class="prop-ctrl-btn" onclick="updateMortalidad(${p.id}, ${l.id}, 1)">+1 Corregir</button>
+          <button class="prop-ctrl-btn loss" onclick="updateMortalidad(${p.id}, ${l.id}, -1)">−1 Pudrición / Baja</button>
+          <button class="prop-ctrl-btn" onclick="updateMortalidad(${p.id}, ${l.id}, 1)">+1 Deshacer</button>
           <button class="agenda-btn" onclick="graduarEsquejes(${p.id}, ${l.id})">🌱 Ya tienen raíces</button>
         </div>
 
-        <!-- DATOS TÉCNICOS EXCLUSIVOS DE ESQUEJE (NO DE PLANTA ADULTA) -->
-        <div style="background:#F2F6F3;padding:10px;border-radius:12px;margin-top:10px;font-size:11.5px;line-height:1.5">
-          <b>🔬 Condiciones óptimas para este esqueje:</b><br>
-          • <b>Humedad ambiental:</b> 80%–90% (usar domo / tapa).<br>
-          • <b>Luz:</b> Suave e indirecta (1.500–3.000 lux). Cero sol directo.<br>
-          • <b>Nutrición:</b> CERO fertilizante hasta que haya raíces visibles.<br>
-          • <b>Sustrato:</b> Poroso (perlita / jiffy hidratado) sin encharcar la base.
+        <!-- CONDICIONES REALES DE ESQUEJE -->
+        <div style="background:#F2F6F3;padding:12px;border-radius:12px;margin-top:10px;font-size:12px;line-height:1.5">
+          <b>🔬 Protocolo de enraizamiento para este lote:</b><br>
+          • <b>Humedad:</b> 80%–90% constante (usar domo/plástico sin encharcar).<br>
+          • <b>Luz:</b> Difusa suave (1.500–3.000 lux). Cero sol directo para evitar deshidratación.<br>
+          • <b>Nutrición:</b> CERO abono. El corte sin raíz no asimila sales y se quema.<br>
+          • <b>Sustrato:</b> Poroso (perlita/jiffy). Ventilar 5 min al día para renovar oxígeno.
         </div>
       </div>`;
     });
   }
 
-  // DATOS NORMALES DE LA PLANTA ADULTA
+  // DATOS DE LA PLANTA ADULTA
   h += `<div class="card">
-    <h3>💧 Cuidados de la Planta Madre</h3>
-    <div style="font-size:13px;color:var(--tierra-2);line-height:1.5">
-      • <b>Riego:</b> Esperar que el sustrato seque parcialmente antes de regar.<br>
-      • <b>Último registro:</b> ${p.lastWater || 'Sin registrar'}.
-    </div>
-    <button class="btn-primary" style="margin-top:10px" onclick="quickWater(${p.id})">💧 Registrar Riego Hoy</button>
+    <h3>💧 Cuidados de Planta Establecida</h3>
+    <p class="sub" style="margin-bottom:8px">Comprueba que el sustrato esté seco en la parte superior antes de regar.</p>
+    <button class="btn-primary" onclick="quickWater(${p.id})">💧 Registrar Riego Hoy</button>
   </div>`;
 
   document.getElementById('content').innerHTML = h;
 }
 
-// ==================== REDISEÑO: COMPARTIR TARJETAS REDES SOCIALES ====================
+// ==================== REDISEÑO: COMPARTIR CON VISTA PREVIA ====================
 let currentSharePlant = null;
 let currentShareRatio = 'story'; // 'story' (9:16) o 'square' (1:1)
 let currentSharePreset = 'general';
 
 const SHARE_PRESETS = [
-  {id:'general', label:'🌱 Colección', text:'Cuidando con criterio y paciencia.'},
-  {id:'hoja', label:'✨ Nueva hoja', text:'¡Desplegó una hoja nueva y sana!'},
+  {id:'general', label:'🌱 Mi Planta', text:'Cuidando con paciencia y criterio.'},
+  {id:'hoja', label:'✨ Nueva Hoja', text:'¡Desplegó una hoja nueva y sana!'},
   {id:'esqueje', label:'✂️ Esquejes', text:'Multiplicando la familia botánica.'},
   {id:'raices', label:'🌿 Ya tiene raíces', text:'¡Propagación exitosa con raíces fuertes!'},
-  {id:'racha', label:'🔥 Racha activa', text:'Constancia y observación diaria.'}
+  {id:'racha', label:'🔥 Cuidado constante', text:'Constancia y observación continua.'}
 ];
 
 function openShareModal(plantId, defaultPreset){
@@ -454,9 +453,6 @@ function openShareModal(plantId, defaultPreset){
 }
 
 function renderShareModal(){
-  const p = currentSharePlant;
-  const s = sp(p.esp);
-
   let modal = document.getElementById('share-modal-container');
   if(!modal){
     modal = document.createElement('div');
@@ -467,7 +463,7 @@ function renderShareModal(){
 
   modal.innerHTML = `<div class="share-modal">
     <div style="display:flex;justify-content:space-between;align-items:center">
-      <strong style="font-size:16px;color:var(--tierra)">Crear Tarjeta para Redes</strong>
+      <strong style="font-size:16px;color:var(--tierra)">Compartir Logro</strong>
       <button onclick="closeShareModal()" style="border:none;background:none;font-size:18px;cursor:pointer">✕</button>
     </div>
 
@@ -482,7 +478,7 @@ function renderShareModal(){
       ${SHARE_PRESETS.map(pr => `<button class="share-chip ${currentSharePreset===pr.id?'sel':''}" onclick="setSharePreset('${pr.id}')">${pr.label}</button>`).join('')}
     </div>
 
-    <!-- VISTA PREVIA DEL CANVAS -->
+    <!-- VISTA PREVIA EN CANVAS -->
     <div class="share-preview-box">
       <canvas id="share-canvas"></canvas>
     </div>
@@ -491,7 +487,7 @@ function renderShareModal(){
       🔒 Privacidad protegida: Se omiten notas privadas, lote y datos de ubicación.
     </div>
 
-    <button class="btn-primary" onclick="downloadShareCard()">Descargar Tarjeta 📥</button>
+    <button class="btn-primary" onclick="downloadShareCard()">Descargar Imagen 📥</button>
   </div>`;
 
   drawShareCanvas();
@@ -514,18 +510,150 @@ function drawShareCanvas(){
   canvas.width = w;
   canvas.height = h;
 
-  // Fondo cálido premium
+  // Fondo crema premium
   ctx.fillStyle = '#F5F4EC';
   ctx.fillRect(0, 0, w, h);
 
-  // Marco elegante
+  // Marco exterior
   ctx.strokeStyle = '#D5DED7';
-  ctx.lineWidth = 12;
+  ctx.lineWidth = 14;
   ctx.strokeRect(30, 30, w - 60, h - 60);
 
-  // Espacio central de foto / arte
-  const photoY = currentShareRatio === 'story' ? 240 : 160;
-  const photoH = currentShareRatio === 'story' ? 900 : 560;
+  // Espacio protagonista para la planta
+  const photoY = currentShareRatio === 'story' ? 240 : 150;
+  const photoH = currentShareRatio === 'story' ? 920 : 560;
 
-  ctx.fillStyle = '#E3ECE6';
-  ctx.roundRect(8
+  ctx.fillStyle = '#E2EBE5';
+  ctx.roundRect(80, photoY, w - 160, photoH, 36);
+  ctx.fill();
+
+  // Emblema botánico central
+  ctx.fillStyle = '#163D34';
+  ctx.font = 'bold 130px sans-serif';
+  ctx.textAlign = 'center';
+  ctx.fillText('🌿', w / 2, photoY + photoH / 2 + 45);
+
+  // Badge de celebración
+  ctx.fillStyle = '#E7B13D';
+  ctx.roundRect(w / 2 - 250, photoY - 35, 500, 70, 35);
+  ctx.fill();
+  ctx.fillStyle = '#2A2004';
+  ctx.font = 'bold 30px Manrope, sans-serif';
+  ctx.fillText(preset.label, w / 2, photoY + 12);
+
+  // Nombres y citas (excluyendo datos privados)
+  const textBaseY = photoY + photoH + 90;
+
+  ctx.fillStyle = '#163D34';
+  ctx.font = '800 68px Manrope, sans-serif';
+  ctx.fillText(p.nombre, w / 2, textBaseY);
+
+  ctx.fillStyle = '#5A6F65';
+  ctx.font = 'italic 42px Georgia, serif';
+  ctx.fillText(s.sci, w / 2, textBaseY + 65);
+
+  ctx.fillStyle = '#31483F';
+  ctx.font = '500 36px Manrope, sans-serif';
+  ctx.fillText('“' + preset.text + '”', w / 2, textBaseY + 140);
+
+  // Marca discreta en la base
+  ctx.fillStyle = '#163D34';
+  ctx.font = 'bold 28px Manrope, sans-serif';
+  ctx.fillText('SAPHI · CULTIVO CON CRITERIO', w / 2, h - 80);
+}
+
+function downloadShareCard(){
+  const canvas = document.getElementById('share-canvas');
+  if(!canvas) return;
+  const a = document.createElement('a');
+  a.download = `saphi_${currentSharePlant.nombre.toLowerCase().replace(/\s+/g,'_')}.png`;
+  a.href = canvas.toDataURL('image/png');
+  a.click();
+  toast('Tarjeta descargada con éxito 📸');
+}
+
+function triggerCelebration(type, detail){
+  setTimeout(() => {
+    if(confirm('🎉 ¡Felicitaciones!\n\n' + detail + '\n\n¿Deseas generar una tarjeta visual para compartir en tus historias o redes?')){
+      openShareModal(plants[0].id, type);
+    }
+  }, 400);
+}
+
+// ==================== CALCULADORAS AGRONÓMICAS REALES ====================
+function openTools(){ view = 'tools'; setNav('tools'); renderTools(); }
+
+function renderTools(){
+  let h = `<h2 class="sc">Calculadoras de Campo</h2>
+  <p class="sub">Dosificación precisa para tanques y cálculo de sustrato con asentamiento.</p>
+
+  <!-- CALCULADORA DE FUMIGADORA / TANQUE -->
+  <div class="card">
+    <h3>💧 Dosificación de Tanque o Mochila</h3>
+    <div class="sub">Calcula cuánto producto verter en tu fumigadora o tanque según la recomendación por litro.</div>
+    <div class="field">
+      <label>Dosis indicada en etiqueta (ml/L o g/L)</label>
+      <input type="number" id="calc-dose" value="2.5" step="0.1">
+    </div>
+    <div class="field">
+      <label>Capacidad del tanque o fumigadora</label>
+      <select id="calc-tank">
+        <option value="20">Bomba de mochila estándar (20 L)</option>
+        <option value="15">Bomba de mochila mediana (15 L)</option>
+        <option value="5">Pulverizador manual (5 L)</option>
+        <option value="200">Tanque grande / Drench (200 L)</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="calcularMochila()">Calcular cantidad a verter</button>
+    <div id="res-mochila" style="display:none;margin-top:12px;background:#F0F6F2;padding:12px;border-radius:12px;font-weight:700;color:var(--verde-osc);font-size:12.5px;line-height:1.5"></div>
+  </div>
+
+  <!-- CALCULADORA DE SUSTRATO REAL CON COMPACTACIÓN -->
+  <div class="card">
+    <h3>🪴 Sustrato Real para Macetas (con Asentamiento)</h3>
+    <div class="sub">Determina los sacos comerciales necesarios incluyendo el 15% de merma por riego.</div>
+    <div class="field">
+      <label>Número de macetas a llenar</label>
+      <input type="number" id="calc-num-pots" value="4" min="1">
+    </div>
+    <div class="field">
+      <label>Tamaño de cada maceta</label>
+      <select id="calc-pot-vol">
+        <option value="17">Airpot 17 L (~4 gal)</option>
+        <option value="30">Airpot 30 L (~7 gal)</option>
+        <option value="11">Geotextil 11 L (3 gal)</option>
+        <option value="5">Maceta 5 L</option>
+      </select>
+    </div>
+    <button class="btn-primary" onclick="calcularSustratoPro()">Calcular volumen y sacos</button>
+    <div id="res-sustrato" style="display:none;margin-top:12px;background:#F0F6F2;padding:12px;border-radius:12px;font-weight:700;color:var(--tierra);font-size:12.5px;line-height:1.5"></div>
+  </div>`;
+
+  document.getElementById('content').innerHTML = h;
+}
+
+function calcularMochila(){
+  const dose = parseFloat(document.getElementById('calc-dose').value) || 0;
+  const tank = parseFloat(document.getElementById('calc-tank').value) || 0;
+  const total = dose * tank;
+  const res = document.getElementById('res-mochila');
+  res.style.display = 'block';
+  res.innerHTML = `✅ Vierte <b>${total.toFixed(1)} ml (o gramos)</b> de producto en tu tanque de ${tank} L.<br><small style="color:var(--tenue)">Recomendación técnica: Llenar agua hasta la mitad, verter el producto disuelto y completar el volumen para una mezcla homogénea.</small>`;
+}
+
+function calcularSustratoPro(){
+  const num = parseInt(document.getElementById('calc-num-pots').value) || 0;
+  const vol = parseInt(document.getElementById('calc-pot-vol').value) || 0;
+  const neto = num * vol;
+  const conCompactacion = Math.round(neto * 1.15); // +15% de asentamiento
+  const res = document.getElementById('res-sustrato');
+  res.style.display = 'block';
+  res.innerHTML = `📦 Volumen neto: <b>${neto} Litros</b><br>
+  📈 Con asentamiento (+15%): <b>${conCompactacion} Litros reales</b><br>
+  💡 Sugerencia de sacos: <b>${Math.floor(conCompactacion/50)} saco(s) de 50L</b> ${conCompactacion%50 ? ' + ' + Math.ceil((conCompactacion%50)/15) + ' funda(s) de 15L' : ''}.`;
+}
+
+// ==================== LISTA Y AGREGAR ====================
+function goList(){ view = 'list'; setNav('plantas'); renderList(); }
+function renderList(){
+  let h = `<h2 class="sc">Colección (${plants.length})</h2><p class="sub">Tus plantas bajo seguimiento continuo.</p>
