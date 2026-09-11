@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="es">
 <head>
@@ -1344,6 +1343,74 @@ h2.sc{
 .confirm-cancel{border:0;background:var(--tierra);color:#fff}
 .confirm-delete{border:1px solid #D99D89;background:#fff;color:var(--terracota-osc)}
 
+/* Linaje y propagación */
+.toolbar{grid-template-columns:repeat(5,minmax(0,1fr))}
+.plant-card.child{width:calc(100% - 30px);margin-left:30px;border-left:3px solid var(--verde)}
+.plant-card.child::after{content:'';position:absolute;left:-19px;top:29px;width:17px;height:1px;background:var(--linea-fuerte)}
+.plant-card.child{overflow:visible}
+.pc-lineage{display:flex;align-items:center;gap:5px;margin-top:5px;color:var(--verde-osc);font-size:11px;font-weight:800}
+.pc-lineage::before{content:'↳';font-size:14px}
+.prop-pill{display:inline-flex;align-items:center;gap:5px;margin-top:5px;padding:3px 8px;border-radius:999px;background:#EAF3EE;color:var(--verde-osc);font-size:10px;font-weight:850}
+.lineage-card{margin:14px 0 0;padding:13px;border:1px solid #C9DDD1;border-radius:17px;background:var(--verde-bg)}
+.lineage-card>div{display:flex;flex-direction:column;gap:2px}
+.lineage-card small{color:var(--verde-osc);font-size:9px;font-weight:900;letter-spacing:.1em}
+.lineage-card strong{color:var(--tierra);font-size:14px}
+.lineage-card span{color:var(--tenue);font-size:11px}
+.lineage-card>button{margin-top:9px;padding:8px 11px;border:1px solid #BFD6C8;border-radius:10px;background:#fff;color:var(--verde-osc);font-size:11px;font-weight:850;cursor:pointer}
+.lineage-head{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.lineage-head strong{color:var(--tierra);font-size:14px}
+.lineage-head button{border:0;background:none;color:var(--verde-osc);font-size:12px;font-weight:850;cursor:pointer}
+.lineage-children{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.lineage-children button{min-height:36px;padding:7px 10px;border:1px solid #BFD6C8;border-radius:11px;background:#fff;color:var(--tierra);font-size:12px;font-weight:800;cursor:pointer}
+.lineage-children button span,.lineage-children button small{display:block}
+.lineage-children button small{margin-top:2px;color:var(--tenue);font-size:9px}
+.prop-status-card{margin-top:14px;padding:15px;border:1px solid #BFD6C8;border-radius:19px;background:#F4F9F6}
+.prop-status-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px}
+.prop-status-top h3{margin:0;color:var(--tierra);font-size:16px}
+.prop-status-top span{padding:4px 8px;border-radius:9px;background:#fff;color:var(--verde-osc);font-size:11px;font-weight:850}
+.prop-status-top span.warn{background:#FFF1E8;color:var(--terracota-osc)}
+.prop-status-card p{margin:6px 0 12px;color:var(--tenue);font-size:13px;line-height:1.5}
+.prop-status-actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.prop-status-actions button{min-height:45px;border-radius:12px;font-size:12px;font-weight:850;cursor:pointer}
+.prop-check{border:0;background:var(--tierra);color:#fff}
+.prop-ready{border:1px solid var(--verde);background:#fff;color:var(--verde-osc)}
+.prop-shell{max-width:760px;margin:0 auto}
+.prop-head{margin:7px 0 14px;padding:20px;border-radius:var(--radio-lg) var(--radio-lg) var(--radio-lg) 9px;background:var(--brand-root);color:#fff}
+.prop-head small{color:#C9DED5;font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.prop-head h2{margin:8px 0 5px;color:#fff;font-size:clamp(25px,4vw,33px);line-height:1.1}
+.prop-head p{margin:0;color:#D5E5DE;font-size:14px;line-height:1.5}
+.mother-strip{display:flex;align-items:center;gap:11px;margin-bottom:13px;padding:12px;border:1px solid var(--linea);border-radius:16px;background:#fff}
+.mother-strip .ms-mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:var(--verde-bg);font-size:19px}
+.mother-strip small{display:block;color:var(--tenue);font-size:10px;font-weight:850;text-transform:uppercase;letter-spacing:.08em}
+.mother-strip strong{display:block;color:var(--tierra);font-size:14px}
+.method-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin:9px 0 14px}
+.method-card{min-height:88px;padding:12px;border:1px solid var(--linea);border-radius:15px;background:#fff;color:var(--tierra);text-align:left;cursor:pointer}
+.method-card.sel{border-color:var(--verde);background:var(--verde-bg);box-shadow:0 4px 14px rgba(40,100,76,.12)}
+.method-card b{display:block;margin-top:4px;font-size:13px}
+.method-card span{display:block;margin-top:3px;color:var(--tenue);font-size:11px;line-height:1.35}
+.prop-guide{margin:0 0 14px;padding:13px;border-left:4px solid var(--brand-sun);border-radius:5px 14px 14px 5px;background:#FFF9EA;color:var(--tierra-2);font-size:13px;line-height:1.5}
+.prop-guide b{color:var(--tierra)}
+.prop-node{display:flex;align-items:flex-start;gap:9px;margin:10px 0;padding:11px;border:1px solid #E8D5A0;border-radius:13px;background:#FFFDF6;color:var(--tierra-2);font-size:13px;line-height:1.4}
+.prop-node input{width:20px;height:20px;flex:0 0 auto;accent-color:var(--verde)}
+
+/* Herramientas según contexto */
+.tools-shell{max-width:900px;margin:0 auto}
+.tools-head{margin:7px 0 14px;padding:20px;border-radius:var(--radio-lg) var(--radio-lg) var(--radio-lg) 9px;background:var(--brand-root);color:#fff}
+.tools-head small{color:#C9DED5;font-size:11px;font-weight:850;letter-spacing:.12em;text-transform:uppercase}
+.tools-head h2{margin:7px 0 5px;color:#fff;font-size:clamp(25px,4vw,33px)}
+.tools-head p{max-width:640px;margin:0;color:#D5E5DE;font-size:14px;line-height:1.5}
+.tools-mode{display:flex;gap:6px;margin-top:14px;padding:4px;border-radius:14px;background:rgba(255,255,255,.1)}
+.tools-mode button{flex:1;min-height:40px;border:0;border-radius:11px;background:transparent;color:#DDEAE4;font-size:12px;font-weight:850;cursor:pointer}
+.tools-mode button.on{background:#fff;color:var(--tierra)}
+.tool-intro{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.tool-intro div{padding:12px;border:1px solid var(--linea);border-radius:14px;background:#fff}
+.tool-intro b{display:block;color:var(--tierra);font-size:13px}
+.tool-intro span{display:block;margin-top:3px;color:var(--tenue);font-size:11px;line-height:1.35}
+.calc-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.calc-grid .calsec{margin:0;box-shadow:none}
+.calc-grid .calsec.wide{grid-column:1/-1}
+.field-only{display:inline-flex;margin-left:6px;padding:2px 7px;border-radius:999px;background:#E7F0FB;color:#2F5B8A;font-size:9px;font-weight:850;vertical-align:middle}
+
 @media(max-width:520px){
   .agenda-head{padding:18px 17px}
   .agenda-stats{gap:5px}
@@ -1355,6 +1422,11 @@ h2.sc{
   .reminder-form-grid{grid-template-columns:1fr}
   .agenda-week{padding:9px 7px}
   .agenda-week .wk{gap:3px}
+  .toolbar{grid-template-columns:repeat(3,1fr)}
+  .method-grid,.calc-grid{grid-template-columns:1fr}
+  .calc-grid .calsec.wide{grid-column:auto}
+  .tool-intro{grid-template-columns:1fr}
+  .prop-status-actions{grid-template-columns:1fr}
 }
 
 .view-anim{animation:viewIn .22s ease-out}
@@ -1898,6 +1970,27 @@ const POTAGE={reciente:{n:'Hace poco',m:0},meses:{n:'Unos meses',m:3},medio:{n:'
 // luz que necesita cada tipo (0 = poca/sombra, 1 = indirecta brillante, 2 = sol directo)
 const LUZNEED={t1:2,t2:1,t3:2,t4:1,t5:0,t6:2,t7:2,t8:1};
 const LUZTXT={0:'poca luz / sombra',1:'luz indirecta brillante',2:'sol directo (varias horas)'};
+const FIELD_STAGES={establecimiento:'Establecimiento',vegetativo:'Crecimiento vegetativo',floracion:'Floración',fructificacion:'Fructificación',cosecha:'Cosecha / producción',reposo:'Reposo'};
+const PROP_METHODS={
+ agua:{n:'En agua',em:'💧',every:2,task:'Revisar el agua y cambiarla si hace falta',short:'Control del agua cada 2 días'},
+ sustrato:{n:'En sustrato',em:'🪴',every:3,task:'Revisar humedad y corte',short:'Humedad sin encharcar'},
+ sphagnum:{n:'En sphagnum',em:'🌿',every:3,task:'Ventilar y revisar humedad',short:'Musgo húmedo y aireado'},
+ acodo:{n:'Acodo aéreo',em:'◌',every:4,task:'Revisar envoltura y raíces',short:'Enraíza antes de cortar'},
+ division:{n:'División / hijuelo',em:'✂️',every:4,task:'Revisar recuperación',short:'Separa una sección con raíces'}
+};
+const PROP_COMPARE={
+ agua:{best:'Tallos herbáceos y aráceas que enraízan con facilidad',gain:'Permite ver raíces y detectar cambios rápido',watch:'Poco oxígeno, agua turbia y tejido blando'},
+ sustrato:{best:'Esquejes que toleran un medio poroso desde el inicio',gain:'Evita la transición posterior de agua a sustrato',watch:'Exceso de humedad o compactación'},
+ sphagnum:{best:'Nodos, epífitas y material que pide humedad con aireación',gain:'Retiene humedad alrededor del punto de enraizamiento',watch:'Musgo saturado, compactado o sin ventilación'},
+ acodo:{best:'Tallos leñosos o trepadores que pueden seguir unidos',gain:'La madre sostiene el tejido mientras forma raíces',watch:'Cortar antes de tener raíces suficientes'},
+ division:{best:'Matas, rizomas, pseudobulbos, hijuelos o keikis con raíces',gain:'La nueva sección ya parte con raíces funcionales',watch:'Divisiones demasiado pequeñas o herramienta sucia'}
+};
+const PROP_EVIDENCE=[
+ {t:'Luz y enraizamiento en esquejes de albahaca',c:'Lim, Y. J. & Eom, S. H. (2013). Scientia Horticulturae, 164, 552–555.',u:'https://doi.org/10.1016/j.scienta.2013.09.057'},
+ {t:'Relación entre aire, agua y sustratos de propagación',c:'Yafuso, E. J., Fisher, P., Bohorquez, A. & Altland, J. E. (2019). HortScience, 54(11), 2024–2030.',u:'https://journals.ashs.org/view/journals/hortsci/54/11/article-p2024.xml'},
+ {t:'Efecto del medio y auxinas sobre raíces adventicias',c:'Gehlot, A., Gupta, R. K., Arya, I. D. & Arya, S. (2014). iForest, 8, 558–564.',u:'https://iforest.sisef.org/contents/?id=ifor1189-007'},
+ {t:'Luz, señalización de auxinas y formación de raíces',c:'Chen et al. (2022). Frontiers in Plant Science, 13, 943662.',u:'https://www.frontiersin.org/journals/plant-science/articles/10.3389/fpls.2022.943662/full'}
+];
 // luz típica de cada lugar de la casa
 const LUZLUGAR={patio:2,terraza:2,balcon:2,jardin:2,azotea:2,exterior:2,invernadero:2,portal:1,ventana:1,sala:1,comedor:1,cocina:1,local:1,cuarto:0,bano:0,escritorio:0,pasillo:0,oficina:0,garaje:0,otro:null};
 // opciones de luz REAL del sitio (el usuario la mide, no la deducimos)
@@ -2002,6 +2095,7 @@ function setTop(mode,plant){
   const l=document.getElementById('tb-left'),r=document.getElementById('tb-right');
   if(mode==='ficha'){l.innerHTML='<button class="back" onclick="goList()">‹</button><span class="bn" style="margin-left:2px">Ficha</span>';
     r.innerHTML='<button class="iconbtn" title="Editar" onclick="goEdit('+plant.id+')">✏️</button><span class="chip-region">'+REGIONS[plant.region].em+' '+REGIONS[plant.region].n+(plant.region==='sierra'&&plant.alt?' · '+plant.alt+' m':'')+'</span>';}
+  else if(mode==='prop'){l.innerHTML='<button class="back" onclick="goFicha('+plant.id+')">‹</button><span class="bn" style="margin-left:2px">Nueva propagación</span>';r.innerHTML='';}
   else if(mode==='add'){l.innerHTML='<button class="back" onclick="goList()">‹</button><span class="bn" style="margin-left:2px">'+(editingId?'Editar planta':'Nueva planta')+'</span>';r.innerHTML='';}
   else{l.innerHTML='<span class="brand-slot" aria-hidden="true">S</span><span class="brand-copy"><span class="bn">Saphi</span><span class="brand-caption">Cultiva con criterio</span></span>';
     r.innerHTML='<div class="prof-seg" role="group" aria-label="Modo de uso">'
@@ -2138,6 +2232,12 @@ function moreSection(){
    +'<button class="more-item" onclick="document.getElementById(\'importFile\').click()">⬆️ Importar respaldo<span>Restaura desde un archivo .json</span></button>'
    +'</div>';
 }
+function lineageOrder(arr){
+  const ids=new Set(arr.map(p=>p.id)),children={},out=[],seen=new Set();
+  arr.forEach(p=>{if(p.parentId&&ids.has(p.parentId)){if(!children[p.parentId])children[p.parentId]=[];children[p.parentId].push(p);}});
+  function walk(p){if(!p||seen.has(p.id))return;seen.add(p.id);out.push(p);(children[p.id]||[]).forEach(walk);}
+  arr.filter(p=>!p.parentId||!ids.has(p.parentId)).forEach(walk);arr.forEach(walk);return out;
+}
 function fillCards(){
   const box=document.getElementById('plant-results');if(!box)return;
   let arr=plants.slice();
@@ -2151,19 +2251,21 @@ function fillCards(){
   else if(listSort==='tipo')arr.sort((a,b)=>{const ta=sp(a.esp).t,tb=sp(b.esp).t;return ta===tb?norm(a.nombre).localeCompare(norm(b.nombre)):ta.localeCompare(tb);});
   else if(listSort==='lugar')arr.sort((a,b)=>{const la=a.loc||'zzz',lb=b.loc||'zzz';return la===lb?norm(a.nombre).localeCompare(norm(b.nombre)):la.localeCompare(lb);});
   else arr.sort((a,b)=>urgRank(a)-urgRank(b));
+  if(listMode==='list'&&!((listSort==='tipo'||listSort==='lugar')))arr=lineageOrder(arr);
   if(!arr.length){box.innerHTML='<div class="empty" style="padding:36px 20px"><div class="big">🍃</div><p>'+(norm(listSearch).trim()?'Ninguna planta coincide con «'+esc(listSearch)+'».':'Nada por aquí con ese filtro.')+'</p></div>';return;}
   let h='';
   if(listMode==='grid'){
     h+='<div class="grid-wrap">'+arr.map(p=>{const s=sp(p.esp),ty=TYPES[s.t],rs=riegoShort(p,s);
-      return '<div class="gtile" onclick="goFicha('+p.id+')" style="--acc:'+TACC[s.t]+'"><div class="gt-img" style="'+(p.photo?'background-image:url('+p.photo+')':'background:'+ty.hero)+'">'+(p.photo?'':illo(s.t,54))+'<span class="gt-tag">'+ty.tag+'</span></div><div class="gt-info"><div class="gt-name">'+esc(p.nombre)+((p.cant||1)>1?' ×'+p.cant:'')+'</div>'+(p.loc&&LUGARES[p.loc]?'<div class="gt-loc">'+LUGARES[p.loc].n+'</div>':'')+'<span class="gt-state '+(rs.needs?'warn':'')+'">'+rs.label+'</span></div></div>';}).join('')+'</div>';
+      const pm=p.propagation&&(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato);
+      return '<div class="gtile" onclick="goFicha('+p.id+')" style="--acc:'+TACC[s.t]+'"><div class="gt-img" style="'+(p.photo?'background-image:url('+p.photo+')':'background:'+ty.hero)+'">'+(p.photo?'':illo(s.t,54))+'<span class="gt-tag">'+ty.tag+'</span></div><div class="gt-info"><div class="gt-name">'+esc(p.nombre)+((p.cant||1)>1?' ×'+p.cant:'')+'</div>'+(p.loc&&LUGARES[p.loc]?'<div class="gt-loc">'+LUGARES[p.loc].n+'</div>':'')+(p.parentId&&pm?'<span class="prop-pill">'+pm.em+' '+pm.n+'</span>':'')+'<span class="gt-state '+(rs.needs?'warn':'')+'">'+rs.label+'</span></div></div>';}).join('')+'</div>';
   }else{
     const grouped=(listSort==='tipo'||listSort==='lugar');let lastG=null;
-    arr.forEach(p=>{const s=sp(p.esp),ty=TYPES[s.t],rs=riegoShort(p,s);
+    arr.forEach(p=>{const s=sp(p.esp),ty=TYPES[s.t],rs=riegoShort(p,s),mother=plants.find(x=>x.id===p.parentId),pm=p.propagation&&(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato);
       if(grouped){const g=(listSort==='tipo'?s.t:(p.loc||''));if(g!==lastG){lastG=g;h+='<div class="grp-h">'+(listSort==='tipo'?TYPES[s.t].badge:(p.loc&&LUGARES[p.loc]?LUGARES[p.loc].em+' '+LUGARES[p.loc].n:'📍 Sin lugar'))+'</div>';}}
-      h+='<div class="plant-card" onclick="goFicha('+p.id+')" style="--acc:'+TACC[s.t]+'">'
+      h+='<div class="plant-card'+(p.parentId?' child':'')+'" onclick="goFicha('+p.id+')" style="--acc:'+TACC[s.t]+'">'
         +'<div class="thumb" style="'+(p.photo?'background-image:url('+p.photo+');background-size:cover;background-position:center':'background:'+ty.hero)+'">'+(p.photo?'':illo(s.t,42))+'</div>'
-        +'<div class="pc-body"><div class="pc-name">'+esc(p.nombre)+((p.cant||1)>1?' <span class="pc-x">× '+p.cant+'</span>':'')+'</div><div class="pc-sci">'+esc(s.sci)+'</div>'
-        +'<div class="pc-tags"><span class="tag amb">'+ty.tag+'</span>'+(p.loc&&LUGARES[p.loc]?'<span class="tag loc">'+LUGARES[p.loc].n+'</span>':'')+'</div></div>'
+        +'<div class="pc-body">'+(p.parentId?'<div class="pc-lineage">Esqueje de '+esc(mother?mother.nombre:(p.propagation&&p.propagation.motherName)||'planta madre')+'</div>':'')+'<div class="pc-name">'+esc(p.nombre)+((p.cant||1)>1?' <span class="pc-x">× '+p.cant+'</span>':'')+'</div><div class="pc-sci">'+esc(s.sci)+'</div>'
+        +'<div class="pc-tags"><span class="tag amb">'+ty.tag+'</span>'+(p.loc&&LUGARES[p.loc]?'<span class="tag loc">'+LUGARES[p.loc].n+'</span>':'')+(isTech()&&p.lot?'<span class="tag loc">'+esc(p.lot)+'</span>':'')+(p.parentId&&pm?'<span class="prop-pill">'+pm.em+' '+pm.n+'</span>':'')+'</div></div>'
         +'<span class="pc-state '+(rs.needs?'warn':'')+'">'+rs.label+'</span></div>';});
   }
   box.innerHTML=h;
@@ -2172,21 +2274,22 @@ function fillCards(){
 // ---------- render: alta ----------
 let draft={nombre:'',esp:'sanpedro',region:'',alt:'',pot:'mediana'},addStep=1;
 function renderAdd(pre,keep){
-  const ed=editingId!=null;
+  const ed=editingId!=null,field=isTech();
   if(!keep){
     addStep=1;
     let _em=0;
     if(ed&&pre){const baseISO=pre.potSince||pre.lastRepot;if(baseISO)_em=Math.max(0,monthsBetween(pd(baseISO),new Date()));}
-    draft=ed&&pre?{nombre:pre.nombre,esp:pre.esp,region:pre.region,alt:pre.alt||'',pot:pre.pot,cant:pre.cant||1,loc:pre.loc||'',light:(pre.light!=null?pre.light:''),potY:Math.floor(_em/12),potM:_em%12}
-                  :{nombre:'',esp:'',region:'',alt:'',pot:'mediana',cant:1,loc:'',light:'',potY:0,potM:0};
+    draft=ed&&pre?{nombre:pre.nombre,esp:pre.esp,region:pre.region,alt:pre.alt||'',pot:pre.pot,cant:pre.cant||1,loc:pre.loc||'',light:(pre.light!=null?pre.light:''),lot:pre.lot||'',stage:pre.stage||'',potY:Math.floor(_em/12),potM:_em%12}
+                  :{nombre:'',esp:'',region:'',alt:'',pot:'mediana',cant:1,loc:'',light:'',lot:'',stage:'',potY:0,potM:0};
   }
   const catalogueCount=SPECIES.filter(s=>s.id.indexOf('otra')!==0).length;
-  let h='<section class="add-shell"><header class="add-head"><div class="add-kicker">'+(ed?'Actualizar ficha':'Nueva ficha')+'</div><h2>'+(ed?'Edita sin perder la historia':'Registra lo que sí importa')+'</h2><p>'+(ed?'Los cambios se aplican a la ficha existente y conservan su diario.':'Tres pasos breves. Lo demás se aprende observando la planta con el tiempo.')+'</p></header>';
-  h+='<div class="add-progress" aria-label="Progreso del registro"><div class="add-step '+(addStep===1?'on':addStep>1?'done':'')+'"><span>'+(addStep>1?'✓':'1')+'</span>Identidad</div><div class="add-step '+(addStep===2?'on':addStep>2?'done':'')+'"><span>'+(addStep>2?'✓':'2')+'</span>Entorno</div><div class="add-step '+(addStep===3?'on':'')+'"><span>3</span>Maceta</div></div>';
+  let h='<section class="add-shell"><header class="add-head"><div class="add-kicker">'+(field?'MODO CAMPO':'MODO HOGAR')+' · '+(ed?'Actualizar ficha':'Nueva ficha')+'</div><h2>'+(ed?'Edita sin perder la historia':field?'Abre un registro de cultivo':'Registra lo que sí importa')+'</h2><p>'+(ed?'Los cambios se aplican a la ficha existente y conservan su diario.':field?'Identifica el material, ubica el lote y registra su etapa. Después podrás añadir mediciones y observaciones.':'Tres pasos breves. Lo demás se aprende observando la planta con el tiempo.')+'</p></header>';
+  h+='<div class="add-progress" aria-label="Progreso del registro"><div class="add-step '+(addStep===1?'on':addStep>1?'done':'')+'"><span>'+(addStep>1?'✓':'1')+'</span>Identidad</div><div class="add-step '+(addStep===2?'on':addStep>2?'done':'')+'"><span>'+(addStep>2?'✓':'2')+'</span>'+(field?'Sitio':'Entorno')+'</div><div class="add-step '+(addStep===3?'on':'')+'"><span>3</span>'+(field?'Manejo':'Maceta')+'</div></div>';
   h+='<div class="step-panel">';
   if(addStep===1){
-    h+='<h3 class="step-title">¿Cuál es tu planta?</h3><p class="step-copy">Ponle un nombre reconocible y busca la especie. Si no aparece, Saphi puede ubicarla por tipo de cuidado.</p>';
-    h+='<div class="field"><label>Nombre de esta planta</label><input id="f-nombre" placeholder="Ej. Monstera de la sala" value="'+esc(draft.nombre)+'" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" name="saphi-nick" oninput="draft.nombre=this.value"></div>';
+    h+='<h3 class="step-title">'+(field?'Identifica el registro':'¿Cuál es tu planta?')+'</h3><p class="step-copy">'+(field?'Usa un nombre o código que puedas reconocer durante muestreos y seguimiento.':'Ponle un nombre reconocible y busca la especie. Si no aparece, Saphi puede ubicarla por tipo de cuidado.')+'</p>';
+    h+='<div class="field"><label>'+(field?'Código o nombre del registro':'Nombre de esta planta')+'</label><input id="f-nombre" placeholder="'+(field?'Ej. MON-03 · Parcela norte':'Ej. Monstera de la sala')+'" value="'+esc(draft.nombre)+'" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" name="saphi-nick" oninput="draft.nombre=this.value"></div>';
+    if(field)h+='<div class="field"><label>Lote, parcela o ensayo <span class="opt-lbl">(opcional)</span></label><input id="f-lot" placeholder="Ej. Invernadero A · Bloque 2" value="'+esc(draft.lot)+'" oninput="draft.lot=this.value"><div class="hint">Permite agrupar registros que comparten manejo o ubicación experimental.</div></div>';
     h+='<div class="field"><label>Especie o nombre común</label><div class="catalogue-note"><span><b>'+catalogueCount+' plantas</b> en el catálogo</span><span>Comunes · exóticas · Ecuador</span></div>'
       +'<input id="f-search" placeholder="Busca monstera, orquídea, guayusa…" autocomplete="off" autocorrect="off" spellcheck="false" oninput="searchPlants(this.value)">'
       +'<div class="quick-searches"><button type="button" onclick="presetPlantSearch(\'monstera\')">Monsteras</button><button type="button" onclick="presetPlantSearch(\'orquídea\')">Orquídeas</button><button type="button" onclick="presetPlantSearch(\'Ecuador\')">Nativas de Ecuador</button></div>'
@@ -2194,7 +2297,7 @@ function renderAdd(pre,keep){
       +'<div id="f-results" class="results"></div><div id="f-chosen" class="chosen" style="display:none"></div><div id="f-assist"></div>'
       +'<button type="button" class="assist" onclick="openAsistente()">No aparece → identificar por necesidades</button></div>';
   }else if(addStep===2){
-    h+='<h3 class="step-title">¿En qué entorno vive?</h3><p class="step-copy">Región, lugar y luz cambian más el cuidado que una receta genérica descargada de internet.</p>';
+    h+='<h3 class="step-title">'+(field?'¿Dónde está el cultivo?':'¿En qué entorno vive?')+'</h3><p class="step-copy">'+(field?'Registra condiciones mínimas para interpretar después los datos de manejo.':'Región, lugar y luz cambian más el cuidado que una receta genérica descargada de internet.')+'</p>';
     h+='<div class="field"><label>Región del Ecuador</label><div class="opts" id="f-region">'
       +Object.keys(REGIONS).map(k=>'<div class="opt'+(k===draft.region?' sel':'')+'" data-r="'+k+'" onclick="pickRegion(\''+k+'\')"><span class="em">'+REGIONS[k].em+'</span>'+REGIONS[k].n+'</div>').join('')+'</div></div>';
     h+='<div class="field" id="alt-field" style="display:'+(draft.region==='sierra'?'':'none')+'"><label>Altitud aproximada</label><input id="f-alt" type="number" inputmode="numeric" placeholder="Ej. 2850" value="'+(draft.alt||'')+'" oninput="draft.alt=this.value"><div class="hint">Sobre unos 2.800 m se activa la advertencia de heladas.</div></div>';
@@ -2205,7 +2308,7 @@ function renderAdd(pre,keep){
       +'</div><button type="button" class="lux-measure" onclick="openLuxForRegister()">Medir con la cámara</button><div class="hint">Mide o estima la luz en el horario más luminoso del día.</div></div>';
   }else{
     const chosen=draft.esp?sp(draft.esp):null;
-    h+='<h3 class="step-title">Completa la ficha</h3><p class="step-copy">Estos datos ajustan trasplantes y frecuencia de revisión. Podrás cambiarlos después.</p>';
+    h+='<h3 class="step-title">'+(field?'Define el manejo inicial':'Completa la ficha')+'</h3><p class="step-copy">'+(field?'Etapa, contenedor y cantidad convierten una ficha decorativa en un registro que puede compararse.':'Estos datos ajustan trasplantes y frecuencia de revisión. Podrás cambiarlos después.')+'</p>';
     h+='<div class="step-summary"><div><small>Planta</small><strong>'+(chosen?esc(chosen.n):'Sin elegir')+'</strong></div><div><small>Región</small><strong>'+(draft.region&&REGIONS[draft.region]?REGIONS[draft.region].n:'Sin elegir')+'</strong></div></div>';
     h+='<div class="field"><label>Maceta o suelo</label><div class="opts" id="f-pot">'
       +Object.keys(POTS).map(k=>'<div class="opt'+(k===draft.pot?' sel':'')+'" data-p="'+k+'" onclick="pickPot(\''+k+'\')">'+POTS[k].n+'</div>').join('')+'</div></div>';
@@ -2214,6 +2317,7 @@ function renderAdd(pre,keep){
       +'<div class="agecol"><span class="agelbl">Meses</span><div class="stepper2"><button type="button" onclick="incAge(\'m\',-1)">−</button><span id="age-m">'+(draft.potM||0)+'</span><button type="button" onclick="incAge(\'m\',1)">+</button></div></div></div>'
       +'<div class="hint" id="age-hint">'+ageHint()+'</div></div>';
     h+='<div class="field"><label>Cantidad de plantas en esta ficha</label><div class="stepper"><button type="button" onclick="incCant(-1)">−</button><span id="f-cant">'+(draft.cant||1)+'</span><button type="button" onclick="incCant(1)">+</button></div><div class="hint">Si alguna vive en otra maceta o condición, conviene darle su propia ficha.</div></div>';
+    if(field)h+='<div class="field"><label>Etapa del cultivo <span class="opt-lbl">(opcional)</span></label><select onchange="draft.stage=this.value"><option value="">Sin definir</option>'+Object.keys(FIELD_STAGES).map(k=>'<option value="'+k+'"'+(draft.stage===k?' selected':'')+'>'+FIELD_STAGES[k]+'</option>').join('')+'</select><div class="hint">La etapa ayuda a interpretar riego, nutrición y observaciones; no cambia automáticamente las dosis.</div></div>';
   }
   h+='</div><div class="form-actions">';
   if(addStep>1)h+='<button class="form-back" type="button" onclick="addBack()" aria-label="Volver al paso anterior">‹</button>';
@@ -2542,7 +2646,7 @@ function careStatus(p,s){const days=RIEGODAYS[s.t][p.pot];
   if(next<0)return{t:'Riego atrasado '+(-next)+' día'+(-next>1?'s':''),cls:'warn'};
   if(next===0)return{t:'Revisa la humedad hoy',cls:'warn'};
   return{t:'Regada hace '+diff+'d · próximo en '+next+'d',cls:''};}
-function riegoShort(p,s){if(rainActive()&&isOutdoor(p))return{label:'lluvia · pausa 48 h',cls:'ok2',needs:false};const days=RIEGODAYS[s.t][p.pot];
+function riegoShort(p,s){const pi=propagationInfo(p);if(pi)return{label:pi.m.em+' '+pi.label,cls:pi.needs?'warn':'ok2',needs:pi.needs};if(rainActive()&&isOutdoor(p))return{label:'lluvia · pausa 48 h',cls:'ok2',needs:false};const days=RIEGODAYS[s.t][p.pot];
   if(!p.lastWater)return{label:'revisa humedad',cls:'',needs:true};
   const last=pd(p.lastWater);const tn=new Date();tn.setHours(12,0,0,0);
   const nd=new Date(last);nd.setDate(last.getDate()+days);const dn=Math.round((nd-tn)/86400000);
@@ -2627,7 +2731,13 @@ function agendaItemsForDate(dateISO){
     const p=r.pid?plants.find(x=>x.id===r.pid):null,rt=REMINDER_TYPES[r.type]||REMINDER_TYPES.otro;
     items.push({kind:'custom',id:r.id,pid:r.pid,icon:rt.em,type:rt.n,name:r.title,reason:(p?esc(p.nombre)+' · ':'')+(overdue?'Pendiente desde '+fmtShort(pd(r.date)):r.done?'Completado':'Programado para este día'),severity:r.done?'done':overdue?'priority':isNow?'today':'upcoming',action:r.done?'Reabrir':'Completar',deletable:true});
   });
-  plants.forEach(p=>{const s=sp(p.esp),type=TYPES[s.t].tag;
+  plants.forEach(p=>{const s=sp(p.esp),type=TYPES[s.t].tag,pi=propagationInfo(p);
+    if(pi){
+      const checked=p.propagation.lastCheck===dateISO&&dateISO===today;
+      if(checked)items.push({kind:'prop',pid:p.id,icon:'✓',type:'Propagación · '+pi.m.n,name:p.nombre,reason:'Revisión registrada hoy. Próxima comprobación: '+fmtShort(pd(pi.due))+'.',severity:'done',action:'Ver ficha'});
+      else if(pi.due===dateISO||(isNow&&pi.due<today)){const late=Math.max(0,Math.round((pd(today)-pd(pi.due))/86400000));items.push({kind:'prop',pid:p.id,icon:pi.m.em,type:'Propagación · '+pi.m.n,name:p.nombre,reason:late?'La revisión lleva '+late+' día'+(late>1?'s':'')+' pendiente. '+pi.m.task+'.':pi.m.task+'. Observa raíces, olor, firmeza y humedad antes de intervenir.',severity:late?'priority':isNow?'today':'upcoming',action:isNow?'Registrar revisión':'Ver ficha'});}
+      return;
+    }
     if(isToday(p.lastWater)&&isNow)items.push({kind:'water',pid:p.id,icon:'✓',type:'Riego',name:p.nombre,reason:'Riego registrado hoy.',severity:'done',action:'Deshacer'});
     else if(p.lastWater){const due=offsetISO(p.lastWater,RIEGODAYS[s.t][p.pot]||7);
       if(due===dateISO||(isNow&&due<today&&!rainActive())){const late=Math.max(0,Math.round((pd(today)-pd(due))/86400000));items.push({kind:'water',pid:p.id,icon:'💧',type:type,name:p.nombre,reason:late?'La revisión orientativa lleva '+late+' día'+(late>1?'s':'')+' pendiente. Comprueba el sustrato antes de regar.':'Hoy corresponde comprobar la humedad; la fecha no sustituye tocar el sustrato.',severity:late>1?'priority':isNow?'today':'upcoming',action:isNow?'Registrar riego':'Ver ficha'});}
@@ -2643,6 +2753,7 @@ function agendaItemsForDate(dateISO){
 function agendaCountForDate(iso){return agendaItemsForDate(iso).filter(x=>x.severity!=='done'&&x.severity!=='review').length;}
 function agendaAction(item){
   if(item.kind==='custom')return 'toggleCustomReminder('+item.id+')';
+  if(item.kind==='prop'&&item.severity!=='upcoming'&&item.severity!=='done')return "logPropagationCheck("+item.pid+",'calendar')";
   if(item.kind==='water'&&item.severity!=='upcoming')return "doCare("+item.pid+",'water','calendar')";
   if(item.kind==='fert'&&item.severity!=='upcoming')return "doCare("+item.pid+",'fert','calendar')";
   return 'goFicha('+item.pid+')';
@@ -2711,35 +2822,97 @@ function saveNew(){
   if(!draft.esp){toast('Busca o elige tu planta');return;}
   if(!draft.region){toast('Elige tu región');return;}
   buzz(20);
-  const data={nombre:draft.nombre.trim(),esp:draft.esp,region:draft.region,alt:draft.alt?parseInt(draft.alt):null,pot:draft.pot,cant:draft.cant||1,loc:draft.loc||'',light:(draft.light===0||draft.light===1||draft.light===2)?draft.light:null};
+  const data={nombre:draft.nombre.trim(),esp:draft.esp,region:draft.region,alt:draft.alt?parseInt(draft.alt):null,pot:draft.pot,cant:draft.cant||1,loc:draft.loc||'',light:(draft.light===0||draft.light===1||draft.light===2)?draft.light:null,lot:(draft.lot||'').trim(),stage:draft.stage||''};
   if(draft.pot!=='tierra'){const tot=(draft.potY||0)*12+(draft.potM||0);const d=new Date();d.setMonth(d.getMonth()-tot);data.potSince=isoLocal(d);data.lastRepot=null;}
   if(editingId){const p=plants.find(x=>x.id===editingId);Object.assign(p,data);save();toast('Cambios guardados ✔️');const id=editingId;editingId=null;goFicha(id);return;}
   const p={id:Date.now(),...data};plants.unshift(p);save();toast('¡Ficha creada! 🌵');goFicha(p.id);
 }
 
+// ---------- propagación y linaje ----------
+let propMotherId=null,propDraft={method:'agua',name:'',started:''};
+function propMethodsFor(s){
+  if(s.t==='t1')return['sustrato','division'];
+  if(s.t==='t2')return['division','sphagnum'];
+  if(s.t==='t3')return['division','sphagnum'];
+  if(s.t==='t4')return['agua','sphagnum','sustrato','acodo','division'];
+  if(s.t==='t5')return['agua','sustrato','division'];
+  if(s.t==='t6')return['sustrato','acodo','agua'];
+  if(s.t==='t7')return['agua','sustrato','division','acodo'];
+  return['division','sphagnum'];
+}
+function propNeedsNode(s){return /monstera|philodendron|poto|epipremnum|rhaphidophora|scindapsus/i.test(s.id+' '+s.n+' '+s.sci);}
+function propGuide(s,method){
+  const base={
+    agua:'Mantén hojas y pecíolos fuera del agua. Sumerge solo la base y los nodos destinados a emitir raíces. Cada 2 días Saphi pedirá revisar olor, turbidez y tejido blando; cambia el agua y limpia el recipiente si hay señales de estancamiento.',
+    sustrato:'Usa un medio limpio, poroso y húmedo, no empapado. Haz un orificio antes de introducir el esqueje para no raspar el corte. La agenda pedirá revisar humedad y firmeza cada 3 días.',
+    sphagnum:'Exprime el sphagnum antes de usarlo: húmedo, no chorreando. Rodea el nodo sin compactar y ventila con frecuencia. Saphi programará una revisión cada 3 días.',
+    acodo:'Haz enraizar una zona del tallo mientras continúa unida a la madre. Rodea la herida o nodo con sphagnum húmedo y una envoltura que conserve humedad; corta solo cuando haya raíces suficientes.',
+    division:'Separa únicamente una sección que conserve raíces o un hijuelo viable. Reduce el daño, usa herramienta limpia y mantén condiciones suaves mientras se recupera.'
+  }[method];
+  let special='';
+  if(propNeedsNode(s))special=' <b>En Monsteras y otros aráceos trepadores, una hoja sin nodo no produce una planta nueva.</b>';
+  else if(/albahaca|Ocimum basilicum/i.test(s.n+' '+s.sci))special=' <b>En albahaca, corta un tallo sano debajo de un nodo y retira las hojas que quedarían sumergidas.</b>';
+  else if(s.t==='t1')special=' <b>En cactus y suculentas suele convenir cicatrizar el corte antes de colocarlo en un sustrato muy drenante; el agua no es la opción predeterminada.</b>';
+  else if(s.t==='t2')special=' <b>En orquídeas, la división o los keikis suelen ser más apropiados que un esqueje de hoja.</b>';
+  return base+special;
+}
+function openPropagation(pid){
+  const p=plants.find(x=>x.id===pid);if(!p)return;propMotherId=pid;const methods=propMethodsFor(sp(p.esp));propDraft={method:methods[0],name:nextIndivName(p.nombre+' · esqueje'),started:todayISO()};view='propagate';setTop('prop',p);document.getElementById('fab').style.display='none';renderPropagation();
+}
+function pickPropMethod(k){if(!PROP_METHODS[k])return;propDraft.method=k;renderPropagation();}
+function renderPropagation(){
+  const p=plants.find(x=>x.id===propMotherId);if(!p){goList();return;}const s=sp(p.esp),methods=propMethodsFor(s),pm=PROP_METHODS[propDraft.method];
+  let h='<section class="prop-shell"><header class="prop-head"><small>PROPAGAR · NUEVA PLANTA</small><h2>Una rama del árbol familiar</h2><p>La propagación se guardará como una ficha propia, vinculada visualmente a su planta madre y con recordatorios según la técnica.</p></header>';
+  h+='<div class="mother-strip"><div class="ms-mark">↳</div><div><small>Planta madre</small><strong>'+esc(p.nombre)+' · '+esc(s.n)+'</strong></div></div>';
+  h+='<div class="step-panel"><h3 class="step-title">Elige la técnica</h3><p class="step-copy">Saphi muestra primero los métodos más razonables para este tipo de planta. No todos funcionan igual en todas las especies.</p><div class="method-grid">'+methods.map(k=>{const m=PROP_METHODS[k];return '<button type="button" class="method-card'+(propDraft.method===k?' sel':'')+'" onclick="pickPropMethod(\''+k+'\')"><span style="font-size:20px">'+m.em+'</span><b>'+m.n+'</b><span>'+m.short+'</span></button>';}).join('')+'</div>';
+  const pc=PROP_COMPARE[propDraft.method];
+  h+='<div class="prop-guide"><b>Guía para '+pm.n.toLowerCase()+':</b> '+propGuide(s,propDraft.method)+'</div><div class="lineage-card"><div><small>POR QUÉ ELEGIRLA</small><strong>'+pc.best+'</strong><span>Ventaja: '+pc.gain+'.</span><span>Vigila: '+pc.watch+'.</span>'+(propDraft.method==='agua'?'<span><b>Control cada 48 h:</b> es un protocolo preventivo de Saphi, no una frecuencia universal demostrada para todas las especies.</span>':'')+'</div></div>';
+  h+='<div class="field"><label>Nombre del nuevo registro</label><input id="prop-name" maxlength="80" value="'+esc(propDraft.name)+'" oninput="propDraft.name=this.value" placeholder="Ej. '+esc(s.n)+' · esqueje 1"></div><div class="field"><label>Fecha de inicio</label><input id="prop-date" type="date" value="'+propDraft.started+'" onchange="propDraft.started=this.value"></div>';
+  if(propNeedsNode(s))h+='<label class="prop-node"><input id="prop-node" type="checkbox"><span><b>Confirmo que el esqueje tiene al menos un nodo viable.</b><br>Una hoja bonita sin punto de crecimiento puede sobrevivir un tiempo, pero no convertirse en otra Monstera.</span></label>';
+  h+='<button class="btn-primary" onclick="savePropagation()">Crear propagación y recordatorios</button></div>';
+  h+='<details class="calsec" open><summary>Guía eficiente · pasos comunes</summary><ol class="bib-refs"><li>Escoge tejido sano y, de ser posible, joven; evita material con plagas, pudrición o estrés severo.</li><li>Limpia y desinfecta la herramienta. Haz un corte limpio sin aplastar el tallo.</li><li>Identifica nodos, yemas o raíces antes de cortar. La estructura necesaria depende de la especie.</li><li>Equilibra humedad con oxígeno. “Más mojado” no significa “mejor enraizado”.</li><li>Usa luz suficiente sin sol fuerte sobre un esqueje deshidratado.</li><li>No fertilices por rutina antes de que existan raíces funcionales.</li><li>Registra fecha, técnica y cambios. Si falla, el dato también enseña.</li></ol></details>';
+  h+='<details class="calsec"><summary>Comparar técnicas disponibles</summary><div style="margin-top:10px">'+methods.map(k=>{const m=PROP_METHODS[k],c=PROP_COMPARE[k];return '<div class="bib-t"><span style="font-size:20px">'+m.em+'</span><div><b style="color:var(--tierra)">'+m.n+'</b><div class="muted" style="margin-top:3px"><b>Conviene para:</b> '+c.best+'.<br><b>Ventaja:</b> '+c.gain+'.<br><b>Riesgo a vigilar:</b> '+c.watch+'.</div></div></div>';}).join('')+'</div></details>';
+  h+='<details class="calsec"><summary>Evidencia utilizada <span class="cs-badge">4 estudios</span></summary><div style="margin-top:10px">'+PROP_EVIDENCE.map(e=>'<div class="bib-t"><span class="tl-dot" style="background:var(--verde)"></span><div><b style="color:var(--tierra)">'+esc(e.t)+'</b><div class="muted" style="margin-top:3px">'+esc(e.c)+'</div><a href="'+e.u+'" target="_blank" rel="noopener" style="font-size:12px;color:var(--verde-osc);font-weight:800">Abrir estudio ↗</a></div></div>').join('')+'<div class="tech-src">La evidencia muestra principios generales y respuestas dependientes de especie. Saphi no extrapola una dosis de auxina ni un porcentaje de éxito de una especie a otra.</div></div></details></section>';
+  content.innerHTML=h;playView();
+}
+function savePropagation(){
+  const mother=plants.find(x=>x.id===propMotherId);if(!mother)return;const s=sp(mother.esp),name=(propDraft.name||'').trim();if(!name){toast('Ponle un nombre al nuevo esqueje');return;}if(!propDraft.started){toast('Elige la fecha de inicio');return;}if(propNeedsNode(s)){const n=document.getElementById('prop-node');if(!n||!n.checked){toast('Confirma que el corte incluye un nodo viable');return;}}
+  const id=Date.now(),m=PROP_METHODS[propDraft.method];const child={id:id,nombre:name,esp:mother.esp,region:mother.region,alt:mother.alt||null,pot:'chica',cant:1,loc:mother.loc||'',light:(mother.light===0||mother.light===1||mother.light===2)?mother.light:null,lot:mother.lot||'',stage:'establecimiento',parentId:mother.id,propagation:{method:propDraft.method,started:propDraft.started,lastCheck:propDraft.started,status:'rooting',motherName:mother.nombre,checkEvery:m.every},diary:[{t:new Date().toISOString(),txt:'Propagación iniciada · '+m.n+' · planta madre: '+mother.nombre}]};
+  plants.unshift(child);save();propMotherId=null;toast('Nueva propagación registrada');goFicha(id);
+}
+function propagationInfo(p){
+  if(!p.propagation||p.propagation.status!=='rooting')return null;const pr=p.propagation,m=PROP_METHODS[pr.method]||PROP_METHODS.sustrato,every=pr.checkEvery||m.every,last=pr.lastCheck||pr.started||todayISO(),due=offsetISO(last,every),late=Math.max(0,Math.round((pd(todayISO())-pd(due))/86400000));return{m:m,due:due,late:late,needs:due<=todayISO(),label:due<=todayISO()?(late?'revisión atrasada '+late+'d':'revisar hoy'):'próxima revisión '+fmtShort(pd(due))};
+}
+function logPropagationCheck(pid,from){const p=plants.find(x=>x.id===pid);if(!p||!p.propagation)return;p.propagation.lastCheck=todayISO();if(!p.diary)p.diary=[];p.diary.push({t:new Date().toISOString(),txt:(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato).task+' · realizado'});logAction();save();if(from==='ficha')goFicha(pid);else renderCalendar();toast('Revisión registrada');}
+function finishPropagation(pid){const p=plants.find(x=>x.id===pid);if(!p||!p.propagation)return;p.propagation.status='established';p.propagation.established=todayISO();p.lastWater=null;p.potSince=todayISO();if(!p.diary)p.diary=[];p.diary.push({t:new Date().toISOString(),txt:'Propagación establecida · comienza el manejo normal'});logAction();save();goFicha(pid);toast('🌱 Ya cuenta como planta establecida');}
+
 // ---------- render: ficha ----------
 function renderFicha(p){
-  const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix];
+  const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix],pi=propagationInfo(p),mother=plants.find(x=>x.id===p.parentId),children=plants.filter(x=>x.parentId===p.id);
   const cam='<label class="hero-cam"><input type="file" accept="image/*" style="display:none" onchange="onPhoto('+p.id+',event)">📷</label>';
   let h='<section class="plant-shell"><div class="plant-intro plant-section" id="plant-summary">';
   if(p.photo){h+='<div class="hero photo" style="background-image:url('+p.photo+')"><div class="hero-ov"></div><span class="badge">'+ty.badge+'</span><button class="hero-rm" onclick="removePhoto('+p.id+')" aria-label="Quitar foto">✕</button>'+cam+'</div>';}
   else{h+='<div class="hero" style="background:'+ty.hero+'"><svg class="sun" viewBox="0 0 100 100"><circle cx="50" cy="50" r="26" fill="#fff"/><g stroke="#fff" stroke-width="6" stroke-linecap="round"><line x1="50" y1="6" x2="50" y2="18"/><line x1="50" y1="82" x2="50" y2="94"/><line x1="6" y1="50" x2="18" y2="50"/><line x1="82" y1="50" x2="94" y2="50"/><line x1="18" y1="18" x2="27" y2="27"/><line x1="82" y1="18" x2="73" y2="27"/><line x1="18" y1="82" x2="27" y2="73"/><line x1="82" y1="82" x2="73" y2="73"/></g></svg><span class="badge">'+ty.badge+'</span><div class="plant">'+illo(s.t,115)+'</div>'+cam+'</div>';}
   h+='<div class="plant-summary"><div class="name-row"><div class="pname">'+esc(p.nombre)+'</div><div class="psci">'+esc(s.sci)+'</div></div>';
-  h+='<div class="chips">'+((p.cant||1)>1?'<span class="chip" style="background:#FFF5D9;border-color:#ECD693;color:var(--ambar-osc)">'+p.cant+' plantas</span>':'')+(p.loc&&LUGARES[p.loc]?'<span class="chip" style="background:var(--verde-bg);border-color:#C9DDD1;color:var(--verde-osc)">'+LUGARES[p.loc].em+' '+LUGARES[p.loc].n+'</span>':'')+ty.chips.map(c=>'<span class="chip">'+c+'</span>').join('')+'</div>';
+  h+='<div class="chips">'+((p.cant||1)>1?'<span class="chip" style="background:#FFF5D9;border-color:#ECD693;color:var(--ambar-osc)">'+p.cant+' plantas</span>':'')+(p.loc&&LUGARES[p.loc]?'<span class="chip" style="background:var(--verde-bg);border-color:#C9DDD1;color:var(--verde-osc)">'+LUGARES[p.loc].em+' '+LUGARES[p.loc].n+'</span>':'')+(isTech()&&p.lot?'<span class="chip">Lote · '+esc(p.lot)+'</span>':'')+(isTech()&&p.stage&&FIELD_STAGES[p.stage]?'<span class="chip">'+FIELD_STAGES[p.stage]+'</span>':'')+ty.chips.map(c=>'<span class="chip">'+c+'</span>').join('')+'</div>';
   h+='<p class="plant-promise">Esta ficha reúne el estado actual, los próximos cuidados y la historia de tu planta. Las fechas orientan; la observación confirma.</p></div></div>';
   h+='<nav class="ficha-nav" aria-label="Secciones de la ficha"><button class="on" onclick="jumpPlantSection(\'plant-summary\',this)">Resumen</button><button onclick="jumpPlantSection(\'plant-care\',this)">Cuidados</button><button onclick="jumpPlantSection(\'plant-history\',this)">Historia</button><button onclick="jumpPlantSection(\'plant-data\',this)">Datos</button></nav>';
   if((p.cant||1)>1){h+='<div class="grpcard"><div class="grp-tx"><b>Tienes '+p.cant+' de esta variedad.</b> Los cuidados aplican a todas. ¿Alguna va distinta (otra maceta o edad)? Sepárala en su ficha.</div><button class="grp-btn" onclick="separarUna('+p.id+')">✂️ Separar una</button></div>';}
+  if(p.parentId){const pm=p.propagation&&(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato);h+='<div class="lineage-card"><div><small>ORIGEN</small><strong>↳ Propagación de '+esc(mother?mother.nombre:(p.propagation&&p.propagation.motherName)||'planta madre')+'</strong>'+(pm?'<span>'+pm.em+' '+pm.n+(p.propagation.status==='established'?' · establecida':' · en enraizamiento')+'</span>':'')+'</div>'+(mother?'<button onclick="goFicha('+mother.id+')">Ver planta madre</button>':'')+'</div>';}
+  if(children.length){h+='<div class="lineage-card"><div><small>LINAJE</small><strong>'+children.length+' propagación'+(children.length>1?'es':'')+' vinculada'+(children.length>1?'s':'')+'</strong><span>Conservan su propia ficha, agenda e historia.</span></div></div><div class="lineage-children">'+children.map(c=>{const cm=c.propagation&&(PROP_METHODS[c.propagation.method]||PROP_METHODS.sustrato);return '<button onclick="goFicha('+c.id+')"><span>↳ '+esc(c.nombre)+'</span><small>'+(cm?cm.em+' '+cm.n:'Planta hija')+'</small></button>';}).join('')+'</div>';}
   h+='<div class="toolbar">'
     +'<button class="tbtn" onclick="openDiag('+p.id+')"><span class="tb-e">🔬</span>Salud</button>'
     +'<button class="tbtn" onclick="openLux('+p.id+')"><span class="tb-e">☀️</span>Luz</button>'
     +'<button class="tbtn share-action" onclick="shareCard('+p.id+')"><span class="tb-e">↗</span>Compartir</button>'
     +'<button class="tbtn" onclick="addCalReminder('+p.id+')"><span class="tb-e">📅</span>Recordar</button>'
+    +'<button class="tbtn" onclick="openPropagation('+p.id+')"><span class="tb-e">✂️</span>Propagar</button>'
     +'</div>';
   const ri=riegoInfo(p,s),dw=isToday(p.lastWater),df=isToday(p.lastFert),noAb=(s.t==='t3'||s.t==='t8');
-  h+='<div class="plant-section-label">Cuidados actuales</div><div class="care-rule"><span aria-hidden="true">◉</span><div><strong>Comprueba antes de registrar.</strong> Toca el sustrato y observa la planta; la fecha es una referencia, no una orden.</div></div>';
-  h+='<div class="statuscard plant-section" id="plant-care"><div class="st-title">Riego</div>'
+  h+='<div class="plant-section-label">Cuidados actuales</div><div class="care-rule"><span aria-hidden="true">◉</span><div><strong>Comprueba antes de registrar.</strong> '+(pi?'El calendario marca cuándo observar; solo cambia agua o humedad si el estado del esqueje lo pide.':'Toca el sustrato y observa la planta; la fecha es una referencia, no una orden.')+'</div></div>';
+  if(pi){h+='<div class="prop-status-card plant-section" id="plant-care"><div class="prop-status-top"><div><small>EN ENRAIZAMIENTO</small><h3>'+pi.m.em+' '+pi.m.n+'</h3></div><span class="'+(pi.needs?'warn':'')+'">'+pi.label+'</span></div><p>'+pi.m.task+'. Revisa raíces, olor, firmeza del tejido y signos de pudrición.</p><div class="prop-status-actions"><button class="prop-check" onclick="logPropagationCheck('+p.id+',\'ficha\')">✓ Registrar revisión</button><button class="prop-ready" onclick="finishPropagation('+p.id+')">🌱 Ya tiene raíces</button></div></div>';}
+  else{h+='<div class="statuscard plant-section" id="plant-care"><div class="st-title">Riego</div>'
     +'<div class="st-grid"><div><div class="st-k">Última vez</div><div class="st-v '+ri.lastCls+'">'+ri.last+'</div></div><div><div class="st-k">Próximo riego</div><div class="st-v '+ri.nextCls+'">'+ri.next+'</div></div></div>'
-    +'<div class="st-btns"><button class="'+(dw?'done':'')+'" onclick="doCare('+p.id+',\'water\',\'ficha\')">'+(dw?'✓ Regada hoy':'💧 Regar ahora')+'</button>'+(noAb?'':'<button class="'+(df?'done':'')+'" onclick="doCare('+p.id+',\'fert\',\'ficha\')">'+(df?'✓ Abonada hoy':'🌱 Abonar')+'</button>')+'</div></div>';
+    +'<div class="st-btns"><button class="'+(dw?'done':'')+'" onclick="doCare('+p.id+',\'water\',\'ficha\')">'+(dw?'✓ Regada hoy':'💧 Regar ahora')+'</button>'+(noAb?'':'<button class="'+(df?'done':'')+'" onclick="doCare('+p.id+',\'fert\',\'ficha\')">'+(df?'✓ Abonada hoy':'🌱 Abonar')+'</button>')+'</div></div>';}
   // ubicación y luz
   const lz=luzInfo(p,s);
   if(lz){let cls,ic,msg;const donde=(p.loc&&LUGARES[p.loc])?LUGARES[p.loc].n:'ese lugar';
@@ -2752,6 +2925,8 @@ function renderFicha(p){
   // datos técnicos (perfil agrónomo)
   if(isTech()&&TECH[s.t]){const T=TECH[s.t];
     h+='<div class="card tech"><h3>🔬 Datos técnicos <span class="tech-badge">Agrónomo</span></h3>';
+    if(p.lot)h+='<div class="techrow"><span class="tk">Lote / parcela</span><span class="tv">'+esc(p.lot)+'</span></div>';
+    if(p.stage&&FIELD_STAGES[p.stage])h+='<div class="techrow"><span class="tk">Etapa actual</span><span class="tv">'+FIELD_STAGES[p.stage]+'</span></div>';
     h+='<div class="techrow"><span class="tk">pH del sustrato</span><span class="tv">'+T.ph+'</span></div>';
     h+='<div class="techrow"><span class="tk">CE (conductividad)</span><span class="tv">'+T.ec+'</span></div>';
     h+='<div class="techrow"><span class="tk">Temperatura</span><span class="tv">'+T.temp+'</span></div>';
@@ -2766,7 +2941,7 @@ function renderFicha(p){
   h+='<div class="legend">'+m.parts.map(pt=>'<span><i class="dot" style="background:'+pt[2]+'"></i>'+pt[0]+' '+pt[1]+'%</span>').join('')+'</div>';
   h+='<div class="cost">$'+m.cost.toFixed(2).replace('.',',')+' <small>/ litro</small></div>';
   h+='<button class="cta" onclick="toast(\'🛒 Tienda de insumos · próximamente en Saphi Growshop\')">🛒 Conseguir insumos</button></div>';
-  h+='<div class="card"><h3>🔔 Próximo cuidado</h3>'+reminders(p,s)+'</div>';
+  if(!pi)h+='<div class="card"><h3>🔔 Próximo cuidado</h3>'+reminders(p,s)+'</div>';
   // cosecha (T7)
   const co=cosechaInfo(p,s);
   if(co){h+='<div class="card"><h3>🌾 Cosecha</h3>';
@@ -2864,14 +3039,14 @@ function regionAlert(p,t){
 }
 let pendingDeletePlantId=null;
 function delPlant(id){
-  const p=plants.find(x=>x.id===id);if(!p)return;pendingDeletePlantId=id;
+  const p=plants.find(x=>x.id===id);if(!p)return;pendingDeletePlantId=id;const childCount=plants.filter(x=>x.parentId===id).length;
   const layer=document.createElement('div');layer.id='delete-confirm';layer.className='confirm-layer';layer.setAttribute('role','presentation');layer.onclick=function(e){if(e.target===layer)cancelDeletePlant();};
-  layer.innerHTML='<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-copy"><div class="confirm-mark">🗑️</div><h3 id="delete-title">¿Eliminar esta planta?</h3><p id="delete-copy">Esta acción borrará la ficha y su historial de este dispositivo.<span class="confirm-name">'+esc(p.nombre)+((p.cant||1)>1?' · '+p.cant+' plantas':'')+'</span></p><div class="confirm-actions"><button class="confirm-cancel" onclick="cancelDeletePlant()">No, conservar</button><button id="confirm-delete-btn" class="confirm-delete" onclick="confirmDeletePlant()">Sí, eliminar</button></div></div>';
+  layer.innerHTML='<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-copy"><div class="confirm-mark">🗑️</div><h3 id="delete-title">¿Eliminar esta planta?</h3><p id="delete-copy">Esta acción borrará la ficha y su historial de este dispositivo.'+(childCount?'<br><b>Sus '+childCount+' propagación'+(childCount>1?'es':'')+' permanecerá'+(childCount>1?'n':'')+' como planta'+(childCount>1?'s':'')+' independiente'+(childCount>1?'s':'')+'.</b>':'')+'<span class="confirm-name">'+esc(p.nombre)+((p.cant||1)>1?' · '+p.cant+' plantas':'')+'</span></p><div class="confirm-actions"><button class="confirm-cancel" onclick="cancelDeletePlant()">No, conservar</button><button id="confirm-delete-btn" class="confirm-delete" onclick="confirmDeletePlant()">Sí, eliminar</button></div></div>';
   document.body.appendChild(layer);setTimeout(()=>{const b=document.querySelector('.confirm-cancel');if(b)b.focus();},20);
 }
 function cancelDeletePlant(){const layer=document.getElementById('delete-confirm');if(layer)layer.remove();pendingDeletePlantId=null;}
 function confirmDeletePlant(){
-  const id=pendingDeletePlantId;if(id==null)return;const p=plants.find(x=>x.id===id);plants=plants.filter(x=>x.id!==id);saveCustomReminders(customReminders().filter(x=>x.pid!==id));save();cancelDeletePlant();toast(p?'«'+p.nombre+'» fue eliminada':'Planta eliminada');goList();
+  const id=pendingDeletePlantId;if(id==null)return;const p=plants.find(x=>x.id===id);plants.forEach(x=>{if(x.parentId===id){delete x.parentId;if(x.propagation&&p)x.propagation.motherName=p.nombre;}});plants=plants.filter(x=>x.id!==id);saveCustomReminders(customReminders().filter(x=>x.pid!==id));save();cancelDeletePlant();toast(p?'«'+p.nombre+'» fue eliminada':'Planta eliminada');goList();
 }
 // ---------- exportar ----------
 function slugify(s){return (''+(s||'x')).toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')||'saphi';}
@@ -2886,7 +3061,7 @@ function exportDiarioCSV(pid){const p=plants.find(x=>x.id===pid);if(!p)return;co
   saveText(csv,'text/csv','saphi-diario-'+slugify(p.nombre)+'.csv');}
 function printFicha(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix];
   let a='<div class="pr-h"><div class="pr-logo">🌱 Saphi Growshop Ecuador</div><div class="pr-title">'+esc(p.nombre)+((p.cant||1)>1?' ×'+p.cant:'')+'</div><div class="pr-sci">'+esc(s.sci)+' · '+ty.badge+'</div></div>';
-  a+='<table class="pr-t"><tr><td>Región</td><td>'+REGIONS[p.region].n+(p.region==='sierra'&&p.alt?' · '+p.alt+' m s.n.m.':'')+'</td></tr>'+(p.loc&&LUGARES[p.loc]?'<tr><td>Ubicación</td><td>'+LUGARES[p.loc].n+'</td></tr>':'')+'<tr><td>Maceta</td><td>'+POTS[p.pot].n+'</td></tr></table>';
+  a+='<table class="pr-t"><tr><td>Región</td><td>'+REGIONS[p.region].n+(p.region==='sierra'&&p.alt?' · '+p.alt+' m s.n.m.':'')+'</td></tr>'+(p.loc&&LUGARES[p.loc]?'<tr><td>Ubicación</td><td>'+LUGARES[p.loc].n+'</td></tr>':'')+(p.lot?'<tr><td>Lote / parcela</td><td>'+esc(p.lot)+'</td></tr>':'')+(p.stage&&FIELD_STAGES[p.stage]?'<tr><td>Etapa</td><td>'+FIELD_STAGES[p.stage]+'</td></tr>':'')+(p.parentId||p.propagation?'<tr><td>Origen</td><td>'+(p.propagation?esc((PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato).n)+' · madre: '+esc(p.propagation.motherName||'sin vínculo'):'Planta registrada')+'</td></tr>':'')+'<tr><td>Maceta</td><td>'+POTS[p.pot].n+'</td></tr></table>';
   a+='<h3>Sustrato · Mezcla '+ty.mixName+'</h3><table class="pr-t">'+m.parts.map(pt=>'<tr><td>'+pt[0]+'</td><td>'+pt[1]+'%</td></tr>').join('')+'<tr><td>Costo aprox.</td><td>$'+m.cost.toFixed(2).replace('.',',')+' / litro</td></tr></table>';
   a+='<h3>Cuidados</h3><table class="pr-t"><tr><td>Riego</td><td>'+RIEGO[s.t][p.pot]+'</td></tr><tr><td>Abono</td><td>'+abonoLabel(s)[0]+'</td></tr><tr><td>Luz</td><td>'+LUZTXT[LUZNEED[s.t]]+'</td></tr></table>';
   if(TECH[s.t]){const T=TECH[s.t];a+='<h3>Datos técnicos</h3><table class="pr-t"><tr><td>pH</td><td>'+T.ph+'</td></tr><tr><td>CE</td><td>'+T.ec+'</td></tr><tr><td>Temperatura</td><td>'+T.temp+'</td></tr><tr><td>NPK</td><td>'+T.npk+'</td></tr>'+(T.fen?'<tr><td>Fenología</td><td>'+T.fen+'</td></tr>':'')+'</table>';}
@@ -3028,29 +3203,24 @@ function renderDiag(pid){const p=(pid!=null)?plants.find(x=>x.id===pid):null;con
 // ---------- Herramientas · calculadoras agronómicas (offline) ----------
 function openTools(){closeMenu();view='tools';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');setNav('tools');renderTools();}
 function numv(id){const el=document.getElementById(id);if(!el)return 0;const n=parseFloat((el.value||'').replace(',','.'));return isNaN(n)?0:n;}
-function nf(x,d){return (Math.round(x*Math.pow(10,d||1))/Math.pow(10,d||1)).toLocaleString('es-EC');}
+function nf(x,d){const dec=d==null?1:d;return (Math.round(x*Math.pow(10,dec))/Math.pow(10,dec)).toLocaleString('es-EC');}
+function setToolsMode(mode){setProfile(mode);setTop('list');renderTools();toast(mode==='tecnico'?'Herramientas de Campo activas':'Herramientas de Hogar activas');}
 function renderTools(){
-  let h='<button class="back-lnk" onclick="goList()">‹ Volver a Mis Plantas</button>';
-  h+='<h2 class="sc">🧮 Calculadoras</h2><p class="sub">Herramientas agronómicas que funcionan sin internet.</p>';
-  // 1) Fertilizante N-P-K
-  h+='<details class="calsec" open><summary>🧪 Fertilizante N-P-K → sacos</summary><div style="margin-top:10px">'
-    +'<div class="field"><label>Objetivo por hectárea (kg/ha)</label><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">'
-    +'<input id="c-n" type="number" inputmode="decimal" placeholder="N"><input id="c-p" type="number" inputmode="decimal" placeholder="P₂O₅"><input id="c-k" type="number" inputmode="decimal" placeholder="K₂O"></div></div>'
-    +'<div class="field"><label>Área del lote (m²)</label><input id="c-area" type="number" inputmode="decimal" placeholder="Ej. 1000 — si lo dejas vacío = 1 ha"></div>'
-    +'<button class="btn-primary" onclick="calcNPK()">Calcular</button><div id="c-npk-res"></div></div></details>';
-  // 2) Incidencia y severidad
-  h+='<details class="calsec"><summary>🦠 Incidencia y severidad</summary><div style="margin-top:10px">'
-    +'<div class="field"><label>Incidencia (plantas afectadas)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'
-    +'<input id="s-enf" type="number" inputmode="decimal" placeholder="Enfermas"><input id="s-tot" type="number" inputmode="decimal" placeholder="Total"></div></div>'
-    +'<div class="field"><label>Severidad — n° de plantas por grado (escala 0–4)</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">'
-    +[0,1,2,3,4].map(i=>'<input id="g'+i+'" type="number" inputmode="numeric" placeholder="G'+i+'">').join('')+'</div>'
-    +'<div class="hint">G0 = sana · G4 = severa (casi/muerta). Grado máximo = 4.</div></div>'
-    +'<button class="btn-primary" onclick="calcSev()">Calcular</button><div id="c-sev-res"></div></div></details>';
-  // 3) Volumen de sustrato
-  h+='<details class="calsec"><summary>🪴 Volumen de sustrato</summary><div style="margin-top:10px">'
+  const field=isTech();let h='<section class="tools-shell"><button class="back-lnk" onclick="goList()">‹ Volver a Mis Plantas</button>';
+  h+='<header class="tools-head"><small>'+ (field?'MODO CAMPO':'MODO HOGAR') +' · DECISIONES CON DATOS</small><h2>'+(field?'Calcula antes de aplicar':'Medidas claras para cuidar')+'</h2><p>'+(field?'Convierte observaciones y objetivos de manejo en cantidades verificables.':'Calculadoras simples para preparar mezclas, medir sustrato y reducir errores cotidianos.')+'</p><div class="tools-mode"><button class="'+(!field?'on':'')+'" onclick="setToolsMode(\'hogar\')">Hogar</button><button class="'+(field?'on':'')+'" onclick="setToolsMode(\'tecnico\')">Campo</button></div></header>';
+  h+='<div class="tool-intro"><div><b>1 · Mide</b><span>Usa datos reales del recipiente, área o muestra.</span></div><div><b>2 · Calcula</b><span>Saphi hace la aritmética y muestra el supuesto.</span></div><div><b>3 · Verifica</b><span>Etiqueta, análisis y observación deciden la aplicación.</span></div></div><div class="calc-grid">';
+  h+='<details class="calsec" open><summary>🪴 Volumen de sustrato</summary><div style="margin-top:10px">'
     +'<div class="field"><label>¿Cuántas macetas?</label><input id="u-cant" type="number" inputmode="numeric" placeholder="Ej. 20"></div>'
     +'<div class="field"><label>Litros por maceta</label><input id="u-lit" type="number" inputmode="decimal" placeholder="Ej. 17 (Airpot), 30, 50…"></div>'
     +'<button class="btn-primary" onclick="calcSust()">Calcular</button><div id="c-sust-res"></div></div></details>';
+  h+='<details class="calsec" '+(!field?'open':'')+'><summary>💧 Dilución por litro</summary><div style="margin-top:10px"><div class="field"><label>Dosis indicada en la etiqueta (ml o g por litro)</label><input id="d-dose" type="number" inputmode="decimal" placeholder="Ej. 2"></div><div class="field"><label>Agua a preparar (L)</label><input id="d-water" type="number" inputmode="decimal" placeholder="Ej. 5"></div><button class="btn-primary" onclick="calcDilution()">Calcular mezcla</button><div id="c-dil-res"></div></div></details>';
+  if(field){
+    h+='<details class="calsec wide" open><summary>🧪 Fertilizante N-P-K → sacos <span class="field-only">CAMPO</span></summary><div style="margin-top:10px"><div class="field"><label>Objetivo por hectárea (kg/ha)</label><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px"><input id="c-n" type="number" inputmode="decimal" placeholder="N"><input id="c-p" type="number" inputmode="decimal" placeholder="P₂O₅"><input id="c-k" type="number" inputmode="decimal" placeholder="K₂O"></div></div><div class="field"><label>Área del lote (m²)</label><input id="c-area" type="number" inputmode="decimal" placeholder="Ej. 1000 — vacío = 1 ha"></div><button class="btn-primary" onclick="calcNPK()">Calcular</button><div id="c-npk-res"></div></div></details>';
+    h+='<details class="calsec"><summary>🦠 Incidencia y severidad <span class="field-only">CAMPO</span></summary><div style="margin-top:10px"><div class="field"><label>Incidencia (plantas afectadas)</label><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px"><input id="s-enf" type="number" inputmode="decimal" placeholder="Afectadas"><input id="s-tot" type="number" inputmode="decimal" placeholder="Total"></div></div><div class="field"><label>Severidad — plantas por grado (0–4)</label><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px">'+[0,1,2,3,4].map(i=>'<input id="g'+i+'" type="number" inputmode="numeric" placeholder="G'+i+'">').join('')+'</div><div class="hint">G0 = sana · G4 = daño máximo de la escala.</div></div><button class="btn-primary" onclick="calcSev()">Calcular</button><div id="c-sev-res"></div></div></details>';
+    h+='<details class="calsec"><summary>🌾 Densidad de siembra <span class="field-only">CAMPO</span></summary><div style="margin-top:10px"><div class="field"><label>Distancia entre hileras (m)</label><input id="den-row" type="number" inputmode="decimal" placeholder="Ej. 0,8"></div><div class="field"><label>Distancia entre plantas (m)</label><input id="den-plant" type="number" inputmode="decimal" placeholder="Ej. 0,3"></div><div class="field"><label>Área a sembrar (m²)</label><input id="den-area" type="number" inputmode="decimal" placeholder="Ej. 1200"></div><button class="btn-primary" onclick="calcDensity()">Calcular población</button><div id="c-den-res"></div></div></details>';
+    h+='<details class="calsec"><summary>🌱 Germinación o emergencia <span class="field-only">CAMPO</span></summary><div style="margin-top:10px"><div class="field"><label>Semillas germinadas / plantas emergidas</label><input id="ger-ok" type="number" inputmode="numeric" placeholder="Ej. 86"></div><div class="field"><label>Total sembrado o evaluado</label><input id="ger-total" type="number" inputmode="numeric" placeholder="Ej. 100"></div><button class="btn-primary" onclick="calcGermination()">Calcular porcentaje</button><div id="c-ger-res"></div></div></details>';
+  }
+  h+='</div><div class="care-rule" style="margin-top:14px"><span>!</span><div><strong>Una calculadora no prescribe.</strong> Confirma dosis con la etiqueta vigente, el análisis de suelo o agua y las condiciones del cultivo.</div></div></section>';
   content.innerHTML=h;playView();
 }
 function calcNPK(){
@@ -3081,6 +3251,18 @@ function calcSust(){
     +'En sacos: <b>'+bags(15)+'</b> de 15 L · <b>'+bags(30)+'</b> de 30 L · <b>'+bags(50)+'</b> de 50 L.'
     +'<div class="tech-src">Volumen = n° macetas × litros por maceta × 0,9 (factor de llenado). Ajusta el factor si compactas más o riegas por inundación.</div></div>';
   document.getElementById('c-sust-res').innerHTML=h;buzz(15);
+}
+function calcDilution(){
+  const dose=numv('d-dose'),water=numv('d-water'),box=document.getElementById('c-dil-res');if(!box)return;if(dose<=0||water<=0){box.innerHTML='<div class="calc-res">Ingresa una dosis y un volumen mayores que cero.</div>';return;}
+  const total=dose*water;box.innerHTML='<div class="calc-res">Para <b>'+nf(water,1)+' L</b> prepara <b>'+nf(total,2)+' ml o g</b>, usando la misma unidad de la etiqueta.<div class="tech-src">Cálculo: dosis por litro × litros de agua. No convierte entre masa y volumen ni sustituye la etiqueta.</div></div>';buzz(15);
+}
+function calcDensity(){
+  const row=numv('den-row'),plant=numv('den-plant'),area=numv('den-area'),box=document.getElementById('c-den-res');if(!box)return;if(row<=0||plant<=0||area<=0){box.innerHTML='<div class="calc-res">Completa las tres medidas con valores mayores que cero.</div>';return;}
+  const perPlant=row*plant,perHa=10000/perPlant,total=area/perPlant;box.innerHTML='<div class="calc-res">Densidad teórica: <b>'+nf(perHa,0)+' plantas/ha</b>.<br>Para '+nf(area,0)+' m²: ≈ <b>'+nf(Math.floor(total),0)+' plantas</b>.<div class="tech-src">Cálculo rectangular sin descontar caminos, bordes, fallas ni cabeceras. Ajusta la población útil al diseño real.</div></div>';buzz(15);
+}
+function calcGermination(){
+  const ok=numv('ger-ok'),total=numv('ger-total'),box=document.getElementById('c-ger-res');if(!box)return;if(total<=0||ok<0||ok>total){box.innerHTML='<div class="calc-res">El total debe ser mayor que cero y el valor observado no puede superarlo.</div>';return;}
+  const pct=ok/total*100;box.innerHTML='<div class="calc-res"><b>'+nf(pct,1)+' %</b> de germinación o emergencia ('+nf(ok,0)+' de '+nf(total,0)+').<div class="tech-src">Porcentaje = observadas ÷ total × 100. Registra fecha, lote y criterio de evaluación para poder comparar.</div></div>';buzz(15);
 }
 // ---------- luxómetro ----------
 function stopLuxCamera(){try{if(luxInterval){clearInterval(luxInterval);luxInterval=null;}if(luxStream){luxStream.getTracks().forEach(t=>t.stop());luxStream=null;}}catch(e){}}
@@ -3194,7 +3376,7 @@ function batchWaterLocation(locKey){const t=todayISO();let n=0;plants.forEach(p=
 function checkSmartWeather(){return {heladas:plants.some(p=>p.region==='sierra'&&(p.alt||0)>=2400), lluvia:getWx()==='lluvia'};}
 function nextRiegoISO(p,s){if(!p.lastWater)return todayISO();const nd=pd(p.lastWater);nd.setDate(nd.getDate()+(RIEGODAYS[s.t][p.pot]||7));return isoLocal(nd);}
 function googleCalUrl(plant,nextDateStr){const title='💧 Regar '+plant.nombre;const details='Recordatorio de Saphi para '+plant.nombre+' en maceta '+(POTS[plant.pot]?POTS[plant.pot].n:'—')+'.';const start=nextDateStr.replace(/-/g,'')+'T083000';const end=nextDateStr.replace(/-/g,'')+'T090000';return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&details='+encodeURIComponent(details)+'&dates='+start+'/'+end;}
-function addCalReminder(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const s=sp(p.esp);const url=googleCalUrl(p,nextRiegoISO(p,s));try{window.open(url,'_blank');}catch(e){location.href=url;}}
+function addCalReminder(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const s=sp(p.esp),pi=propagationInfo(p);let url;if(pi){const date=pi.due.replace(/-/g,''),title=pi.m.em+' Revisar propagación · '+p.nombre,details=pi.m.task+'. Observa raíces, olor, firmeza y humedad antes de intervenir.';url='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&details='+encodeURIComponent(details)+'&dates='+date+'T083000/'+date+'T090000';}else url=googleCalUrl(p,nextRiegoISO(p,s));try{window.open(url,'_blank');}catch(e){location.href=url;}}
 function rainActive(){try{return (Date.now()-(+localStorage.getItem('saphi_raindelay')||0))<48*3600*1000;}catch(e){return false;}}
 function isOutdoor(p){return ['patio','terraza','balcon','jardin','azotea','exterior'].indexOf(p.loc)>=0;}
 function setRainDelay(){try{localStorage.setItem('saphi_raindelay',Date.now());}catch(e){}toast('🌧️ Pausa de riego 48 h para el exterior');if(view==='home')renderHome();else renderList();}
