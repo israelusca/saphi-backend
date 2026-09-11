@@ -1752,5 +1752,279 @@ const SPECIES=[
  {id:'begoniarex',t:'t4',n:'Begonia rex',sci:'Begonia rex',mix:'t4_trop',nota:'Follaje decorativo; humedad, no mojar hojas.'},
  // -- Palmas y resistentes de interior (T5) --
  {id:'palmasalon',t:'t5',n:'Palmera de salón',sci:'Chamaedorea elegans',mix:'t5_resist',nota:'Palmera de interior noble; tolera poca luz y poca agua.'},
- {id:'kentia',t:'t5',n:'Kentia',sci:'Howea forsteriana',mix:'t5_resist',nota:'Palmera elegante de interior; luz media.'},
- {id:'rhapis',t:'t5',n:'Rhapis / Palma china',sci:'Rhapis excelsa',mix:'t5_resist',nota:'Palma en abanicoLo que me pides está fuera de mis capacidades programadas. Solo genero texto.
+{id:'kentia',t:'t5',n:'Kentia',sci:'Howea forsteriana',mix:'t5_resist',nota:'Palma elegante de interior; luz media.'},
+  {id:'rhapis',t:'t5',n:'Rhapis / Palma china',sci:'Rhapis excelsa',mix:'t5_resist',nota:'Palma en abanico noble; tolera poca luz.'}
+];
+
+// Estado global de la aplicación y almacenamiento local
+let plants = JSON.parse(localStorage.getItem('saphi_plants_v2')) || [
+  {id:'ex1', speciesId:'sanpedro', name:'San Pedro de ejemplo', region:'sierrah', altitude:2800, potSize:10, potType:'pot', customMix:false, customNotes:'Planta inicial de prueba', date:new Date().toISOString(), photos:[]}
+];
+
+function savePlants() {
+  localStorage.setItem('saphi_plants_v2', JSON.stringify(plants));
+}
+
+// Navegación principal de la app
+const content = document.getElementById('content');
+
+function updateNav(activeId) {
+  document.querySelectorAll('.nav button').forEach(btn => btn.classList.remove('on'));
+  const target = document.getElementById(activeId);
+  if (target) target.classList.add('on');
+}
+
+function goHome() {
+  content.innerHTML = `
+    <div class="home-shell view-anim">
+      <div class="home-hero">
+        <div class="hh-row"><span class="hh-hi">¡HOLA, CULTIVADOR!</span><span class="hh-moon">🌔 Creciente</span></div>
+        <h2 class="hh-big">Tu cultivo al día</h2>
+        <div class="hh-meta">Panel general y estado de tus plantas</div>
+      </div>
+      <div class="hstats">
+        <div class="hstat" onclick="goList()">
+          <span class="hs-k">TOTAL</span>
+          <span class="hs-n">${plants.length}</span>
+          <span class="hs-l">Plantas registradas</span>
+        </div>
+      </div>
+      <div class="home-actions">
+        <button class="ha-primary" onclick="goAdd()">+ Agregar nueva planta</button>
+        <button onclick="goList()">Ver mi colección</button>
+      </div>
+    </div>`;
+  updateNav('nav-inicio');
+}
+
+function goList() {
+  let cardsHtml = '';
+  if (plants.length === 0) {
+    cardsHtml = `
+      <div class="collection-empty">
+        <div class="empty-mark">🌿</div>
+        <h3>Tu colección está vacía</h3>
+        <p>Agrega tu primera planta para recibir recomendaciones de sustrato y riego.</p>
+        <button onclick="goAdd()">Agregar planta</button>
+      </div>`;
+  } else {
+    plants.forEach(p => {
+      const sp = SPECIES.find(s => s.id === p.speciesId) || SPECIES[0];
+      const tp = TYPES[sp.t];
+      cardsHtml += `
+        <div class="plant-card" style="--acc:${tp ? tp.tag.includes('T1') ? '#E4A62C' : '#4F8B4A' : '#4F8B4A'}" onclick="openFicha('${p.id}')">
+          <div class="thumb">🌿</div>
+          <div class="pc-body">
+            <div class="pc-name">${p.name}</div>
+            <div class="pc-sci">${sp.n}</div>
+            <div class="pc-tags">
+              <span class="tag amb">${tp ? tp.tag : 'Planta'}</span>
+              <span class="tag reg">Maceta ${p.potSize}L</span>
+            </div>
+          </div>
+          <div class="pc-arrow">›</div>
+        </div>`;
+    });
+  }
+
+  content.innerHTML = `
+    <div class="collection-shell view-anim">
+      <div class="collection-head">
+        <span class="collection-kicker">Inventario</span>
+        <div class="collection-title-row">
+          <h2>Mis Plantas</h2>
+          <span class="collection-count">${plants.length} registradas</span>
+        </div>
+        <p class="collection-copy">Gestiona el riego, sustrato y notas de cada planta.</p>
+      </div>
+      <div class="collection-controls">
+        <div class="searchbar">
+          <span class="sb-ic">🔍</span>
+          <input type="text" id="searchInput" placeholder="Buscar por nombre o especie..." oninput="filterPlants(this.value)">
+        </div>
+      </div>
+      <div id="plantCardsContainer">
+        ${cardsHtml}
+      </div>
+    </div>`;
+  updateNav('nav-plantas');
+}
+
+function filterPlants(query) {
+  // Función auxiliar de filtrado en vivo
+  const q = query.toLowerCase();
+  const filtered = plants.filter(p => {
+    const sp = SPECIES.find(s => s.id === p.speciesId);
+    return p.name.toLowerCase().includes(q) || (sp && sp.n.toLowerCase().includes(q));
+  });
+  
+  const container = document.getElementById('plantCardsContainer');
+  if (!container) return;
+  
+  if (filtered.length === 0) {
+    container.innerHTML = `<div class="empty"><p>No se encontraron plantas con ese criterio.</p></div>`;
+    return;
+  }
+  
+  let html = '';
+  filtered.forEach(p => {
+    const sp = SPECIES.find(s => s.id === p.speciesId) || SPECIES[0];
+    const tp = TYPES[sp.t];
+    html += `
+      <div class="plant-card" onclick="openFicha('${p.id}')">
+        <div class="thumb">🌿</div>
+        <div class="pc-body">
+          <div class="pc-name">${p.name}</div>
+          <div class="pc-sci">${sp.n}</div>
+          <div class="pc-tags"><span class="tag amb">${tp ? tp.tag : ''}</span></div>
+        </div>
+        <div class="pc-arrow">›</div>
+      </div>`;
+  });
+  container.innerHTML = html;
+}
+
+function goCalendar() {
+  content.innerHTML = `
+    <div class="agenda-shell view-anim">
+      <div class="agenda-head">
+        <span class="agenda-kicker">Planificación</span>
+        <h2>Agenda de Cuidados</h2>
+        <p>Tareas recomendadas según el ciclo natural y tus plantas.</p>
+      </div>
+      <div class="agenda-empty">
+        <strong>Todo al día</strong>
+        <p>No hay tareas pendientes en este momento para tus plantas registradas.</p>
+      </div>
+    </div>`;
+  updateNav('nav-cal');
+}
+
+function openTools() {
+  content.innerHTML = `
+    <div class="tools-shell view-anim">
+      <div class="tools-head">
+        <span class="tools-kicker">Utilidades</span>
+        <h2>Herramientas Agronómicas</h2>
+        <p>Calculadoras de sustrato y recursos para optimizar tus cultivos.</p>
+      </div>
+      <div class="card">
+        <h3>Calculadora rápida de mezcla</h3>
+        <p class="muted">Próximamente disponible en esta sección para calcular proporciones exactas de enmiendas.</p>
+      </div>
+    </div>`;
+  updateNav('nav-tools');
+}
+
+function goAdd() {
+  // Redirección rápida al alta de planta
+  let opts = '';
+  SPECIES.forEach(s => {
+    opts += `<option value="${s.id}">${s.n} (${s.sci})</option>`;
+  });
+
+  content.innerHTML = `
+    <div class="add-shell view-anim">
+      <div class="add-head">
+        <span class="add-kicker">Nuevo registro</span>
+        <h2>Agregar Planta</h2>
+        <p>Selecciona la especie e indica las condiciones de cultivo.</p>
+      </div>
+      <div class="step-panel">
+        <div class="field">
+          <label>Nombre personalizado</label>
+          <input type="text" id="newName" placeholder="Ej. Mi San Pedro del patio">
+        </div>
+        <div class="field">
+          <label>Especie</label>
+          <select id="newSpecies">${opts}</select>
+        </div>
+        <div class="field">
+          <label>Tamaño de maceta (Litros)</label>
+          <input type="number" id="newPot" value="5" min="0.5" step="0.5">
+        </div>
+        <button class="btn-primary" onclick="saveNewPlant()">Guardar planta</button>
+        <button class="form-cancel" onclick="goList()">Cancelar</button>
+      </div>
+    </div>`;
+}
+
+function saveNewPlant() {
+  const nameInput = document.getElementById('newName').value.trim();
+  const speciesId = document.getElementById('newSpecies').value;
+  const potSize = parseFloat(document.getElementById('newPot').value) || 3;
+  
+  const newPlant = {
+    id: 'p_' + Date.now(),
+    speciesId: speciesId,
+    name: nameInput !== '' ? nameInput : 'Planta nueva',
+    region: 'costa',
+    altitude: 0,
+    potSize: potSize,
+    potType: 'pot',
+    customMix: false,
+    customNotes: '',
+    date: new Date().toISOString(),
+    photos: []
+  };
+
+  plants.push(newPlant);
+  savePlants();
+  showToast("¡Planta agregada con éxito!");
+  goList();
+}
+
+function openFicha(id) {
+  const p = plants.find(x => x.id === id);
+  if (!p) return;
+  const sp = SPECIES.find(s => s.id === p.speciesId) || SPECIES[0];
+  const tp = TYPES[sp.t];
+
+  content.innerHTML = `
+    <div class="plant-shell view-anim">
+      <button class="back-lnk" onclick="goList()">‹ Volver a la colección</button>
+      <div class="hero" style="background:${tp ? tp.hero : '#5B3A22'}">
+        <span class="badge">${tp ? tp.tag : 'Planta'}</span>
+      </div>
+      <div class="name-row">
+        <div class="pname">${p.name}</div>
+        <div class="psci">${sp.n} (${sp.sci})</div>
+      </div>
+      <div class="card">
+        <h3>Notas y cuidados específicos</h3>
+        <p class="muted">${sp.nota}</p>
+      </div>
+      <button class="del" onclick="deletePlant('${p.id}')">Eliminar esta planta</button>
+    </div>`;
+}
+
+function deletePlant(id) {
+  if (confirm("¿Seguro que deseas eliminar esta planta de tu colección?")) {
+    plants = plants.filter(x => x.id !== id);
+    savePlants();
+    showToast("Planta eliminada");
+    goList();
+  }
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+function toggleSol() {
+  document.querySelector('.app').classList.toggle('sol');
+}
+
+function renderWelcome() {
+  alert("Saphi: Aplicación global de cultivo basada en perfiles de cuidado científico.");
+}
+
+// Iniciar app en la pantalla principal
+goHome();
+</script>
+</body>
+</html>
