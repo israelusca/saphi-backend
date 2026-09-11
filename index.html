@@ -1475,6 +1475,127 @@ h2.sc{
 .celebrate-copy strong{display:block;margin-top:2px;color:var(--tierra);font-size:13px}
 .celebrate-card button{padding:8px 10px;border:0;border-radius:10px;background:var(--tierra);color:#fff;font-size:11px;font-weight:850;cursor:pointer}
 
+/* Tienda inteligente: soluciones antes que productos */
+.shop-preview{margin:14px 0 0;padding:17px;border:1px solid #C9DAD1;border-radius:20px;background:#F4F8F5}
+.shop-preview-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.shop-preview-kicker,.shop-kicker{font-size:10px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--verde-osc)}
+.shop-preview h3{margin:5px 0 3px;font-size:17px;color:var(--tierra)}
+.shop-preview p{margin:0;color:var(--tenue);font-size:13px;line-height:1.45}
+.shop-need-badge{flex:0 0 auto;padding:6px 9px;border-radius:10px;background:#fff;color:var(--verde-osc);font-size:10px;font-weight:850;border:1px solid #D9E5DE}
+.shop-preview-product{display:grid;grid-template-columns:46px minmax(0,1fr) auto;gap:11px;align-items:center;margin-top:13px;padding-top:13px;border-top:1px solid #D8E4DD}
+.shop-preview-icon{width:46px;height:46px;display:grid;place-items:center;border-radius:14px 14px 14px 5px;background:var(--brand-root);color:#fff;font-size:21px}
+.shop-preview-product b{display:block;font-size:13px;color:var(--tierra)}
+.shop-preview-product small{display:block;margin-top:2px;color:var(--tenue);font-size:11px;line-height:1.35}
+.shop-preview-product button{min-height:38px;padding:8px 11px;border:0;border-radius:11px;background:var(--tierra);color:#fff;font-size:11px;font-weight:850;cursor:pointer}
+.shop-preview.clear{background:#FAFAF7;border-color:var(--linea)}
+.shop-preview.clear .shop-preview-icon{background:var(--verde-bg);color:var(--verde-osc)}
+.shop-shell{max-width:980px;margin:0 auto}
+.shop-hero{position:relative;overflow:hidden;margin:8px 0 14px;padding:24px;border-radius:24px 24px 24px 8px;background:var(--brand-root);color:#fff}
+.shop-hero::after{content:'';position:absolute;right:-40px;bottom:-62px;width:190px;height:150px;border:1px solid rgba(255,255,255,.16);border-radius:50%;box-shadow:0 0 0 24px rgba(255,255,255,.035)}
+.shop-hero>*{position:relative;z-index:1}
+.shop-hero .shop-kicker{color:#CFE2D8}
+.shop-hero h2{max-width:560px;margin:10px 0 7px;font-size:clamp(27px,4.6vw,38px);line-height:1.08;letter-spacing:-.8px}
+.shop-hero p{max-width:620px;margin:0;color:#D9E9E1;font-size:14px;line-height:1.5}
+.shop-context{display:flex;gap:7px;overflow-x:auto;margin:0 0 12px;padding:2px 0 5px;scrollbar-width:none}
+.shop-context::-webkit-scrollbar,.shop-needs::-webkit-scrollbar{display:none}
+.shop-context button{flex:0 0 auto;min-height:40px;padding:8px 12px;border:1px solid var(--linea);border-radius:12px;background:#fff;color:var(--tierra-2);font-size:12px;font-weight:800;cursor:pointer}
+.shop-context button.on{border-color:var(--verde);background:var(--verde-bg);color:var(--verde-osc)}
+.shop-question{padding:16px;background:#fff;border:1px solid var(--linea);border-radius:18px;margin-bottom:13px}
+.shop-question strong{display:block;color:var(--tierra);font-size:15px}
+.shop-question>span{display:block;margin-top:3px;color:var(--tenue);font-size:12px;line-height:1.4}
+.shop-needs{display:flex;gap:7px;overflow-x:auto;margin-top:12px;padding-bottom:2px;scrollbar-width:none}
+.shop-needs button{flex:0 0 auto;min-height:38px;padding:8px 11px;border:1px solid var(--linea);border-radius:11px;background:#fff;color:var(--tierra-2);font-size:12px;font-weight:800;cursor:pointer}
+.shop-needs button.on{border-color:var(--brand-sun);background:#FFF7DE;color:#77530A}
+.shop-diagnosis{display:grid;grid-template-columns:42px minmax(0,1fr);gap:11px;align-items:start;margin:13px 0;padding:14px;border-radius:17px;background:#EEF4F1;border-left:4px solid var(--verde)}
+.shop-diagnosis .mark{width:42px;height:42px;display:grid;place-items:center;border-radius:13px;background:#fff;color:var(--verde-osc);font-weight:900}
+.shop-diagnosis b{display:block;color:var(--tierra);font-size:13px}
+.shop-diagnosis span{display:block;margin-top:3px;color:var(--tierra-2);font-size:12px;line-height:1.45}
+.shop-trust{margin:13px 0;padding:20px;border:1px solid #CFE0D7;border-radius:20px;background:#F7FAF8;text-align:center}
+.shop-trust .mark{width:48px;height:48px;display:grid;place-items:center;margin:0 auto 10px;border-radius:15px 15px 15px 5px;background:var(--verde-bg);color:var(--verde-osc);font-size:20px;font-weight:900}
+.shop-trust h3{margin:0;color:var(--tierra);font-size:18px}.shop-trust p{max-width:520px;margin:6px auto 0;color:var(--tenue);font-size:13px;line-height:1.5}
+.shop-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:11px;margin-top:12px}
+.shop-card{overflow:hidden;display:flex;flex-direction:column;min-width:0;background:#fff;border:1px solid var(--linea);border-radius:20px 20px 20px 7px}
+.shop-card-top{display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:92px;padding:15px;background:#EEF4F1;border-bottom:1px solid #DCE6E0}
+.shop-card-icon{width:54px;height:54px;display:grid;place-items:center;border-radius:17px 17px 17px 6px;background:var(--brand-root);color:#fff;font-size:25px}
+.shop-card-rank{align-self:flex-start;padding:5px 8px;border-radius:9px;background:#fff;color:var(--verde-osc);font-size:9px;font-weight:900;letter-spacing:.08em;text-transform:uppercase}
+.shop-card-body{display:flex;flex:1;flex-direction:column;padding:15px}
+.shop-card-cat{color:var(--verde-osc);font-size:9px;font-weight:900;letter-spacing:.11em;text-transform:uppercase}
+.shop-card h3{margin:5px 0;color:var(--tierra);font-size:16px;line-height:1.25}.shop-card-desc{margin:0;color:var(--tenue);font-size:12px;line-height:1.45}
+.shop-why{margin:13px 0 8px;padding:10px 11px;border-radius:12px;background:#F8F5EC;color:var(--tierra-2);font-size:11px;line-height:1.45}.shop-why b{color:var(--tierra)}
+.shop-check{margin:0 0 13px;color:var(--tenue);font-size:11px;line-height:1.4}.shop-check b{color:var(--verde-osc)}
+.shop-card-actions{display:grid;grid-template-columns:1fr auto;gap:7px;margin-top:auto}.shop-card-actions button{min-height:42px;border-radius:12px;font-size:11px;font-weight:850;cursor:pointer}
+.shop-interest{border:0;background:var(--brand-root);color:#fff;padding:8px 11px}.shop-interest.on{background:var(--verde-bg);color:var(--verde-osc);border:1px solid var(--verde)}
+.shop-dismiss{width:42px;border:1px solid var(--linea);background:#fff;color:var(--tenue)}
+.shop-followup{grid-column:1/-1;margin-top:8px;padding:12px;border-radius:13px;background:#F1F6F3;border:1px solid #D1E1D8}.shop-followup b{display:block;color:var(--tierra);font-size:12px}.shop-followup p{margin:3px 0 10px;color:var(--tenue);font-size:11px;line-height:1.4}
+.shop-followup-actions{display:grid;grid-template-columns:1fr 1fr;gap:7px}.shop-followup-actions button,.shop-followup-actions a{min-height:40px;display:flex;align-items:center;justify-content:center;padding:8px;border-radius:11px;font-size:11px;font-weight:850;text-decoration:none;cursor:pointer}
+.shop-contact{border:0;background:var(--terracota);color:#fff}.shop-bought{border:1px solid var(--linea);background:#fff;color:var(--tierra-2)}
+.shop-note{margin:14px 0 2px;padding:12px 13px;border-radius:14px;background:#F7F7F3;color:var(--tenue);font-size:11px;line-height:1.5}.shop-note b{color:var(--tierra)}
+.shop-undo{display:block;margin:13px auto 0;border:0;background:transparent;color:var(--verde-osc);font-size:12px;font-weight:850;text-decoration:underline;cursor:pointer}
+.app.sol .shop-preview,.app.sol .shop-question,.app.sol .shop-card,.app.sol .shop-trust{border:2px solid #000!important;background:#fff!important}
+.app.sol .shop-hero,.app.sol .shop-card-icon,.app.sol .shop-interest{background:#000!important;color:#fff!important}
+.app.sol .home-tip{background:#fff!important;color:#000!important;border:2px solid #000!important}
+.app.sol .home-tip *{color:#000!important}
+.app.sol .home-hero *,
+.app.sol .moon-hero *,
+.app.sol .reto *,
+.app.sol .add-head *,
+.app.sol .agenda-head *,
+.app.sol .prop-head *,
+.app.sol .tools-head *,
+.app.sol .share-head *,
+.app.sol .shop-hero *{color:#fff!important}
+.app.sol .home-hero,.app.sol .add-head,.app.sol .agenda-head,.app.sol .prop-head,.app.sol .tools-head,.app.sol .share-head,.app.sol .shop-hero{border:2px solid #000!important;background:#000!important}
+.app.sol .collection-head,.app.sol .collection-controls,.app.sol .collection-empty,
+.app.sol .step-panel,.app.sol .identify-ai,.app.sol .identify-match,.app.sol .step-summary>div,
+.app.sol .agenda-week,.app.sol .agenda-item,.app.sol .agenda-empty,.app.sol .agenda-weather,.app.sol .reminder-form,
+.app.sol .lineage-card,.app.sol .lineage-children button,.app.sol .prop-status-card,.app.sol .mother-strip,
+.app.sol .method-card,.app.sol .prop-guide,.app.sol .prop-node,.app.sol .prop-environment div,
+.app.sol .tool-intro div,.app.sol .share-controls,.app.sol .share-preview,.app.sol .share-privacy,
+.app.sol .shop-diagnosis,.app.sol .shop-card-top,.app.sol .shop-followup,.app.sol .shop-note,
+.app.sol .delete-zone,.app.sol .confirm-dialog,.app.sol .luzcard,.app.sol .care-rule,
+.app.sol .diag-card,.app.sol .diag-manual,.app.sol .calsec,.app.sol .rem{
+  background:#fff!important;color:#000!important;border:2px solid #000!important
+}
+.app.sol .collection-head::after,.app.sol .shop-hero::after,.app.sol .home-hero::before,.app.sol .home-hero::after{display:none!important}
+.app.sol .collection-head *,.app.sol .collection-controls *,.app.sol .collection-empty *,
+.app.sol .step-panel *,.app.sol .identify-ai *,.app.sol .identify-match *,.app.sol .step-summary>div *,
+.app.sol .agenda-item *,.app.sol .agenda-empty *,.app.sol .agenda-weather *,.app.sol .reminder-form *,
+.app.sol .lineage-card *,.app.sol .prop-status-card *,.app.sol .mother-strip *,
+.app.sol .method-card *,.app.sol .prop-guide *,.app.sol .prop-node *,.app.sol .prop-environment div *,
+.app.sol .tool-intro div *,.app.sol .share-controls *,.app.sol .share-privacy *,
+.app.sol .shop-preview *,.app.sol .shop-question *,.app.sol .shop-card-body *,.app.sol .shop-diagnosis *,
+.app.sol .shop-trust *,.app.sol .shop-followup *,.app.sol .shop-note *,
+.app.sol .delete-zone *,.app.sol .confirm-dialog *,.app.sol .luzcard *,.app.sol .care-rule *,
+.app.sol .diag-card *,.app.sol .diag-manual *,.app.sol .rem *{color:#000!important}
+.app.sol .fchip.on,.app.sol .opt.sel,.app.sol .locopt.sel,.app.sol .method-card.sel,
+.app.sol .shop-context button.on,.app.sol .shop-needs button.on,.app.sol .share-option.sel,
+.app.sol .moment-option.sel,.app.sol .ficha-nav button.on,.app.sol .nav button.on{
+  background:#000!important;color:#fff!important;border-color:#000!important
+}
+.app.sol .fchip.on *,.app.sol .opt.sel *,.app.sol .locopt.sel *,.app.sol .method-card.sel *,
+.app.sol .shop-context button.on *,.app.sol .shop-needs button.on *,.app.sol .share-option.sel *,
+.app.sol .moment-option.sel *,.app.sol .ficha-nav button.on *,.app.sol .nav button.on *{color:#fff!important}
+.app.sol .agenda-action,.app.sol .agenda-add,.app.sol .agenda-notif,.app.sol .reminder-form-actions button,
+.app.sol .prop-counter-actions button,.app.sol .prop-status-actions button,.app.sol .lineage-card>button,
+.app.sol .lineage-children button,.app.sol .identify-ai-upload,.app.sol .identify-match button,
+.app.sol .shop-preview-product button,.app.sol .shop-card-actions button,.app.sol .shop-followup-actions a,
+.app.sol .collection-empty button,.app.sol .delete-zone button{
+  border:2px solid #000!important;background:#fff!important;color:#000!important
+}
+.app.sol .agenda-action:active,.app.sol .agenda-add:active,.app.sol .prop-status-actions button:active,
+.app.sol .identify-ai-upload:active,.app.sol .shop-preview-product button:active,.app.sol .shop-interest:active{
+  background:#000!important;color:#fff!important
+}
+.app.sol .shop-card-icon,.app.sol .shop-interest,.app.sol .shop-contact,.app.sol .confirm-cancel,
+.app.sol .reminder-form-actions .save,.app.sol .st-btns button:first-child{background:#000!important;color:#fff!important;border:2px solid #000!important}
+.app.sol .shop-card-icon *,.app.sol .shop-interest *,.app.sol .shop-contact *,.app.sol .confirm-cancel *{color:#fff!important}
+.app.sol .tag,.app.sol .chip,.app.sol .pc-state,.app.sol .prop-pill,.app.sol .pc-lineage,
+.app.sol .ai-quota,.app.sol .res-origin,.app.sol .field-only,.app.sol .day-count,.app.sol .shop-need-badge,.app.sol .shop-card-rank{
+  background:#fff!important;color:#000!important;border:1px solid #000!important
+}
+.app.sol input::placeholder,.app.sol textarea::placeholder{color:#333!important;opacity:1}
+.app.sol button:disabled{background:#ddd!important;color:#111!important;border-color:#111!important;opacity:1}
+
 @media(max-width:520px){
   .agenda-head{padding:18px 17px}
   .agenda-stats{gap:5px}
@@ -1492,6 +1613,7 @@ h2.sc{
   .prop-counter-actions{grid-template-columns:1fr}
   .prop-environment{grid-template-columns:1fr}
   .share-layout{grid-template-columns:1fr}
+  .shop-grid{grid-template-columns:1fr}
   .share-preview{min-height:330px}
   .moment-grid{grid-template-columns:1fr 1fr}
   .calc-grid .calsec.wide{grid-column:auto}
@@ -1573,6 +1695,8 @@ h2.sc{
     <div class="menu-head"><small>Caja de herramientas</small><strong>Observar, medir y aprender</strong></div>
     <button onclick="openDiagGlobal()"><span class="menu-ic">🔬</span><span class="menu-copy"><b>Salud con IA</b><small>Analiza síntomas visibles en una fotografía</small></span></button>
     <button onclick="openTools()"><span class="menu-ic">🧮</span><span class="menu-copy"><b>Calculadoras</b><small>Prepara jornadas, mezclas y mediciones</small></span></button>
+    <button onclick="openSmartShop()"><span class="menu-ic">🛍️</span><span class="menu-copy"><b>Tienda con criterio</b><small>Soluciones según las necesidades de tus plantas</small></span></button>
+    <button onclick="openOwnerAccess()"><span class="menu-ic">🔐</span><span class="menu-copy"><b>Acceso propietario</b><small>Activa tus herramientas de IA sin límite</small></span></button>
     <button onclick="openLuxGlobal()"><span class="menu-ic">☀️</span><span class="menu-copy"><b>Medir luz</b><small>Evalúa un rincón con la cámara</small></span></button>
     <button onclick="toggleNotif()"><span class="menu-ic">🔔</span><span class="menu-copy"><b>Recordatorios</b><small>Configura los avisos de cuidado</small></span></button>
     <button onclick="openBiblioteca()"><span class="menu-ic">📚</span><span class="menu-copy"><b>Biblioteca botánica</b><small>Consulta especies y criterios de manejo</small></span></button>
@@ -2152,6 +2276,27 @@ const PERENNE=new Set(['maracuya','papaya','platano','pina','guayaba','limon','a
  'durazno','manzana','pera','ciruela','capuli','higo','membrillo','granada','tomatearbol','babaco','chirimoya','nispero','uva','mora','taxo','uvilla','guaba',
  'mango','naranja','mandarina','toronja','lima','guanabana','zapote','caimito','araza','boroju','cacao','cafe','achotillo','pitahaya','coco','noni','carambola','naranjilla','pomarrosa','mamey','tamarindo','cereza','damasco','kiwi','frambuesa','arandano','granadilla','feijoa','olivo','kumquat','nuez','almendro','litchi','yaca','frutadepan','datil','alcachofa','esparrago','cocona','chontaduro','copoazu','sachainchi']);
 
+const SHOP_PRODUCTS={
+ mix_t1:{cat:'Sustrato',em:'◫',name:'Mezcla mineral T1',desc:'Base porosa de drenaje rápido para cactus y suculentas.',check:'Confirma que el envase indique granulometría estable y baja retención.'},
+ mix_t2:{cat:'Sustrato',em:'≋',name:'Mezcla epífita T2',desc:'Corteza y componentes aireados para raíces de orquídeas y epífitas.',check:'La corteza debe estar firme, limpia y sin olor agrio.'},
+ mix_t3:{cat:'Sustrato',em:'≈',name:'Mezcla ácida T3',desc:'Medio pobre en nutrientes y sin cal para plantas carnívoras.',check:'No debe incluir fertilizante, compost ni correctores de pH.'},
+ mix_t4:{cat:'Sustrato',em:'▦',name:'Mezcla tropical T4',desc:'Retiene humedad útil y deja oxígeno alrededor de la raíz.',check:'Busca una mezcla suelta que no se compacte al apretarla.'},
+ mix_t5:{cat:'Sustrato',em:'□',name:'Mezcla drenante T5',desc:'Sustrato estable para plantas resistentes de interior.',check:'Debe drenar con facilidad y conservar estructura entre riegos.'},
+ mix_t6:{cat:'Sustrato',em:'✤',name:'Mezcla fértil T6',desc:'Base aireada para arbustos y plantas de flor de exterior.',check:'Confirma drenaje y materia orgánica madura, sin olor fermentado.'},
+ mix_t7:{cat:'Sustrato',em:'⌁',name:'Mezcla productiva T7',desc:'Base fértil con retención equilibrada para huerto y frutales.',check:'Elige el volumen según el cultivo y no solo según el tamaño actual.'},
+ mix_t8:{cat:'Montaje',em:'≋',name:'Soporte sin sustrato T8',desc:'Base abierta para fijar aéreas y musgos sin enterrar sus tejidos.',check:'Debe resistir humedad, permitir circulación de aire y no liberar sales.'},
+ orchid_pot:{cat:'Maceta',em:'◌',name:'Maceta ventilada para orquídeas',desc:'Contenedor con ventilación lateral para observar y airear raíces.',check:'Debe tener múltiples salidas; el diámetro no debe sobrar demasiado.'},
+ drain_pot:{cat:'Maceta',em:'▽',name:'Maceta de drenaje real',desc:'Contenedor con orificios suficientes y tamaño apenas mayor al cepellón.',check:'Comprueba los orificios antes de comprar; una maceta decorativa no basta.'},
+ moss_pole:{cat:'Soporte',em:'↟',name:'Tutor para trepadoras',desc:'Soporte estable para guiar crecimiento vertical y raíces aéreas.',check:'Mide la altura útil y verifica que pueda anclarse sin dañar raíces.'},
+ prop_water:{cat:'Propagación',em:'⌇',name:'Estación de propagación en agua',desc:'Recipiente lavable que permite observar el corte y renovar el agua.',check:'Debe poder vaciarse y limpiarse por completo con facilidad.'},
+ prop_medium:{cat:'Propagación',em:'◈',name:'Medio aireado de enraizamiento',desc:'Material limpio que equilibra humedad y oxígeno durante el enraizamiento.',check:'Evita medios apelmazados o reutilizados de plantas enfermas.'},
+ clean_shears:{cat:'Herramienta',em:'✂',name:'Tijera de corte preciso',desc:'Herramienta pequeña para podas y esquejes con menor daño de tejido.',check:'La hoja debe cerrar limpia y permitir desinfección completa.'},
+ ph_ec_meter:{cat:'Medición',em:'⌁',name:'Medidor de pH y CE',desc:'Ayuda a verificar solución y sustrato cuando el manejo exige precisión.',check:'Busca calibración disponible y repuestos de solución de almacenamiento.'},
+ light_meter:{cat:'Medición',em:'☼',name:'Medidor de luz',desc:'Permite comparar ubicaciones antes de comprar iluminación adicional.',check:'Primero mide varios momentos del día; una lectura aislada no decide todo.'},
+ sticky_traps:{cat:'Monitoreo',em:'◇',name:'Trampas cromáticas',desc:'Sirven para detectar y seguir insectos voladores, no para diagnosticar por sí solas.',check:'Úsalas como monitoreo y confirma la plaga antes de aplicar un producto.'}
+};
+const SHOP_NEEDS={auto:'Saphi detecta',trasplante:'Trasplantar',sustrato:'Mejorar sustrato',propagar:'Propagar',soporte:'Dar soporte',medir:'Medir mejor',plaga:'Monitorear plaga'};
+
 // ---------- estado / persistencia ----------
 let plants=[];
 function load(){try{plants=JSON.parse(localStorage.getItem('saphi_plants_v2'));}catch(e){plants=null;}
@@ -2168,6 +2313,7 @@ function setTop(mode,plant){
     r.innerHTML='<button class="iconbtn" title="Editar" onclick="goEdit('+plant.id+')">✏️</button><span class="chip-region">'+REGIONS[plant.region].em+' '+REGIONS[plant.region].n+(plant.region==='sierra'&&plant.alt?' · '+plant.alt+' m':'')+'</span>';}
   else if(mode==='prop'){l.innerHTML='<button class="back" onclick="goFicha('+plant.id+')">‹</button><span class="bn" style="margin-left:2px">Nueva propagación</span>';r.innerHTML='';}
   else if(mode==='share'){l.innerHTML='<button class="back" onclick="goFicha('+plant.id+')">‹</button><span class="bn" style="margin-left:2px">Compartir</span>';r.innerHTML='';}
+  else if(mode==='shop'){l.innerHTML='<button class="back" onclick="'+(plant?'goFicha('+plant.id+')':'goHome()')+'">‹</button><span class="bn" style="margin-left:2px">Tienda con criterio</span>';r.innerHTML='';}
   else if(mode==='add'){l.innerHTML='<button class="back" onclick="goList()">‹</button><span class="bn" style="margin-left:2px">'+(editingId?'Editar planta':'Nueva planta')+'</span>';r.innerHTML='';}
   else{l.innerHTML='<span class="brand-slot" aria-hidden="true">S</span><span class="brand-copy"><span class="bn">Saphi</span><span class="brand-caption">Cultiva con criterio</span></span>';
     r.innerHTML='<div class="prof-seg" role="group" aria-label="Modo de uso">'
@@ -2186,6 +2332,53 @@ function goListFilter(f){listFilter=f;goList();}
 function goAdd(){closeMenu();editingId=null;addStep=1;view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd();}
 function goEdit(id){closeMenu();const p=plantById(id);if(!p){toast('No encontré esa ficha para editar');goList();return;}editingId=p.id;addStep=1;view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd(p);}
 function goFicha(id){const p=plantById(id);if(!p){toast('No encontré esa ficha');goList();return;}view='ficha';setTop('ficha',p);document.getElementById('fab').style.display='none';renderFicha(p);}
+
+let shopPlantId=null,shopNeed='auto',shopContactProduct=null;
+function shopEvents(){try{const a=JSON.parse(localStorage.getItem('saphi_shop_events_v1'));return Array.isArray(a)?a:[];}catch(e){return [];}}
+function trackShop(action,productId,pid,need){const a=shopEvents();a.push({action:action,productId:productId||null,plantId:pid==null?null:String(pid),need:need||shopNeed,at:new Date().toISOString()});try{localStorage.setItem('saphi_shop_events_v1',JSON.stringify(a.slice(-1200)));}catch(e){}}
+function shopDismissed(pid){try{return new Set(JSON.parse(localStorage.getItem('saphi_shop_dismissed_'+pid))||[]);}catch(e){return new Set();}}
+function setShopDismissed(pid,set){try{localStorage.setItem('saphi_shop_dismissed_'+pid,JSON.stringify([...set]));}catch(e){}}
+function shopInterested(productId,pid){return shopEvents().some(e=>e.action==='interest'&&e.productId===productId&&sameId(e.plantId,pid));}
+function shopRecommendationData(p,forced){
+  if(!p)return {title:'Elige una planta para recomendar con contexto',copy:'Saphi necesita conocer la especie y su momento de cuidado antes de sugerir una compra.',items:[]};
+  const s=sp(p.esp),pi=propagationInfo(p),tr=pi?{aplica:false,due:false}:trasplanteInfo(p,s),lz=pi?null:luzInfo(p,s),items=[];
+  const add=(id,why,need,rank)=>items.push({id:id,why:why,need:need,rank:rank||'Recomendado'}),mixId='mix_'+s.t;
+  if(forced==='trasplante'){add(mixId,'Renovar el medio tiene sentido cuando el sustrato perdió estructura o la raíz ocupó el contenedor.','trasplante','Primero');add(s.t==='t2'?'orchid_pot':'drain_pot','El nuevo contenedor debe resolver drenaje y espacio, no ser solo más grande.','trasplante','Complemento');}
+  else if(forced==='sustrato'){add(mixId,'La mezcla está alineada con la aireación y retención que requiere este grupo de plantas.','sustrato','Principal');if(s.t!=='t8')add('ph_ec_meter','Solo aporta valor si vas a comparar mezclas o ajustar una solución con datos.','sustrato','Para medir');}
+  else if(forced==='propagar'){add(pi&&p.propagation.method==='agua'?'prop_water':'prop_medium','El medio debe facilitar el control de humedad, oxígeno y limpieza durante el enraizamiento.','propagar','Principal');add('clean_shears','Un corte limpio y una herramienta desinfectable reducen daño innecesario.','propagar','Complemento');}
+  else if(forced==='soporte'){add('moss_pole','Las trepadoras responden mejor a un soporte estable colocado antes de que los tallos se doblen.','soporte','Principal');}
+  else if(forced==='medir'){add('light_meter','Medir permite comparar ubicaciones antes de gastar en iluminación o mover la planta a ciegas.','medir','Primero medir');if(isTech())add('ph_ec_meter','Aporta seguimiento útil cuando registras pH y CE de forma consistente.','medir','Campo');}
+  else if(forced==='plaga'){add('sticky_traps','El monitoreo ayuda a confirmar presencia y tendencia de insectos voladores antes de tratar.','plaga','Monitoreo');}
+  else if(pi){add(p.propagation.method==='agua'?'prop_water':'prop_medium','Este lote está en enraizamiento y necesita un medio fácil de revisar y mantener limpio.','propagar','Necesidad activa');add('clean_shears','Sirve para retirar tejido dañado con un corte limpio y desinfectable.','propagar','Complemento');}
+  else if(tr.aplica&&tr.due){add(mixId,'La ficha señala que ya corresponde evaluar trasplante; primero confirma raíces apretadas o sustrato degradado.','trasplante','Necesidad detectada');add(s.t==='t2'?'orchid_pot':'drain_pot','Si trasplantas, el contenedor debe mejorar drenaje sin sobredimensionarse.','trasplante','Complemento');}
+  else if(lz&&lz.status!=='ok'&&lz.status!=='unknown'){add('light_meter','La ubicación no coincide con la luz esperada; medir ayuda a probar otro sitio antes de comprar iluminación.','medir','Primero medir');}
+  else if(s.t==='t2'&&p.potSince&&monthsBetween(pd(p.potSince),new Date())>=18){add('mix_t2','Las epífitas necesitan revisar la estructura de la corteza cuando envejece y se compacta.','sustrato','Revisar');add('orchid_pot','Útil solo si las raíces ya ocupan el contenedor o falta ventilación.','trasplante','Condicional');}
+  return {title:items.length?'Una necesidad, una solución razonada':'No detectamos una compra urgente',copy:items.length?'La recomendación parte del estado de '+p.nombre+'. Verifica la condición indicada antes de comprar.':'Los cuidados registrados no justifican comprar algo ahora. Puedes declarar una necesidad concreta si estás resolviendo otro problema.',items:items};
+}
+function renderShopPreview(p){const d=shopRecommendationData(p,'auto'),r=d.items[0],pr=r&&SHOP_PRODUCTS[r.id];if(!r||!pr)return '<div class="shop-preview clear"><div class="shop-preview-head"><div><div class="shop-preview-kicker">Tienda con criterio</div><h3>No necesitas comprar algo hoy</h3><p>Tu ficha no muestra una necesidad de compra activa. Saphi también recomienda esperar.</p></div><span class="shop-need-badge">Sin urgencia</span></div><div class="shop-preview-product"><div class="shop-preview-icon">✓</div><div><b>¿Tienes otra necesidad?</b><small>Declárala y compara una solución razonada.</small></div><button onclick="openSmartShop('+p.id+')">Revisar</button></div></div>';
+  return '<div class="shop-preview"><div class="shop-preview-head"><div><div class="shop-preview-kicker">Tienda con criterio</div><h3>'+d.title+'</h3><p>'+d.copy+'</p></div><span class="shop-need-badge">'+SHOP_NEEDS[r.need]+'</span></div><div class="shop-preview-product"><div class="shop-preview-icon">'+pr.em+'</div><div><b>'+pr.name+'</b><small>'+r.why+'</small></div><button onclick="openSmartShop('+p.id+')">Ver solución</button></div></div>';
+}
+function openSmartShop(pid,need){closeMenu();let p=pid!=null?plantById(pid):null;if(!p&&plants.length)p=plants.find(x=>shopRecommendationData(x,'auto').items.length)||plants[0];shopPlantId=p?p.id:null;shopNeed=need||'auto';shopContactProduct=null;view='shop';setTop('shop',p);document.getElementById('fab').style.display='none';const nav=document.querySelector('.nav');if(nav)nav.style.display='';setNav('');trackShop('shop_open',null,shopPlantId,shopNeed);renderSmartShop();}
+function chooseShopPlant(pid){shopPlantId=pid;shopNeed='auto';shopContactProduct=null;trackShop('context_change',null,pid,'auto');renderSmartShop();}
+function chooseShopNeed(need){shopNeed=need;shopContactProduct=null;trackShop('need_select',null,shopPlantId,need);renderSmartShop();}
+function shopProductCard(rec,p){const pr=SHOP_PRODUCTS[rec.id],interested=shopInterested(rec.id,p.id),open=shopContactProduct===rec.id;if(!pr)return '';
+  return '<article class="shop-card"><div class="shop-card-top"><div class="shop-card-icon" aria-hidden="true">'+pr.em+'</div><span class="shop-card-rank">'+rec.rank+'</span></div><div class="shop-card-body"><div class="shop-card-cat">'+pr.cat+'</div><h3>'+pr.name+'</h3><p class="shop-card-desc">'+pr.desc+'</p><div class="shop-why"><b>Por qué para '+esc(p.nombre)+':</b> '+rec.why+'</div><p class="shop-check"><b>Antes de elegir:</b> '+pr.check+'</p><div class="shop-card-actions"><button class="shop-interest'+(interested?' on':'')+'" onclick="shopInterest(\''+rec.id+'\','+p.id+')">'+(interested?'✓ Me interesa':'Me interesa')+'</button><button class="shop-dismiss" title="Esta recomendación no me sirve" aria-label="Descartar recomendación" onclick="dismissShopProduct(\''+rec.id+'\','+p.id+')">×</button>'+(open?'<div class="shop-followup"><b>Consulta disponibilidad sin perder el contexto</b><p>Se abrirá el perfil de Saphi. Menciona «'+pr.name+'» y la planta «'+esc(p.nombre)+'».</p><div class="shop-followup-actions"><a class="shop-contact" href="https://www.instagram.com/saphigrowshop.ec/" target="_blank" rel="noopener" onclick="trackShop(\'contact\',\''+rec.id+'\','+p.id+',\''+rec.need+'\')">Consultar en Saphi</a><button class="shop-bought" onclick="confirmShopPurchase(\''+rec.id+'\','+p.id+')">Ya lo compré</button></div></div>':'')+'</div></div></article>';}
+function renderSmartShop(){const p=plantById(shopPlantId);let h='<section class="shop-shell"><header class="shop-hero"><div class="shop-kicker">SAPHI GROWSHOP · COMPRA CON CONTEXTO</div><h2>Primero la necesidad. Después el producto.</h2><p>Cada recomendación explica por qué aparece, qué comprobar y cuándo es mejor no comprar.</p></header>';
+  if(!plants.length){h+='<div class="shop-trust"><div class="mark">＋</div><h3>Primero registra una planta</h3><p>Sin especie, ubicación y etapa, una recomendación sería apenas publicidad.</p><button class="btn-primary" style="margin-top:14px" onclick="goAdd()">Registrar una planta</button></div></section>';content.innerHTML=h;playView();return;}
+  h+='<div class="shop-context" aria-label="Planta para recomendaciones">'+plants.map(x=>'<button class="'+(p&&sameId(x.id,p.id)?'on':'')+'" onclick="chooseShopPlant('+x.id+')">'+(x.propagation?'↳ ':'')+esc(x.nombre)+'</button>').join('')+'</div>';
+  h+='<div class="shop-question"><strong>¿Qué necesitas resolver'+(p?' con '+esc(p.nombre):'')+'?</strong><span>Elige una necesidad o deja que Saphi use los datos de la ficha.</span><div class="shop-needs">'+Object.keys(SHOP_NEEDS).map(k=>'<button class="'+(shopNeed===k?'on':'')+'" onclick="chooseShopNeed(\''+k+'\')">'+SHOP_NEEDS[k]+'</button>').join('')+'</div></div>';
+  const d=shopRecommendationData(p,shopNeed==='auto'?'auto':shopNeed),dismissed=shopDismissed(p.id),items=d.items.filter(x=>!dismissed.has(x.id));
+  h+='<div class="shop-diagnosis"><div class="mark">'+(items.length?'i':'✓')+'</div><div><b>'+d.title+'</b><span>'+d.copy+'</span></div></div>';
+  if(items.length){items.forEach(x=>trackShop('impression',x.id,p.id,x.need));h+='<div class="shop-grid">'+items.map(x=>shopProductCard(x,p)).join('')+'</div>';}
+  else if(d.items.length){h+='<div class="shop-trust"><div class="mark">✓</div><h3>Recomendaciones descartadas</h3><p>Saphi recordará tu decisión para esta planta. Puedes restaurarlas cuando quieras.</p><button class="shop-undo" onclick="restoreShopProducts('+p.id+')">Restaurar recomendaciones</button></div>';}
+  else{h+='<div class="shop-trust"><div class="mark">✓</div><h3>Comprar también puede esperar</h3><p>Observa primero. Cambiar de ubicación, ajustar el riego o limpiar una herramienta puede resolver más que añadir otro producto.</p></div>';}
+  h+='<div class="shop-note"><b>Transparencia:</b> estas son categorías de solución, no disponibilidad confirmada. Saphi no inventa stock, precio ni promesas de resultado. La decisión final depende de revisar la planta y la etiqueta del producto.</div></section>';content.innerHTML=h;playView();}
+function shopInterest(productId,pid){trackShop('interest',productId,pid,shopNeed);shopContactProduct=shopContactProduct===productId?null:productId;renderSmartShop();}
+function dismissShopProduct(productId,pid){const s=shopDismissed(pid);s.add(productId);setShopDismissed(pid,s);trackShop('dismiss',productId,pid,shopNeed);shopContactProduct=null;renderSmartShop();toast('Recomendación descartada');}
+function restoreShopProducts(pid){setShopDismissed(pid,new Set());trackShop('restore',null,pid,shopNeed);renderSmartShop();}
+function confirmShopPurchase(productId,pid){const pr=SHOP_PRODUCTS[productId];if(!pr)return;const layer=document.createElement('div');layer.className='confirm-layer';layer.id='shop-purchase-confirm';layer.innerHTML='<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="purchase-title"><div class="confirm-mark">✓</div><h3 id="purchase-title">¿Ya compraste este producto?</h3><p>Confirma solo si completaste la compra de <span class="confirm-name">'+pr.name+'</span>. Esto ayuda a distinguir interés de compra real.</p><div class="confirm-actions"><button class="confirm-cancel" onclick="closeShopPurchase()">Todavía no</button><button class="confirm-delete" style="background:var(--brand-root)" onclick="markShopPurchase(\''+productId+'\','+pid+')">Sí, ya lo compré</button></div></div>';document.body.appendChild(layer);setTimeout(()=>{const b=layer.querySelector('.confirm-cancel');if(b)b.focus();},20);}
+function closeShopPurchase(){const x=document.getElementById('shop-purchase-confirm');if(x)x.remove();}
+function markShopPurchase(productId,pid){trackShop('purchase',productId,pid,shopNeed);closeShopPurchase();toast('Compra registrada · gracias');}
 function jumpPlantSection(id,button){
   const el=document.getElementById(id);if(!el)return;
   document.querySelectorAll('.ficha-nav button').forEach(b=>b.classList.toggle('on',b===button));
@@ -2368,7 +2561,7 @@ function renderAdd(pre,keep){
     h+='<div class="field"><label>Especie o nombre común</label><div class="catalogue-note"><span><b>'+catalogueCount+' plantas</b> en el catálogo</span><span>Comunes · exóticas · Ecuador</span></div>'
       +'<input id="f-search" placeholder="Busca monstera, orquídea, guayusa…" autocomplete="off" autocorrect="off" spellcheck="false" oninput="searchPlants(this.value)">'
       +'<div class="quick-searches"><button type="button" onclick="presetPlantSearch(\'monstera\')">Monsteras</button><button type="button" onclick="presetPlantSearch(\'orquídea\')">Orquídeas</button><button type="button" onclick="presetPlantSearch(\'Ecuador\')">Nativas de Ecuador</button></div>'
-      +'<div class="identify-ai"><div class="identify-ai-head"><div><strong>¿No conoces la especie?</strong><span>Sube una foto clara de hojas, tallo o flor. Saphi la compara con su catálogo.</span></div><span class="ai-quota" id="identify-quota">'+aiQuotaLeft('identify')+' de 5 hoy</span></div><label class="identify-ai-upload"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePlantIdentify(event)"><span class="upload-ic">⌕</span><span class="upload-copy"><b>Identificar especie con IA</b><small>Tomar foto o elegir imagen</small></span></label><div id="identify-preview" class="identify-preview" style="display:none"></div><div id="identify-result" class="identify-result"></div></div>'
+      +'<div class="identify-ai"><div class="identify-ai-head"><div><strong>¿No conoces la especie?</strong><span>Sube una foto clara de hojas, tallo o flor. Saphi la compara con su catálogo.</span></div><span class="ai-quota" id="identify-quota">'+aiQuotaLabel('identify')+'</span></div><label class="identify-ai-upload"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePlantIdentify(event)"><span class="upload-ic">⌕</span><span class="upload-copy"><b>Identificar especie con IA</b><small>Tomar foto o elegir imagen</small></span></label><div id="identify-preview" class="identify-preview" style="display:none"></div><div id="identify-result" class="identify-result"></div></div>'
       +'<div id="f-results" class="results"></div><div id="f-chosen" class="chosen" style="display:none"></div><div id="f-assist"></div>'
       +'<button type="button" class="assist" onclick="openAsistente()">No aparece → identificar por necesidades</button></div>';
   }else if(addStep===2){
@@ -2525,10 +2718,10 @@ function nextRiego(p,s){const days=RIEGODAYS[s.t][p.pot];if(!p.lastWater)return{
   const last=pd(p.lastWater),next=new Date(last);next.setDate(last.getDate()+days);
   const today=new Date();today.setHours(12,0,0,0);const diff=Math.round((next-today)/86400000);
   if(diff<0)return{txt:'atrasada '+(-diff)+'d',cls:'warn'};if(diff===0)return{txt:'toca hoy',cls:'warn'};return{txt:'en '+diff+'d',cls:''};}
-function doCare(pid,kind,from){const p=plants.find(x=>x.id===pid);if(!p)return;const t=todayISO(),v=from||view,keepScroll=(v==='calendar'),scrollY=keepScroll?(window.pageYOffset||document.documentElement.scrollTop||0):0;
+function doCare(pid,kind,from){const p=plants.find(x=>x.id===pid);if(!p)return;const t=todayISO(),v=from||view,keepScroll=(v==='calendar'||v==='ficha'||v==='home'||v==='list'),scrollY=keepScroll&&content?content.scrollTop:0;
   if(kind==='water'){p.lastWater=(p.lastWater===t)?null:(logAction(),t);}else{p.lastFert=(p.lastFert===t)?null:(logAction(),t);}
   save();if(v==='ficha')goFicha(pid);else if(v==='list')renderList();else if(v==='home')renderHome();else renderCalendar();
-  if(keepScroll)setTimeout(()=>window.scrollTo({top:scrollY,left:0,behavior:'auto'}),0);
+  if(keepScroll)setTimeout(()=>{if(content)content.scrollTop=scrollY;},0);
   toast(kind==='water'?'💧 Riego registrado':'🌱 Abono registrado');}
 function quickWater(pid,ev){ev.stopPropagation();doCare(pid,'water','list');}
 function quickWaterHome(pid,ev){ev.stopPropagation();doCare(pid,'water','home');}
@@ -3057,7 +3250,7 @@ function renderFicha(p){
   h+='<div class="mix">'+m.parts.map(pt=>'<i style="width:'+pt[1]+'%;background:'+pt[2]+'"></i>').join('')+'</div>';
   h+='<div class="legend">'+m.parts.map(pt=>'<span><i class="dot" style="background:'+pt[2]+'"></i>'+pt[0]+' '+pt[1]+'%</span>').join('')+'</div>';
   h+='<div class="cost">$'+m.cost.toFixed(2).replace('.',',')+' <small>/ litro</small></div>';
-  h+='<button class="cta" onclick="toast(\'🛒 Tienda de insumos · próximamente en Saphi Growshop\')">🛒 Conseguir insumos</button></div>';
+  h+='</div>'+renderShopPreview(p);
   if(!pi)h+='<div class="card"><h3>🔔 Próximo cuidado</h3>'+reminders(p,s)+'</div>';
   // cosecha (T7)
   const co=cosechaInfo(p,s);
@@ -3242,6 +3435,15 @@ function applySymptomDiag(pid,key){const d=SYMPTOM_DIAG[key];if(!d)return;const 
   res.scrollIntoView({behavior:'smooth',block:'nearest'});}
 // Dos cupos independientes por dispositivo. El backend debe volver a validarlos por usuario/día.
 const AI_DAILY_LIMIT=5;
+let ownerAccessVerified=false;
+function ownerKey(){try{return localStorage.getItem('saphi_owner_key')||'';}catch(e){return '';}}
+function ownerHeaders(){const h={'Content-Type':'application/json'},k=ownerKey();if(k)h['X-Saphi-Owner-Key']=k;return h;}
+function aiQuotaLabel(kind){return ownerAccessVerified?'Sin límite':aiQuotaLeft(kind)+' de '+AI_DAILY_LIMIT+' hoy';}
+function applyServerQuota(kind,quota,node){if(quota&&quota.unlimited){ownerAccessVerified=true;if(node)node.textContent='Sin límite';return true;}if(quota&&quota.remaining!=null){aiQuotaSet(kind,quota.remaining);if(node)node.textContent=quota.remaining+' de '+AI_DAILY_LIMIT+' hoy';return true;}return false;}
+function openOwnerAccess(){closeMenu();const layer=document.createElement('div');layer.className='confirm-layer';layer.id='owner-access';layer.innerHTML='<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="owner-title"><div class="confirm-mark">🔐</div><h3 id="owner-title">Acceso propietario</h3><p>Ingresa la clave privada configurada en Vercel. Se guardará únicamente en este dispositivo y permitirá verificar tu acceso sin límite.</p><input id="owner-key-input" type="password" autocomplete="current-password" placeholder="Clave privada" style="width:100%;min-height:48px;padding:11px 12px;border:1px solid var(--linea);border-radius:12px;font:inherit"><div class="confirm-actions"><button class="confirm-cancel" onclick="closeOwnerAccess()">Cancelar</button><button class="confirm-delete" style="background:var(--brand-root)" onclick="saveOwnerAccess()">Activar acceso</button></div>'+(ownerKey()?'<button class="shop-undo" onclick="clearOwnerAccess()">Quitar clave de este dispositivo</button>':'')+'</div>';document.body.appendChild(layer);setTimeout(()=>{const i=document.getElementById('owner-key-input');if(i)i.focus();},20);}
+function closeOwnerAccess(){const x=document.getElementById('owner-access');if(x)x.remove();}
+function saveOwnerAccess(){const i=document.getElementById('owner-key-input'),v=i?i.value.trim():'';if(v.length<8){toast('Usa una clave de al menos 8 caracteres');return;}try{localStorage.setItem('saphi_owner_key',v);}catch(e){}ownerAccessVerified=false;closeOwnerAccess();toast('Clave guardada · se verificará al usar IA');}
+function clearOwnerAccess(){try{localStorage.removeItem('saphi_owner_key');}catch(e){}ownerAccessVerified=false;closeOwnerAccess();toast('Acceso propietario retirado');}
 function aiQuotaKey(kind){return 'saphi_ai_'+(kind||'health')+'_'+todayISO();}
 function aiQuotaUsed(kind){try{return +localStorage.getItem(aiQuotaKey(kind))||0;}catch(e){return 0;}}
 function aiQuotaLeft(kind){return Math.max(0,AI_DAILY_LIMIT-aiQuotaUsed(kind));}
@@ -3279,12 +3481,12 @@ async function handlePlantIdentify(ev){
   const catalogue=SPECIES.filter(s=>s.id.indexOf('otra')!==0).map(s=>[s.id,s.n,s.sci,s.t]);
   const payload={task:'identifyPlant',mode:'identify',imageBase64:im.base64,mimeType:im.mimeType,deviceId:saphiDeviceId(),catalogueVersion:'saphi-v4-2026-09',catalogue:catalogue,rules:{allowedMatchIdsOnly:true,unknownAsNull:true,language:'es-EC'},responseSchema:{matchId:'string|null',confidence:'number 0-1',alternatives:['string']},instruction:'Identifica la planta de la imagen únicamente contra el catálogo enviado. Devuelve solo JSON válido con matchId, confidence y alternatives. Si no es confiable, matchId debe ser null.'};
   try{
-    let r=await fetch(VERCEL_IDENTIFY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    if(r.status===404)r=await fetch(VERCEL_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+    let r=await fetch(VERCEL_IDENTIFY_URL,{method:'POST',headers:ownerHeaders(),body:JSON.stringify(payload)});
+    if(r.status===404)r=await fetch(VERCEL_API_URL,{method:'POST',headers:ownerHeaders(),body:JSON.stringify(payload)});
     const j=await r.json().catch(()=>null);
-    if(j&&j.quota&&j.quota.remaining!=null){aiQuotaSet('identify',j.quota.remaining);if(q)q.textContent=j.quota.remaining+' de '+AI_DAILY_LIMIT+' hoy';}
+    const serverQuota=applyServerQuota('identify',j&&j.quota,q);
     if(!r.ok){const msg=j&&(j.message||j.error||j.result);if(res)res.innerHTML='<div class="identify-warning"><b>'+esc(msg||'La identificación por IA aún no está disponible.')+'</b><br>'+(r.status===429?'El límite real lo controla el servidor. Si hubo pruebas fallidas, no deberían descontarse.':'Busca manualmente o usa el asistente mientras se habilita el servicio.')+'</div>';return;}
-    if(!(j&&j.quota&&j.quota.remaining!=null)){aiQuotaInc('identify');if(q)q.textContent=aiQuotaLeft('identify')+' de '+AI_DAILY_LIMIT+' hoy';}
+    if(!serverQuota){aiQuotaInc('identify');if(q)q.textContent=aiQuotaLabel('identify');}
     const match=parseIdentifyResponse(j);
     if(!match||!match.species){
       const alts=match&&match.alternatives.length?'<div class="quick-searches">'+match.alternatives.map(s=>'<button type="button" onclick="applyIdentifiedPlant(\''+s.id+'\')">'+esc(s.n)+'</button>').join('')+'</div>':'';
@@ -3296,17 +3498,19 @@ async function handlePlantIdentify(ev){
 }
 async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;const p=plants.find(x=>x.id===pid);const s=p?sp(p.esp):null;
   const prev=document.getElementById('diag-prev'),res=document.getElementById('diag-result');
-  if(aiQuotaLeft('health')<=0){if(res)res.innerHTML='<div class="diag-card warn"><b>Llegaste al límite de '+AI_DAILY_LIMIT+' diagnósticos por IA de hoy.</b><br>Vuelve mañana, o usa el diagnóstico por síntoma de aquí abajo. 👇</div>';ev.target.value='';return;}
+  if(!ownerKey()&&aiQuotaLeft('health')<=0){if(res)res.innerHTML='<div class="diag-card warn"><b>Llegaste al límite de '+AI_DAILY_LIMIT+' diagnósticos por IA de hoy.</b><br>Vuelve mañana, o usa el diagnóstico por síntoma de aquí abajo. 👇</div>';ev.target.value='';return;}
   if(res)res.innerHTML='<div class="diag-loading">🔎 Analizando la foto…</div>';
   let im;try{im=await resizeImageToBase64(f);}catch(e){if(res)res.innerHTML='<div class="diag-card warn">No pude procesar la foto.</div>';return;}
   if(prev){prev.style.display='';prev.style.backgroundImage='url('+im.dataUrl+')';}
   const payload={imageBase64:im.base64,mimeType:im.mimeType,tone:isTech()?'agronomo':'hogar',plantData:{nombre:p?p.nombre:'',species:s?s.sci:'',type:s?TYPES[s.t].badge:''}};
-  try{const r=await fetch(VERCEL_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
+  payload.deviceId=saphiDeviceId();
+  try{const r=await fetch(VERCEL_API_URL,{method:'POST',headers:ownerHeaders(),body:JSON.stringify(payload)});
     const j=await r.json().catch(()=>null);
-    if(!r.ok){const msg=(j&&j.result)?j.result:'No pude conectar con el diagnóstico por IA.';if(res)res.innerHTML='<div class="diag-card warn"><b>'+esc(msg)+'</b><br>Mientras tanto, elige el síntoma que ves aquí abajo. 👇</div>';return;}
-    aiQuotaInc('health');
+    const serverQuota=applyServerQuota('health',j&&j.quota,null);
+    if(!r.ok){const msg=j&&(j.error||j.result||j.message);if(res)res.innerHTML='<div class="diag-card warn"><b>'+esc(msg||'No pude conectar con el diagnóstico por IA.')+'</b><br>Mientras tanto, elige el síntoma que ves aquí abajo. 👇</div>';return;}
+    if(!serverQuota)aiQuotaInc('health');
     const txt=j?(j.result||j.diagnosis||j.text||j.message||JSON.stringify(j)):'Sin respuesta.';
-    if(res)res.innerHTML='<div class="diag-card"><div class="diag-card-h">🌿 Diagnóstico de Saphi</div><div class="diag-card-b diag-rich">'+fmtDiag(txt)+'</div><div class="hint" style="margin-top:10px">Te quedan '+aiQuotaLeft('health')+' de '+AI_DAILY_LIMIT+' diagnósticos por IA hoy.</div></div>';
+    if(res)res.innerHTML='<div class="diag-card"><div class="diag-card-h">🌿 Diagnóstico de Saphi</div><div class="diag-card-b diag-rich">'+fmtDiag(txt)+'</div><div class="hint" style="margin-top:10px">Acceso IA: '+aiQuotaLabel('health')+'.</div></div>';
   }catch(e){if(res)res.innerHTML='<div class="diag-card warn"><b>No pude conectar con el diagnóstico por IA.</b><br>Funciona en la versión instalada/hosteada con internet. Mientras tanto, elige el síntoma que ves abajo. 👇</div>';}
 }
 function openDiag(pid){view='diag';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderDiag(pid);}
@@ -3316,7 +3520,7 @@ function renderDiag(pid){const p=(pid!=null)?plants.find(x=>x.id===pid):null;con
   let h='<button class="back-lnk" onclick="'+back+'">‹ '+(pid!=null?'Volver a la ficha':'Volver a Mis Plantas')+'</button>';
   h+='<h2 class="sc">🔬 '+(p?'Revisar salud · '+esc(p.nombre):'Analizar planta con IA')+'</h2><p class="sub">Sube o toma una foto de la hoja y te decimos qué puede tener.</p>';
   h+='<label class="diag-up"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handleLeafUpload('+pid+',event)"><span>📷 Tomar o subir foto de la hoja</span></label>';
-  h+='<p class="hint" style="text-align:center;margin-top:8px">🤖 Diagnóstico por IA: te quedan <b>'+aiQuotaLeft('health')+' de '+AI_DAILY_LIMIT+'</b> hoy.</p>';
+  h+='<p class="hint" style="text-align:center;margin-top:8px">🤖 Diagnóstico por IA: <b>'+aiQuotaLabel('health')+'</b>.</p>';
   h+='<div id="diag-prev" class="diag-prev" style="display:none"></div>';
   h+='<div id="diag-result" class="diag-result"></div>';
   h+='<div class="diag-manual"><div class="dm-h">¿Sin internet? Elige el síntoma que ves:</div><div class="dm-grid">'+Object.keys(SYMPTOM_DIAG).map(k=>'<button class="dm-btn" onclick="applySymptomDiag('+pid+',\''+k+'\')">'+SYMPTOM_DIAG[k].ic+' '+SYMPTOM_DIAG[k].t+'</button>').join('')+'</div></div>';
@@ -3519,6 +3723,13 @@ let toastT;function toast(m){const t=document.getElementById('toast');t.textCont
 function toggleMenu(e,btn){e.stopPropagation();const m=document.getElementById('menu'),open=!m.classList.contains('show');m.classList.toggle('show',open);if(btn)btn.setAttribute('aria-expanded',open?'true':'false');}
 function closeMenu(){document.getElementById('menu').classList.remove('show');const b=document.querySelector('.menu-trigger');if(b)b.setAttribute('aria-expanded','false');}
 document.addEventListener('click',closeMenu);
+// Las acciones que redibujan la misma vista conservan el punto de lectura.
+document.addEventListener('click',event=>{
+  const button=event.target.closest('button');if(!button||!content)return;
+  if(button.closest('.ficha-nav')||String(button.getAttribute('onclick')||'').indexOf('applySymptomDiag')>=0)return;
+  const beforeView=view,beforeTop=content.scrollTop;
+  requestAnimationFrame(()=>requestAnimationFrame(()=>{if(view===beforeView&&content.scrollTop!==beforeTop)content.scrollTop=beforeTop;}));
+},true);
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('delete-confirm'))cancelDeletePlant();});
 
 // ---------- secciones plegables (recordar estado abierto) ----------
