@@ -1192,9 +1192,10 @@ h2.sc{
 .menu button .menu-copy small{font-size:11px;line-height:1.3;color:var(--tenue);font-weight:650}
 .menu button:hover{background:var(--verde-bg);color:var(--verde-osc)}
 .menu button:hover .menu-ic{border-color:#BFD6C8}
-.menu-trigger{display:grid;place-items:center;background:var(--tierra);color:#fff;border-color:var(--tierra)}
+.menu-trigger{display:grid;place-items:center;background:var(--tierra);color:#fff;border-color:var(--tierra);padding:0;overflow:hidden}
 .menu-trigger:hover{background:var(--verde-osc);border-color:var(--verde-osc)}
-.menu-dots{font-size:20px;line-height:1;letter-spacing:2px;transform:translateY(-3px)}
+.menu-dots{width:22px;height:6px;display:flex;align-items:center;justify-content:space-between;letter-spacing:0;transform:none;font-size:0;line-height:0}
+.menu-dots::before,.menu-dots::after,.menu-dots i{content:'';width:5px;height:5px;border-radius:50%;background:#fff;display:block}
 .toast{
   bottom:102px;
   max-width:calc(100% - 32px);
@@ -1365,11 +1366,11 @@ h2.sc{
 /* Linaje y propagación */
 .toolbar{grid-template-columns:repeat(5,minmax(0,1fr))}
 .toolbar.four{grid-template-columns:repeat(4,minmax(0,1fr))}
-.plant-card.child{width:calc(100% - 30px);margin-left:30px;border-left:3px solid var(--verde)}
-.plant-card.child::after{content:'';position:absolute;left:-19px;top:29px;width:17px;height:1px;background:var(--linea-fuerte)}
-.plant-card.child{overflow:visible}
-.pc-lineage{display:flex;align-items:center;gap:5px;margin-top:5px;color:var(--verde-osc);font-size:11px;font-weight:800}
-.pc-lineage::before{content:'↳';font-size:14px}
+.plant-card.child{width:calc(100% - 24px);margin-left:24px;border-left:0;background:linear-gradient(90deg,#F4FAF6 0,#fff 34px)}
+.plant-card.child::before{width:5px;border-radius:0 999px 999px 0;background:var(--verde)}
+.plant-card.child::after{content:'';position:absolute;left:-12px;top:50%;width:12px;height:2px;background:#C8D7D0;border-radius:999px}
+.pc-lineage{display:inline-flex;align-items:center;gap:5px;width:max-content;max-width:100%;margin:0 0 5px;padding:3px 8px;border-radius:999px;background:#EAF3EE;color:var(--verde-osc);font-size:10px;font-weight:850;white-space:nowrap}
+.pc-lineage::before{content:'↳';font-size:11px}
 .prop-pill{display:inline-flex;align-items:center;gap:5px;margin-top:5px;padding:3px 8px;border-radius:999px;background:#EAF3EE;color:var(--verde-osc);font-size:10px;font-weight:850}
 .lineage-card{margin:14px 0 0;padding:13px;border:1px solid #C9DDD1;border-radius:17px;background:var(--verde-bg)}
 .lineage-card>div{display:flex;flex-direction:column;gap:2px}
@@ -2172,17 +2173,19 @@ function setTop(mode,plant){
     r.innerHTML='<div class="prof-seg" role="group" aria-label="Modo de uso">'
       +'<button class="ps'+(!isTech()?' on':'')+'" aria-pressed="'+(!isTech())+'" onclick="setProfileMode(\'hogar\',event)"><span aria-hidden="true">⌂</span> Hogar</button>'
       +'<button class="ps'+(isTech()?' on':'')+'" aria-pressed="'+isTech()+'" onclick="setProfileMode(\'tecnico\',event)"><span aria-hidden="true">◇</span> Campo</button></div>'
-      +'<button class="iconbtn menu-trigger" aria-label="Abrir herramientas" aria-expanded="false" onclick="toggleMenu(event,this)"><span class="menu-dots">•••</span></button>';}
+      +'<button class="iconbtn menu-trigger" aria-label="Abrir herramientas" aria-expanded="false" onclick="toggleMenu(event,this)"><span class="menu-dots"><i></i></span></button>';}
 }
 function setProfileMode(p,ev){if(ev)ev.stopPropagation();if(getProfile()===p)return;setProfile(p);buzz(15);toast(p==='tecnico'?'Modo Campo activo':'Modo Hogar activo');setTop('list');if(view==='home')renderHome();else if(view==='calendar')renderCalendar();else renderList();}
 let editingId=null,view='list';
+function sameId(a,b){return String(a)===String(b);}
+function plantById(id){return plants.find(x=>sameId(x.id,id));}
 function setNav(k){['inicio','plantas','cal','tools'].forEach(x=>{const el=document.getElementById('nav-'+x);if(el){el.classList.toggle('on',x===k);if(x===k)el.setAttribute('aria-current','page');else el.removeAttribute('aria-current');}});}
 function goHome(){closeMenu();editingId=null;view='home';setTop('list');document.getElementById('fab').style.display='none';const nav=document.querySelector('.nav');if(nav)nav.style.display='';setNav('inicio');renderHome();}
 function goList(){closeMenu();editingId=null;view='list';setTop('list');document.getElementById('fab').style.display='';const nav=document.querySelector('.nav');if(nav)nav.style.display='';setNav('plantas');renderList();}
 function goListFilter(f){listFilter=f;goList();}
 function goAdd(){closeMenu();editingId=null;addStep=1;view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd();}
-function goEdit(id){closeMenu();editingId=id;addStep=1;view='add';const p=plants.find(x=>x.id===id);setTop('add');document.getElementById('fab').style.display='none';renderAdd(p);}
-function goFicha(id){const p=plants.find(x=>x.id===id);view='ficha';setTop('ficha',p);document.getElementById('fab').style.display='none';renderFicha(p);}
+function goEdit(id){closeMenu();const p=plantById(id);if(!p){toast('No encontré esa ficha para editar');goList();return;}editingId=p.id;addStep=1;view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd(p);}
+function goFicha(id){const p=plantById(id);if(!p){toast('No encontré esa ficha');goList();return;}view='ficha';setTop('ficha',p);document.getElementById('fab').style.display='none';renderFicha(p);}
 function jumpPlantSection(id,button){
   const el=document.getElementById(id);if(!el)return;
   document.querySelectorAll('.ficha-nav button').forEach(b=>b.classList.toggle('on',b===button));
@@ -2257,7 +2260,7 @@ function renderHome(){
     else if(tr.aplica&&tr.due)at.push({p:p,s:s,ic:'○',t:'Evalúa raíces y espacio disponible'});
   });
   if(at.length){h+='<div class="home-h3"><span>Qué mirar hoy</span><small>Observa · registra · decide</small></div>';
-    at.slice(0,8).forEach(a=>{h+='<div class="att" onclick="goFicha('+a.p.id+')" style="--acc:'+TACC[a.s.t]+'"><div class="att-th"'+(a.p.photo?' style="background-image:url('+a.p.photo+');background-size:cover;background-position:center"':'')+'>'+(a.p.photo?'':illo(a.s.t,26))+'</div><div class="att-b"><div class="att-n">'+esc(a.p.nombre)+'</div><div class="att-t">'+a.ic+' '+a.t+'</div></div>'+(a.w?'<button class="qw red" onclick="goFicha('+a.p.id+');event.stopPropagation()" aria-label="Abrir revisión">→</button>':'<span class="att-go">›</span>')+'</div>';});
+    at.slice(0,8).forEach(a=>{h+='<div class="att" onclick="goFicha('+a.p.id+')" style="--acc:'+TACC[a.s.t]+'"><div class="att-th"'+(a.p.photo?' style="background-image:url('+a.p.photo+');background-size:cover;background-position:center"':'')+'>'+(a.p.photo?'':illo(a.s.t,26))+'</div><div class="att-b"><div class="att-n">'+esc(a.p.nombre)+'</div><div class="att-t">'+a.ic+' '+a.t+'</div></div>'+(a.w?'<button class="qw red" onclick="quickWaterHome('+a.p.id+',event)" aria-label="Registrar riego sin abrir ficha">✓</button>':'<span class="att-go">›</span>')+'</div>';});
   }else{h+='<div class="home-allok"><span class="status-symbol">OK</span><div><b>Todo observado por ahora.</b><br>No hay humedad, luz o trasplantes que requieran atención inmediata.</div></div>';}
   h+='</div><aside class="home-side"><div class="home-tip"><div class="ht-ic">i</div><div><div class="ht-h">Criterio del día</div><div class="ht-t">'+homeTip()+'</div></div></div>';
   if(needW.length&&notifOn()&&('Notification'in window)&&Notification.permission!=='granted'){
@@ -2402,9 +2405,9 @@ function presetPlantSearch(q){const inp=document.getElementById('f-search');if(i
 function addNext(){
   if(addStep===1){if(!draft.nombre.trim()){toast('Ponle un nombre a esta planta');return;}if(!draft.esp){toast('Elige la especie o identifica su tipo');return;}}
   if(addStep===2&&!draft.region){toast('Elige la región donde vive');return;}
-  addStep=Math.min(3,addStep+1);renderAdd(editingId!=null?plants.find(x=>x.id===editingId):null,true);
+  addStep=Math.min(3,addStep+1);renderAdd(editingId!=null?plantById(editingId):null,true);
 }
-function addBack(){addStep=Math.max(1,addStep-1);renderAdd(editingId!=null?plants.find(x=>x.id===editingId):null,true);}
+function addBack(){addStep=Math.max(1,addStep-1);renderAdd(editingId!=null?plantById(editingId):null,true);}
 function pickRegion(k){draft.region=k;document.querySelectorAll('#f-region .opt').forEach(o=>o.classList.toggle('sel',o.dataset.r===k));
   document.getElementById('alt-field').style.display=k==='sierra'?'':'none';}
 function pickPot(k){draft.pot=k;document.querySelectorAll('#f-pot .opt').forEach(o=>o.classList.toggle('sel',o.dataset.p===k));const pf=document.getElementById('potage-field');if(pf)pf.style.display=k==='tierra'?'none':'';}
@@ -2522,9 +2525,10 @@ function nextRiego(p,s){const days=RIEGODAYS[s.t][p.pot];if(!p.lastWater)return{
   const last=pd(p.lastWater),next=new Date(last);next.setDate(last.getDate()+days);
   const today=new Date();today.setHours(12,0,0,0);const diff=Math.round((next-today)/86400000);
   if(diff<0)return{txt:'atrasada '+(-diff)+'d',cls:'warn'};if(diff===0)return{txt:'toca hoy',cls:'warn'};return{txt:'en '+diff+'d',cls:''};}
-function doCare(pid,kind,from){const p=plants.find(x=>x.id===pid);if(!p)return;const t=todayISO();
+function doCare(pid,kind,from){const p=plants.find(x=>x.id===pid);if(!p)return;const t=todayISO(),v=from||view,keepScroll=(v==='calendar'),scrollY=keepScroll?(window.pageYOffset||document.documentElement.scrollTop||0):0;
   if(kind==='water'){p.lastWater=(p.lastWater===t)?null:(logAction(),t);}else{p.lastFert=(p.lastFert===t)?null:(logAction(),t);}
-  save();const v=from||view;if(v==='ficha')goFicha(pid);else if(v==='list')renderList();else if(v==='home')renderHome();else renderCalendar();
+  save();if(v==='ficha')goFicha(pid);else if(v==='list')renderList();else if(v==='home')renderHome();else renderCalendar();
+  if(keepScroll)setTimeout(()=>window.scrollTo({top:scrollY,left:0,behavior:'auto'}),0);
   toast(kind==='water'?'💧 Riego registrado':'🌱 Abono registrado');}
 function quickWater(pid,ev){ev.stopPropagation();doCare(pid,'water','list');}
 function quickWaterHome(pid,ev){ev.stopPropagation();doCare(pid,'water','home');}
@@ -2924,7 +2928,7 @@ function saveNew(){
   buzz(20);
   const data={nombre:draft.nombre.trim(),esp:draft.esp,region:draft.region,alt:draft.alt?parseInt(draft.alt):null,pot:draft.pot,cant:draft.cant||1,loc:draft.loc||'',light:(draft.light===0||draft.light===1||draft.light===2)?draft.light:null,lot:(draft.lot||'').trim(),stage:draft.stage||''};
   if(draft.pot!=='tierra'){const tot=(draft.potY||0)*12+(draft.potM||0);const d=new Date();d.setMonth(d.getMonth()-tot);data.potSince=isoLocal(d);data.lastRepot=null;}
-  if(editingId){const p=plants.find(x=>x.id===editingId);Object.assign(p,data);save();toast('Cambios guardados ✔️');const id=editingId;editingId=null;goFicha(id);return;}
+  if(editingId!=null){const p=plantById(editingId);if(!p){toast('No encontré esa ficha para guardar');goList();return;}Object.assign(p,data);save();toast('Cambios guardados ✔️');const id=p.id;editingId=null;goFicha(id);return;}
   const p={id:Date.now(),...data,celebration:plants.length?'garden':'first'};plants.unshift(p);save();toast('¡Ficha creada! 🌵');goFicha(p.id);
 }
 
@@ -3153,14 +3157,14 @@ function regionAlert(p,t){
 }
 let pendingDeletePlantId=null;
 function delPlant(id){
-  const p=plants.find(x=>x.id===id);if(!p)return;pendingDeletePlantId=id;const childCount=plants.filter(x=>x.parentId===id).length;
+  const p=plantById(id);if(!p)return;pendingDeletePlantId=p.id;const childCount=plants.filter(x=>sameId(x.parentId,p.id)).length;
   const layer=document.createElement('div');layer.id='delete-confirm';layer.className='confirm-layer';layer.setAttribute('role','presentation');layer.onclick=function(e){if(e.target===layer)cancelDeletePlant();};
   const pc=plantCount(p);layer.innerHTML='<div class="confirm-dialog" role="dialog" aria-modal="true" aria-labelledby="delete-title" aria-describedby="delete-copy"><div class="confirm-mark">🗑️</div><h3 id="delete-title">¿Eliminar esta planta?</h3><p id="delete-copy">Esta acción borrará la ficha y su historial de este dispositivo.'+(childCount?'<br><b>Sus '+childCount+' propagación'+(childCount>1?'es':'')+' permanecerá'+(childCount>1?'n':'')+' como planta'+(childCount>1?'s':'')+' independiente'+(childCount>1?'s':'')+'.</b>':'')+'<span class="confirm-name">'+esc(p.nombre)+(pc>1?' · '+pc+' plantas':'')+'</span></p><div class="confirm-actions"><button class="confirm-cancel" onclick="cancelDeletePlant()">No, conservar</button><button id="confirm-delete-btn" class="confirm-delete" onclick="confirmDeletePlant()">Sí, eliminar</button></div></div>';
   document.body.appendChild(layer);setTimeout(()=>{const b=document.querySelector('.confirm-cancel');if(b)b.focus();},20);
 }
 function cancelDeletePlant(){const layer=document.getElementById('delete-confirm');if(layer)layer.remove();pendingDeletePlantId=null;}
 function confirmDeletePlant(){
-  const id=pendingDeletePlantId;if(id==null)return;const p=plants.find(x=>x.id===id);plants.forEach(x=>{if(x.parentId===id){delete x.parentId;if(x.propagation&&p)x.propagation.motherName=p.nombre;}});plants=plants.filter(x=>x.id!==id);saveCustomReminders(customReminders().filter(x=>x.pid!==id));save();cancelDeletePlant();toast(p?'«'+p.nombre+'» fue eliminada':'Planta eliminada');goList();
+  const id=pendingDeletePlantId;if(id==null)return;const p=plantById(id);plants.forEach(x=>{if(sameId(x.parentId,id)){delete x.parentId;if(x.propagation&&p)x.propagation.motherName=p.nombre;}});plants=plants.filter(x=>!sameId(x.id,id));saveCustomReminders(customReminders().filter(x=>!sameId(x.pid,id)));save();cancelDeletePlant();toast(p?'«'+p.nombre+'» fue eliminada':'Planta eliminada');goList();
 }
 // ---------- exportar ----------
 function slugify(s){return (''+(s||'x')).toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'')||'saphi';}
@@ -3242,6 +3246,7 @@ function aiQuotaKey(kind){return 'saphi_ai_'+(kind||'health')+'_'+todayISO();}
 function aiQuotaUsed(kind){try{return +localStorage.getItem(aiQuotaKey(kind))||0;}catch(e){return 0;}}
 function aiQuotaLeft(kind){return Math.max(0,AI_DAILY_LIMIT-aiQuotaUsed(kind));}
 function aiQuotaInc(kind){try{localStorage.setItem(aiQuotaKey(kind),aiQuotaUsed(kind)+1);}catch(e){}}
+function aiQuotaSet(kind,remaining){if(!isFinite(Number(remaining)))return;try{localStorage.setItem(aiQuotaKey(kind),Math.max(0,AI_DAILY_LIMIT-Number(remaining)));}catch(e){}}
 function saphiDeviceId(){
   const key='saphi_device_id';try{let id=localStorage.getItem(key);if(!id){id=(crypto&&crypto.randomUUID)?crypto.randomUUID():'web-'+Date.now()+'-'+Math.random().toString(36).slice(2);localStorage.setItem(key,id);}return id;}catch(e){return 'web-anon';}
 }
@@ -3268,7 +3273,6 @@ function applyIdentifiedPlant(id){
 async function handlePlantIdentify(ev){
   const f=ev.target.files&&ev.target.files[0];if(!f)return;
   const prev=document.getElementById('identify-preview'),res=document.getElementById('identify-result'),q=document.getElementById('identify-quota');
-  if(aiQuotaLeft('identify')<=0){if(res)res.innerHTML='<div class="identify-warning"><b>Ya usaste las 5 identificaciones de hoy.</b><br>Puedes buscar la especie o usar el asistente de cuidados.</div>';ev.target.value='';return;}
   if(res)res.innerHTML='<div class="diag-loading">🌿 Comparando con el catálogo…</div>';
   let im;try{im=await resizeImageToBase64(f);}catch(e){if(res)res.innerHTML='<div class="identify-warning">No pude procesar esta foto. Prueba con una imagen nítida de hojas, tallo y porte.</div>';return;}
   if(prev){prev.style.display='';prev.style.backgroundImage='url('+im.dataUrl+')';}
@@ -3278,8 +3282,9 @@ async function handlePlantIdentify(ev){
     let r=await fetch(VERCEL_IDENTIFY_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     if(r.status===404)r=await fetch(VERCEL_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
     const j=await r.json().catch(()=>null);
-    if(!r.ok){const msg=j&&(j.message||j.error||j.result);if(res)res.innerHTML='<div class="identify-warning"><b>'+esc(msg||'La identificación por IA aún no está disponible.')+'</b><br>Busca manualmente o usa el asistente mientras se habilita el servicio.</div>';return;}
-    aiQuotaInc('identify');if(q)q.textContent=aiQuotaLeft('identify')+' de '+AI_DAILY_LIMIT+' hoy';
+    if(j&&j.quota&&j.quota.remaining!=null){aiQuotaSet('identify',j.quota.remaining);if(q)q.textContent=j.quota.remaining+' de '+AI_DAILY_LIMIT+' hoy';}
+    if(!r.ok){const msg=j&&(j.message||j.error||j.result);if(res)res.innerHTML='<div class="identify-warning"><b>'+esc(msg||'La identificación por IA aún no está disponible.')+'</b><br>'+(r.status===429?'El límite real lo controla el servidor. Si hubo pruebas fallidas, no deberían descontarse.':'Busca manualmente o usa el asistente mientras se habilita el servicio.')+'</div>';return;}
+    if(!(j&&j.quota&&j.quota.remaining!=null)){aiQuotaInc('identify');if(q)q.textContent=aiQuotaLeft('identify')+' de '+AI_DAILY_LIMIT+' hoy';}
     const match=parseIdentifyResponse(j);
     if(!match||!match.species){
       const alts=match&&match.alternatives.length?'<div class="quick-searches">'+match.alternatives.map(s=>'<button type="button" onclick="applyIdentifiedPlant(\''+s.id+'\')">'+esc(s.n)+'</button>').join('')+'</div>':'';
@@ -3297,9 +3302,9 @@ async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;
   if(prev){prev.style.display='';prev.style.backgroundImage='url('+im.dataUrl+')';}
   const payload={imageBase64:im.base64,mimeType:im.mimeType,tone:isTech()?'agronomo':'hogar',plantData:{nombre:p?p.nombre:'',species:s?s.sci:'',type:s?TYPES[s.t].badge:''}};
   try{const r=await fetch(VERCEL_API_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)});
-    aiQuotaInc('health'); // el backend fue consultado: cuenta para la cuota del día
     const j=await r.json().catch(()=>null);
     if(!r.ok){const msg=(j&&j.result)?j.result:'No pude conectar con el diagnóstico por IA.';if(res)res.innerHTML='<div class="diag-card warn"><b>'+esc(msg)+'</b><br>Mientras tanto, elige el síntoma que ves aquí abajo. 👇</div>';return;}
+    aiQuotaInc('health');
     const txt=j?(j.result||j.diagnosis||j.text||j.message||JSON.stringify(j)):'Sin respuesta.';
     if(res)res.innerHTML='<div class="diag-card"><div class="diag-card-h">🌿 Diagnóstico de Saphi</div><div class="diag-card-b diag-rich">'+fmtDiag(txt)+'</div><div class="hint" style="margin-top:10px">Te quedan '+aiQuotaLeft('health')+' de '+AI_DAILY_LIMIT+' diagnósticos por IA hoy.</div></div>';
   }catch(e){if(res)res.innerHTML='<div class="diag-card warn"><b>No pude conectar con el diagnóstico por IA.</b><br>Funciona en la versión instalada/hosteada con internet. Mientras tanto, elige el síntoma que ves abajo. 👇</div>';}
@@ -3455,7 +3460,7 @@ function startLuxCamera(expectedType){
 function openLux(pid){luxMode='plant';view='lux';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderLux(pid);}
 function openLuxGlobal(){closeMenu();luxMode='global';view='lux';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderLux(null);}
 function openLuxForRegister(){luxMode='register';view='lux';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderLux(null);}
-function backToAddKeepDraft(){view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd(editingId?plants.find(x=>x.id===editingId):null,true);}
+function backToAddKeepDraft(){view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd(editingId!=null?plantById(editingId):null,true);}
 function useLuxForRegister(){if(luxCurLevel!=null)draft.light=luxCurLevel;stopLuxCamera();backToAddKeepDraft();toast('Luz medida ✔️');}
 function renderLux(pid){luxCurLevel=null;luxCurLux=0;
   const p=(pid!=null)?plants.find(x=>x.id===pid):null;const s=p?sp(p.esp):null;
