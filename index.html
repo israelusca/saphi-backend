@@ -8,242 +8,524 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="Saphi">
+<title>Saphi · Cultiva con criterio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:ital,wght@1,500;1,600&display=swap" rel="stylesheet">
-<title>Saphi · Cultiva con criterio</title>
 <style>
 :root{
-  --brand-root:#163D34;--brand-leaf:#2D7358;--brand-leaf-soft:#E3EFE8;--brand-sun:#E7B13D;
-  --brand-earth:#B75035;--brand-sky:#356A78;--brand-ink:#172A24;--brand-paper:#F4F3EC;
-  --crema:var(--brand-paper);--crema-2:#EAEAE2;--ambar:var(--brand-sun);--ambar-osc:#855A00;
-  --terracota:var(--brand-earth);--terracota-osc:#8F3B28;--tierra:var(--brand-root);--tierra-2:#3F574F;
-  --verde:var(--brand-leaf);--verde-osc:#174E3B;--verde-bg:var(--brand-leaf-soft);--texto:var(--brand-ink);
-  --tenue:#607169;--card:#FFFFFF;--linea:#D7DDD6;--linea-fuerte:#BBC7BF;--info:var(--brand-sky);
-  --sombra:0 22px 58px rgba(22,61,52,.13);--sombra-sm:0 8px 24px rgba(22,61,52,.075);
-  --font-ui:'Manrope',ui-sans-serif,system-ui,sans-serif;--font-botanical:'Source Serif 4',Georgia,serif;
-  --ft:var(--font-ui);--fb:var(--font-ui);
+  --brand-root:#163D34;
+  --brand-leaf:#2D7358;
+  --brand-leaf-soft:#E3EFE8;
+  --brand-sun:#E7B13D;
+  --brand-earth:#B75035;
+  --brand-sky:#356A78;
+  --brand-ink:#172A24;
+  --brand-paper:#F4F3EC;
+
+  --crema:var(--brand-paper);
+  --crema-2:#EAEAE2;
+  --ambar:var(--brand-sun);
+  --ambar-osc:#855A00;
+  --terracota:var(--brand-earth);
+  --terracota-osc:#8F3B28;
+  --tierra:var(--brand-root);
+  --tierra-2:#3F574F;
+  --verde:var(--brand-leaf);
+  --verde-osc:#174E3B;
+  --verde-bg:var(--brand-leaf-soft);
+  --texto:var(--brand-ink);
+  --tenue:#607169;
+  --card:#FFFFFF;
+  --linea:#D7DDD6;
+  --linea-fuerte:#BBC7BF;
+  --info:var(--brand-sky);
+  --alerta:var(--brand-earth);
+  --sombra:0 18px 48px rgba(22,61,52,.12);
+  --sombra-sm:0 4px 16px rgba(22,61,52,.06);
+
+  --font-ui:'Manrope',system-ui,sans-serif;
+  --font-botanical:'Source Serif 4',Georgia,serif;
+  --ft:var(--font-ui);
+  --fb:var(--font-ui);
 }
 *{box-sizing:border-box}
-body{margin:0;background:#DDE3DD;color:var(--texto);font-family:var(--fb);font-size:16px;line-height:1.5;min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
-.app{width:100%;max-width:1120px;height:100vh;height:100dvh;background:var(--crema);position:relative;overflow:hidden;box-shadow:0 30px 90px rgba(24,62,52,.18);border:1px solid rgba(24,62,52,.08);display:flex;flex-direction:column}
-@media(min-width:520px){.app{margin:18px 0;height:calc(100vh - 36px);height:calc(100dvh - 36px);border-radius:28px}}
-.topbar{min-height:70px;padding:13px 18px;background:rgba(246,245,239,.97);border-bottom:1px solid rgba(24,62,52,.08);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:20;backdrop-filter:blur(16px)}
-.brand{display:flex;align-items:center;gap:11px}
-.brand-slot{width:36px;height:36px;display:grid;place-items:center;border-radius:11px;background:var(--tierra);color:#fff;font-family:var(--font-botanical);font-size:22px;font-style:italic;font-weight:600}
-.brand-copy{display:flex;flex-direction:column;line-height:1.05}
-.bn{font-family:var(--ft);font-weight:700;font-size:21px;color:var(--tierra)}
-.brand-caption{margin-top:4px;font-size:9px;font-weight:800;letter-spacing:.11em;text-transform:uppercase;color:var(--tenue)}
-.tb-right{display:flex;align-items:center;gap:7px}
-.iconbtn{width:42px;height:42px;border-radius:13px;background:#fff;border:1px solid var(--linea);color:var(--tierra);cursor:pointer;font-size:16px}
-.content{flex:1;overflow-y:auto;padding:12px 18px 118px;scrollbar-width:none}
+body{margin:0;background:#DDE3DD;color:var(--texto);font-family:var(--fb);min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
+.app{width:100%;max-width:440px;height:100vh;height:100dvh;background:var(--crema);position:relative;overflow:hidden;box-shadow:0 0 50px rgba(0,0,0,.15);display:flex;flex-direction:column}
+@media(min-width:520px){.app{margin:20px 0;height:calc(100vh - 40px);height:calc(100dvh - 40px);border-radius:32px}}
+
+/* Topbar refinada e integrada */
+.topbar{padding:14px 18px;padding-top:calc(14px + env(safe-area-inset-top,0px));background:rgba(244,243,236,.96);display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:25;border-bottom:1px solid var(--linea);backdrop-filter:blur(14px)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-slot{width:36px;height:36px;border-radius:11px;background:var(--tierra);color:#fff;display:grid;place-items:center;font-family:var(--font-botanical);font-size:22px;font-weight:600;font-style:italic}
+.brand-copy{display:flex;flex-direction:column}
+.brand-title{font-family:var(--ft);font-weight:800;font-size:18px;color:var(--tierra);line-height:1}
+.brand-caption{font-size:9.5px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--tenue);margin-top:2px}
+.tb-right{display:flex;align-items:center;gap:8px}
+
+/* Selector integrado de perfiles */
+.prof-seg{display:flex;background:#E7ECE8;border:1px solid var(--linea-fuerte);border-radius:13px;padding:2px}
+.prof-seg .ps{border:none;background:none;padding:6px 11px;border-radius:10px;font-size:11.5px;font-weight:800;color:var(--tenue);cursor:pointer;transition:.15s;display:flex;align-items:center;gap:4px}
+.prof-seg .ps.on{background:#fff;color:var(--tierra);box-shadow:0 2px 6px rgba(22,61,52,.12)}
+.iconbtn{width:36px;height:36px;border-radius:12px;background:#fff;border:1px solid var(--linea-fuerte);color:var(--tierra);font-size:15px;display:grid;place-items:center;cursor:pointer}
+.back{background:none;border:none;font-size:24px;color:var(--tierra);cursor:pointer;padding:2px 8px;line-height:1}
+
+/* Contenido */
+.content{flex:1;overflow-y:auto;padding:12px 18px 100px}
 .content::-webkit-scrollbar{display:none}
-.nav{position:absolute;left:50%;bottom:10px;transform:translateX(-50%);width:min(680px,calc(100% - 20px));background:rgba(255,255,255,.97);border:1px solid var(--linea);border-radius:20px;display:flex;padding:6px;gap:3px;box-shadow:0 14px 40px rgba(24,62,52,.17);z-index:20;backdrop-filter:blur(18px)}
-.nav button{flex:1;min-height:54px;border:0;border-radius:15px;background:transparent;color:var(--tenue);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;font-size:11px;font-weight:800;cursor:pointer}
-.nav button.on{background:var(--verde-bg);color:var(--verde-osc)}
-.fab{position:absolute;right:22px;bottom:84px;width:58px;height:58px;border-radius:18px;background:var(--terracota);color:#fff;border:none;font-size:29px;box-shadow:0 14px 28px rgba(146,59,39,.28);cursor:pointer;z-index:21}
-.home-shell,.collection-shell,.add-shell,.agenda-shell,.tools-shell{max-width:980px;margin:0 auto}
-.home-hero{position:relative;overflow:hidden;margin-top:10px;padding:26px 24px;border-radius:26px;color:#fff;background:var(--brand-root)}
-.hh-hi{font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:#D6E8DF}
-.hh-big{margin:15px 0 8px;font-size:32px;letter-spacing:-1px}
-.hstats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0}
-.hstat{padding:15px 12px;background:#fff;border:1px solid var(--linea);border-radius:18px;cursor:pointer;color:var(--tierra)}
-.hstat .hs-n{font-size:28px;font-weight:800;display:block;margin-top:5px}
-.hstat .hs-l{font-size:12px;color:var(--tenue)}
-.btn-primary{width:100%;min-height:50px;background:var(--ambar);color:#2F250C;border:none;font-weight:800;font-size:15px;border-radius:15px;cursor:pointer}
-.collection-empty{padding:36px 20px;background:#fff;border:1px dashed var(--linea-fuerte);border-radius:26px;text-align:center;margin-top:20px}
-.empty-mark{width:52px;height:52px;margin:0 auto 13px;display:grid;place-items:center;border-radius:16px;background:var(--verde-bg);color:var(--verde-osc);font-size:22px}
-.toast{position:fixed;bottom:102px;left:50%;transform:translateX(-50%);background:var(--tierra);color:#fff;padding:12px 16px;border-radius:14px;font-size:14px;opacity:0;transition:.25s;pointer-events:none;z-index:50}
+h2.sc{font-family:var(--ft);font-weight:800;font-size:24px;color:var(--tierra);margin:14px 0 4px;letter-spacing:-.5px}
+.sub{color:var(--tenue);font-size:13px;margin:0 0 16px;line-height:1.45}
+
+/* Botones principales y corrección de hover */
+.btn-primary,.ha-primary{width:100%;min-height:48px;background:var(--tierra);color:#fff;border:none;font-family:var(--ft);font-weight:800;font-size:14.5px;padding:13px;border-radius:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:8px;transition:all .18s ease;text-decoration:none}
+.btn-primary:hover,.ha-primary:hover{background:#112F28!important;color:#fff!important;transform:translateY(-1px)}
+.btn-ghost{width:100%;background:none;border:none;color:var(--terracota);font-weight:800;font-size:13px;padding:10px;cursor:pointer}
+
+/* Cards y elementos */
+.card{background:var(--card);border:1px solid var(--linea);border-radius:20px;padding:16px;margin-top:14px;box-shadow:var(--sombra-sm)}
+.card h3{font-family:var(--ft);margin:0 0 6px;font-size:15px;color:var(--tierra);font-weight:800}
+.plant-card{position:relative;overflow:hidden;display:flex;gap:12px;align-items:center;background:var(--card);border:1px solid var(--linea);border-radius:18px;padding:12px;margin-bottom:10px;cursor:pointer;box-shadow:var(--sombra-sm);transition:.15s}
+.plant-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--acc,transparent)}
+.plant-card:hover{border-color:var(--linea-fuerte)}
+.thumb{width:60px;height:60px;border-radius:14px;flex:0 0 auto;overflow:hidden;background:#EDE2C8;display:flex;align-items:center;justify-content:center}
+.pc-body{flex:1;min-width:0}
+.pc-name{font-family:var(--ft);font-weight:800;font-size:15.5px;color:var(--tierra);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pc-sci{font-style:italic;color:var(--tenue);font-size:12.5px;font-family:var(--font-botanical)}
+.tag{font-size:11px;font-weight:800;padding:3px 8px;border-radius:999px;background:#F0E7D5;color:var(--tierra-2)}
+.tag.amb{background:#FBEFCD;color:var(--ambar-osc)}
+.tag.warn{background:#FBE3D6;color:var(--terracota)}
+.tag.ok{background:var(--verde-bg);color:var(--verde-osc)}
+
+/* Módulo de Esquejes y Mortalidad */
+.prop-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.prop-stat-box{background:#F7FAF8;border:1px solid #C8DDD0;border-radius:14px;padding:10px;text-align:center}
+.prop-stat-box strong{display:block;font-size:22px;color:var(--tierra);font-family:var(--ft)}
+.prop-stat-box span{font-size:11px;color:var(--tenue);font-weight:700}
+.prop-mortality-ctrls{display:flex;gap:8px;margin-top:10px}
+.prop-ctrl-btn{flex:1;min-height:42px;border:1.5px solid var(--linea);border-radius:12px;background:#fff;font-weight:800;font-size:12px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px}
+.prop-ctrl-btn.loss{border-color:#F0C2B5;color:var(--terracota-osc);background:#FFF8F6}
+
+/* Modal de Compartir / Tarjetas */
+.share-modal-bg{position:fixed;inset:0;background:rgba(20,40,32,.75);backdrop-filter:blur(6px);z-index:999;display:flex;align-items:center;justify-content:center;padding:16px}
+.share-modal{background:#fff;width:100%;max-width:400px;max-height:92vh;border-radius:24px;padding:20px;overflow-y:auto;display:flex;flex-direction:column;gap:14px;box-shadow:var(--sombra)}
+.share-preview-box{width:100%;max-height:360px;display:flex;align-items:center;justify-content:center;background:#E7ECE8;border-radius:16px;overflow:hidden;border:1px solid var(--linea)}
+.share-preview-box canvas{max-width:100%;max-height:340px;object-fit:contain;box-shadow:0 4px 14px rgba(0,0,0,.15)}
+.share-presets{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px}
+.share-chip{flex:0 0 auto;padding:6px 12px;border-radius:999px;border:1.5px solid var(--linea);background:#fff;font-size:11.5px;font-weight:800;color:var(--tierra-2);cursor:pointer}
+.share-chip.sel{border-color:var(--verde);background:var(--verde-bg);color:var(--verde-osc)}
+.share-ratio{display:flex;gap:8px}
+.share-ratio button{flex:1;padding:8px;border-radius:11px;border:1.5px solid var(--linea);background:#fff;font-size:12px;font-weight:800;cursor:pointer}
+.share-ratio button.sel{border-color:var(--tierra);background:var(--tierra);color:#fff}
+
+/* Agenda / Calendario Accionable */
+.agenda-card{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid var(--linea);border-radius:16px;padding:12px 14px;margin-bottom:8px}
+.agenda-card.due{border-left:4px solid var(--terracota);background:#FFFDFC}
+.agenda-info{flex:1;min-width:0}
+.agenda-title{font-weight:800;font-size:14px;color:var(--tierra)}
+.agenda-sub{font-size:12px;color:var(--tenue);margin-top:2px}
+.agenda-btn{min-height:38px;padding:8px 12px;border-radius:11px;border:none;background:var(--verde);color:#fff;font-weight:800;font-size:12px;cursor:pointer;white-space:nowrap}
+.agenda-btn.warn{background:var(--terracota)}
+
+/* Navegación y generales */
+.nav{position:absolute;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--linea);display:flex;justify-content:space-around;padding:8px 6px calc(10px + env(safe-area-inset-bottom,0px));z-index:20}
+.nav button{flex:1;background:none;border:none;color:var(--tenue);display:flex;flex-direction:column;align-items:center;gap:3px;font-size:10px;font-weight:800;cursor:pointer}
+.nav button.on{color:var(--verde-osc)}
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%);background:var(--tierra);color:#fff;padding:10px 18px;border-radius:13px;font-size:13px;font-weight:700;z-index:1000;opacity:0;transition:.2s;pointer-events:none}
 .toast.show{opacity:1}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:12.5px;font-weight:800;color:var(--tierra);margin-bottom:5px}
+.field input,.field select{width:100%;padding:11px 12px;border:1.5px solid var(--linea);border-radius:12px;font-size:14px;background:#fff;outline:none}
 </style>
 </head>
 <body>
 
-<div class="app">
+<div class="app" id="app-container">
   <div class="topbar">
-    <div class="brand">
-      <span class="brand-slot" aria-hidden="true">S</span>
-      <span class="brand-copy"><span class="bn">Saphi</span><span class="brand-caption">Cultiva con criterio</span></span>
+    <div class="brand" id="tb-left">
+      <span class="brand-slot">S</span>
+      <div class="brand-copy">
+        <span class="brand-title">Saphi</span>
+        <span class="brand-caption">Cultivo con criterio</span>
+      </div>
     </div>
-    <div class="tb-right">
-      <button class="iconbtn" onclick="toggleSol()" title="Modo sol">☀️</button>
+    <div class="tb-right" id="tb-right">
+      <div class="prof-seg">
+        <button class="ps on" id="btn-hogar" onclick="setAppProfile('hogar')">🏡 Hogar</button>
+        <button class="ps" id="btn-campo" onclick="setAppProfile('tecnico')">🔬 Campo</button>
+      </div>
+      <button class="iconbtn" onclick="toggleMenu(event)" title="Menú">•••</button>
     </div>
+  </div>
+
+  <div class="menu" id="menu" style="display:none;position:absolute;right:16px;top:60px;background:#fff;border:1px solid var(--linea);border-radius:16px;padding:8px;box-shadow:var(--sombra);z-index:90">
+    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="openDiagGlobal()">🔬 Diagnóstico IA</button>
+    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="openTools()">🧮 Calculadoras Agronómicas</button>
+    <button class="btn-ghost" style="text-align:left;color:var(--tierra)" onclick="exportBackup()">⬇️ Exportar datos (.json)</button>
+    <button class="btn-ghost" style="text-align:left;color:var(--terracota)" onclick="closeMenu()">✕ Cerrar</button>
   </div>
 
   <main class="content" id="content"></main>
 
-  <button class="fab" onclick="goAdd()" aria-label="Agregar planta">+</button>
-
   <nav class="nav">
-    <button id="nav-inicio" onclick="goHome()"><span>Inicio</span></button>
-    <button id="nav-plantas" onclick="goList()"><span>Colección</span></button>
-    <button id="nav-cal" onclick="goCalendar()"><span>Agenda</span></button>
-    <button id="nav-tools" onclick="openTools()"><span>Herramientas</span></button>
+    <button class="on" id="nav-inicio" onclick="goHome()"><span>🏠</span>Inicio</button>
+    <button id="nav-plantas" onclick="goList()"><span>🌿</span>Plantas</button>
+    <button id="nav-cal" onclick="goCalendar()"><span>📅</span>Agenda</button>
+    <button id="nav-tools" onclick="openTools()"><span>🧮</span>Cálculos</button>
   </nav>
 </div>
 
 <div class="toast" id="toast"></div>
 
 <script>
-const TYPES={
- t1:{tag:'🌵 T1',badge:'🌵 T1 · Cactus y suculentas de sol'},
- t2:{tag:'🌺 T2',badge:'🌺 T2 · Sombra y epífitas de selva'},
- t3:{tag:'🪰 T3',badge:'🪰 T3 · Plantas carnívoras'},
- t4:{tag:'🌿 T4',badge:'🌿 T4 · Tropicales de follaje'},
- t5:{tag:'🪴 T5',badge:'🪴 T5 · Resistentes de interior'},
- t6:{tag:'🌸 T6',badge:'🌸 T6 · Exterior y arbustos de flor'},
- t7:{tag:'🥬 T7',badge:'🥬 T7 · Aromáticas, hortalizas y frutales'},
- t8:{tag:'🌬️ T8',badge:'🌬️ T8 · Aéreas y musgos'}
-};
+// ==================== ESTADO Y DATOS BOTÁNICOS ====================
+const VERCEL_API_URL = "https://saphi-backend.vercel.app/api/diagnose";
+let currentProfile = localStorage.getItem('saphi_profile') || 'hogar';
+let plants = [];
 
-const SPECIES=[
- {id:'sanpedro',t:'t1',n:'San Pedro',sci:'Trichocereus pachanoi',nota:'Cactus columnar; sol y poco riego.'},
- {id:'sabila',t:'t1',n:'Sábila',sci:'Aloe vera',nota:'Suculenta medicinal; buen drenaje.'},
- {id:'monstera',t:'t4',n:'Monstera',sci:'Monstera deliciosa',nota:'Luz indirecta brillante; tutor de musgo.'},
- {id:'poto',t:'t4',n:'Poto',sci:'Epipremnum aureum',nota:'Muy resistente; luz indirecta.'},
- {id:'albahaca',t:'t7',n:'Albahaca',sci:'Ocimum basilicum',nota:'Sol directo y riego constante.'},
- {id:'menta',t:'t7',n:'Menta',sci:'Mentha sp.',nota:'Invasora; tener en maceta aparte.'},
- {id:'durazno',t:'t7',n:'Durazno / Melocotón',sci:'Prunus persica',nota:'Frutal de clima templado; sol y poda anual.'},
- {id:'manzana',t:'t7',n:'Manzana',sci:'Malus domestica',nota:'Frutal de Sierra; requiere horas de frío.'},
- {id:'tomate',t:'t7',n:'Tomate',sci:'Solanum lycopersicum',nota:'Tutor + P-K en floración.'},
- {id:'papa',t:'t7',n:'Papa',sci:'Solanum tuberosum',nota:'Tubérculo andino; aporca al crecer.'}
+const SPECIES = [
+  {id:'monstera', n:'Monstera Deliciosa', sci:'Monstera deliciosa', t:'t4'},
+  {id:'sanpedro', n:'San Pedro', sci:'Trichocereus pachanoi', t:'t1'},
+  {id:'albahaca', n:'Albahaca', sci:'Ocimum basilicum', t:'t7'},
+  {id:'tomate', n:'Tomate', sci:'Solanum lycopersicum', t:'t7'},
+  {id:'poto', n:'Poto Epipremnum', sci:'Epipremnum aureum', t:'t4'},
+  {id:'orquidea', n:'Orquídea Phalaenopsis', sci:'Phalaenopsis sp.', t:'t2'}
 ];
-  let plants = JSON.parse(localStorage.getItem('saphi_plants_v2')) || [
-  {id:'ex1', speciesId:'sanpedro', name:'San Pedro de prueba', potSize:10, date:new Date().toISOString()}
-];
-const content = document.getElementById('content');
 
-function savePlants() {
-  localStorage.setItem('saphi_plants_v2', JSON.stringify(plants));
+function sp(id){ return SPECIES.find(s => s.id === id) || SPECIES[0]; }
+function isTech(){ return currentProfile === 'tecnico'; }
+
+function setAppProfile(p){
+  currentProfile = p;
+  localStorage.setItem('saphi_profile', p);
+  document.getElementById('btn-hogar').classList.toggle('on', p === 'hogar');
+  document.getElementById('btn-campo').classList.toggle('on', p === 'tecnico');
+  toast(p === 'tecnico' ? 'Modo Campo / Técnico activado' : 'Modo Hogar activado');
+  if(view === 'home') renderHome();
+  else if(view === 'list') renderList();
+  else if(view === 'cal') renderCalendar();
 }
 
-function updateNav(activeId) {
-  document.querySelectorAll('.nav button').forEach(b => b.classList.remove('on'));
-  const el = document.getElementById(activeId);
-  if(el) el.classList.add('on');
+function load(){
+  try{ plants = JSON.parse(localStorage.getItem('saphi_plants_v2')) || []; }catch(e){ plants = []; }
+  if(!plants.length){
+    plants = [
+      {id: 101, nombre: 'Monstera Sala', esp: 'monstera', pot: '15L', loc: 'sala', lastWater: null, cant: 1, lotesEsquejes: []}
+    ];
+    save();
+  }
 }
+function save(){ try{ localStorage.setItem('saphi_plants_v2', JSON.stringify(plants)); }catch(e){} }
 
-function goHome() {
-  content.innerHTML = `
-    <div class="home-shell">
-      <div class="home-hero">
-        <span class="hh-hi">¡HOLA, CULTIVADOR!</span>
-        <h2 class="hh-big">Tu cultivo al día</h2>
-        <div>Panel general y estado de tus plantas</div>
-      </div>
-      <div class="hstats">
-        <div class="hstat" onclick="goList()">
-          <span>TOTAL</span>
-          <span class="hs-n">${plants.length}</span>
-          <span class="hs-l">Plantas registradas</span>
+// ==================== VISTA: INICIO (HOME) ====================
+let view = 'home';
+function goHome(){ view = 'home'; setNav('inicio'); renderHome(); }
+
+function renderHome(){
+  const pending = plants.filter(p => !p.lastWater);
+  let h = `<div style="background:var(--tierra);color:#fff;padding:24px 20px;border-radius:24px;margin-top:4px">
+    <div style="font-size:12px;opacity:.9;text-transform:uppercase;letter-spacing:.08em">PANEL GENERAL</div>
+    <div style="font-family:var(--ft);font-size:26px;font-weight:800;margin:6px 0">${plants.length} Plantas en Monitoreo</div>
+    <div style="font-size:13px;color:#D3E4DB">${pending.length ? pending.length + ' necesitan comprobación hoy' : 'Todo al día con el riego'}</div>
+  </div>
+
+  <div style="display:flex;gap:10px;margin:16px 0">
+    <button class="ha-primary" onclick="goAdd()">🌱 Registrar Planta</button>
+    <button class="btn-primary" style="background:#fff;border:1.5px solid var(--linea-fuerte);color:var(--tierra)" onclick="openDiagGlobal()">📷 Diagnóstico IA</button>
+  </div>
+
+  <h2 class="sc">Revisión de Cultivo</h2>`;
+
+  plants.forEach(p => {
+    h += `<div class="plant-card" onclick="goFicha(${p.id})">
+      <div class="thumb">🪴</div>
+      <div class="pc-body">
+        <div class="pc-name">${p.nombre}</div>
+        <div class="pc-sci">${sp(p.esp).sci}</div>
+        <div style="margin-top:4px">
+          <span class="tag ${p.lastWater?'ok':'warn'}">${p.lastWater ? '✓ Regada recientemente' : '💧 Toca revisar'}</span>
+          ${p.lotesEsquejes && p.lotesEsquejes.length ? `<span class="tag amb">✂️ ${p.lotesEsquejes.length} lote(s) enraizando</span>` : ''}
         </div>
       </div>
-      <button class="btn-primary" onclick="goAdd()">+ Agregar nueva planta</button>
+      <button class="agenda-btn ${p.lastWater?'':'warn'}" onclick="event.stopPropagation();quickWater(${p.id})">${p.lastWater?'✓ Listo':'💧 Regar'}</button>
     </div>`;
-  updateNav('nav-inicio');
+  });
+
+  document.getElementById('content').innerHTML = h;
 }
 
-function goList() {
-  let html = '';
-  if(plants.length === 0) {
-    html = `
-      <div class="collection-empty">
-        <div class="empty-mark">🌿</div>
-        <h3>Tu colección está vacía</h3>
-        <p>Agrega tu primera planta para recibir recomendaciones.</p>
-        <button class="btn-primary" style="margin-top:12px;" onclick="goAdd()">Agregar planta</button>
-      </div>`;
-  } else {
-    plants.forEach(p => {
-      const sp = SPECIES.find(s => s.id === p.speciesId) || SPECIES[0];
-      html += `
-        <div style="background:#fff;padding:14px;border-radius:14px;margin-bottom:10px;display:flex;justify-content:space-between;align-items:center;box-shadow:var(--sombra-sm);">
-          <div>
-            <div style="font-weight:800;color:var(--tierra);font-size:16px;">${p.name}</div>
-            <div style="font-size:12px;color:var(--tenue);">${sp.n} · Maceta ${p.potSize}L</div>
+function quickWater(id){
+  const p = plants.find(x => x.id === id);
+  if(!p) return;
+  p.lastWater = new Date().toISOString().split('T')[0];
+  save();
+  toast('💧 Riego confirmado para ' + p.nombre);
+  if(navigator.vibrate) navigator.vibrate(20);
+  if(view === 'home') renderHome();
+  else if(view === 'cal') renderCalendar();
+}
+
+// ==================== VISTA: AGENDA / CALENDARIO DIRECTO ====================
+function goCalendar(){ view = 'cal'; setNav('cal'); renderCalendar(); }
+
+function renderCalendar(){
+  let h = `<h2 class="sc">Agenda de Tareas</h2>
+  <p class="sub">Toma decisiones y registra acciones directamente sin pasos extra.</p>`;
+
+  plants.forEach(p => {
+    const isDue = !p.lastWater;
+    h += `<div class="agenda-card ${isDue ? 'due' : ''}">
+      <div style="font-size:24px">${isDue ? '💧' : '✅'}</div>
+      <div class="agenda-info">
+        <div class="agenda-title">${p.nombre}</div>
+        <div class="agenda-sub">${isDue ? 'Revisión de humedad requerida' : 'Último riego: ' + p.lastWater}</div>
+      </div>
+      <button class="agenda-btn ${isDue ? 'warn' : ''}" onclick="quickWater(${p.id})">
+        ${isDue ? 'Regar ahora' : 'Regar de nuevo'}
+      </button>
+    </div>`;
+
+    // Tareas para lotes de esquejes si existen
+    if(p.lotesEsquejes && p.lotesEsquejes.length){
+      p.lotesEsquejes.forEach((lote, idx) => {
+        h += `<div class="agenda-card" style="border-left:4px solid var(--ambar)">
+          <div style="font-size:24px">✂️</div>
+          <div class="agenda-info">
+            <div class="agenda-title">Esquejes: ${lote.nombre}</div>
+            <div class="agenda-sub">${lote.vivos} vivos de ${lote.inicial} · Revisar aireación y agua</div>
           </div>
-          <button onclick="deletePlant('${p.id}')" style="background:#FBE3D6;color:var(--terracota);border:none;padding:6px 10px;border-radius:8px;font-weight:800;cursor:pointer;">Eliminar</button>
+          <button class="agenda-btn" style="background:var(--ambar-osc)" onclick="goFicha(${p.id})">Revisar lote</button>
         </div>`;
+      });
+    }
+  });
+
+  document.getElementById('content').innerHTML = h;
+}
+
+// ==================== ESQUEJES CON CONTEO DE MORTALIDAD ====================
+function openModalEsquejes(plantId){
+  const p = plants.find(x => x.id === plantId);
+  const cant = prompt('¿Cuántos esquejes vas a cortar para este lote?', '6');
+  if(!cant || isNaN(cant) || parseInt(cant) <= 0) return;
+
+  const nInicial = parseInt(cant);
+  const nuevoLote = {
+    id: Date.now(),
+    nombre: 'Lote ' + (p.lotesEsquejes ? p.lotesEsquejes.length + 1 : 1),
+    inicial: nInicial,
+    vivos: nInicial,
+    bajas: 0,
+    fechaInicio: new Date().toISOString().split('T')[0],
+    enraizados: false
+  };
+
+  if(!p.lotesEsquejes) p.lotesEsquejes = [];
+  p.lotesEsquejes.push(nuevoLote);
+  save();
+  toast('✂️ Lote de ' + nInicial + ' esquejes registrado');
+  goFicha(plantId);
+}
+
+function updateMortalidad(plantId, loteId, delta){
+  const p = plants.find(x => x.id === plantId);
+  const lote = p.lotesEsquejes.find(l => l.id === loteId);
+  if(!lote) return;
+
+  if(delta === -1 && lote.vivos > 0){
+    lote.vivos--;
+    lote.bajas++;
+    toast('Descarte registrado. Vivos: ' + lote.vivos);
+  } else if(delta === 1 && lote.bajas > 0){
+    lote.vivos++;
+    lote.bajas--;
+    toast('Corregido. Vivos: ' + lote.vivos);
+  }
+  save();
+  goFicha(plantId);
+}
+
+function graduarEsquejes(plantId, loteId){
+  const p = plants.find(x => x.id === plantId);
+  const lote = p.lotesEsquejes.find(l => l.id === loteId);
+  const exito = prompt(`¿Cuántos esquejes enraizaron con éxito para plantar a tierra? (Vivos: ${lote.vivos})`, lote.vivos);
+  if(exito === null) return;
+
+  const nEnraizados = parseInt(exito);
+  if(nEnraizados > 0){
+    plants.push({
+      id: Date.now(),
+      nombre: p.nombre + ' (Hijo de Esqueje)',
+      esp: p.esp,
+      pot: 'Chica (1L)',
+      loc: p.loc,
+      lastWater: new Date().toISOString().split('T')[0],
+      cant: nEnraizados,
+      lotesEsquejes: []
     });
   }
-  content.innerHTML = `<div><h2>Mis Plantas</h2><div style="margin-top:10px;">${html}</div></div>`;
-  updateNav('nav-plantas');
+
+  // Quitar lote enraizado
+  p.lotesEsquejes = p.lotesEsquejes.filter(l => l.id !== loteId);
+  save();
+  triggerCelebration('raices', nEnraizados + ' esqueje(s) enraizado(s)');
+  goFicha(plantId);
 }
 
-function goCalendar() {
-  content.innerHTML = `<div><h2>Agenda de Cuidados</h2><p>Tareas de riego y control lunar al día.</p></div>`;
-  updateNav('nav-cal');
-}
+// ==================== FICHA DE PLANTA Y ESQUEJES ====================
+function goFicha(id){
+  view = 'ficha';
+  const p = plants.find(x => x.id === id);
+  if(!p) return goHome();
 
-function openTools() {
-  content.innerHTML = `<div><h2>Herramientas</h2><p>Calculadoras y utilidades agronómicas para tu growshop.</p></div>`;
-  updateNav('nav-tools');
-}
+  let h = `<button class="btn-ghost" onclick="goHome()">‹ Volver</button>
+  <h2 class="sc">${p.nombre}</h2>
+  <div style="font-style:italic;color:var(--tenue);margin-bottom:12px">${sp(p.esp).sci}</div>
 
-function goAdd() {
-  let opts = '';
-  SPECIES.forEach(s => {
-    opts += `<option value="${s.id}">${s.n} (${s.sci})</option>`;
-  });
+  <div style="display:flex;gap:8px;margin-bottom:14px">
+    <button class="agenda-btn" onclick="openShareModal(${p.id})">📸 Tarjeta para Redes</button>
+    <button class="agenda-btn" style="background:#fff;border:1.5px solid var(--verde);color:var(--verde-osc)" onclick="openModalEsquejes(${p.id})">✂️ Sacar Esquejes</button>
+  </div>`;
 
-  content.innerHTML = `
-    <div>
-      <h2>Agregar Planta</h2>
-      <div style="margin-top:14px;">
-        <label style="font-weight:800;display:block;margin-bottom:6px;">Nombre personalizado</label>
-        <input type="text" id="pName" placeholder="Ej. Mi San Pedro del patio" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;outline:none;">
+  // SECCIÓN DE ESQUEJES EN CURSO (CON PARÁMETROS REALES DE ESQUEJE)
+  if(p.lotesEsquejes && p.lotesEsquejes.length){
+    h += `<h3 style="color:var(--tierra);margin:16px 0 8px">✂️ Lotes de Esquejes en Proceso</h3>`;
+    p.lotesEsquejes.forEach(l => {
+      const pct = Math.round((l.vivos / l.inicial) * 100);
+      h += `<div class="card" style="border-left:4px solid var(--ambar)">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <strong>${l.nombre} (${l.fechaInicio})</strong>
+          <span class="tag ok">${pct}% Viabilidad</span>
+        </div>
         
-        <label style="font-weight:800;display:block;margin:14px 0 6px;">Especie</label>
-        <select id="pSpecies" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;background:#fff;outline:none;">${opts}</select>
+        <div class="prop-stats">
+          <div class="prop-stat-box"><strong>${l.inicial}</strong><span>Iniciales</span></div>
+          <div class="prop-stat-box"><strong>${l.vivos}</strong><span>Vivos</span></div>
+          <div class="prop-stat-box"><strong style="color:var(--terracota)">${l.bajas}</strong><span>Bajas</span></div>
+        </div>
 
-        <label style="font-weight:800;display:block;margin:14px 0 6px;">Tamaño de maceta (Litros)</label>
-        <input type="number" id="pPot" value="5" min="0.5" step="0.5" style="width:100%;padding:12px;border:1px solid #ccc;border-radius:12px;font-size:16px;outline:none;">
-        
-        <button class="btn-primary" style="margin-top:20px;" onclick="savePlant()">Guardar en el dispositivo</button>
-        <button onclick="goList()" style="width:100%;margin-top:10px;padding:12px;background:none;border:none;color:#666;font-weight:800;cursor:pointer;">Cancelar</button>
-      </div>
-    </div>`;
-}
+        <div class="prop-mortality-ctrls">
+          <button class="prop-ctrl-btn loss" onclick="updateMortalidad(${p.id}, ${l.id}, -1)">−1 Pérdida / Pudrición</button>
+          <button class="prop-ctrl-btn" onclick="updateMortalidad(${p.id}, ${l.id}, 1)">+1 Corregir</button>
+          <button class="agenda-btn" onclick="graduarEsquejes(${p.id}, ${l.id})">🌱 Ya tienen raíces</button>
+        </div>
 
-function savePlant() {
-  const name = document.getElementById('pName').value.trim() || 'Planta nueva';
-  const speciesId = document.getElementById('pSpecies').value;
-  const potSize = parseFloat(document.getElementById('pPot').value) || 3;
-  
-  plants.push({
-    id: 'p_' + Date.now(),
-    speciesId: speciesId,
-    name: name,
-    potSize: potSize,
-    date: new Date().toISOString()
-  });
-  
-  savePlants();
-  showToast("¡Planta guardada con éxito!");
-  goList();
-}
-
-function deletePlant(id) {
-  if(confirm("¿Eliminar esta planta?")) {
-    plants = plants.filter(p => p.id !== id);
-    savePlants();
-    showToast("Planta eliminada");
-    goList();
+        <!-- DATOS TÉCNICOS EXCLUSIVOS DE ESQUEJE (NO DE PLANTA ADULTA) -->
+        <div style="background:#F2F6F3;padding:10px;border-radius:12px;margin-top:10px;font-size:11.5px;line-height:1.5">
+          <b>🔬 Condiciones óptimas para este esqueje:</b><br>
+          • <b>Humedad ambiental:</b> 80%–90% (usar domo / tapa).<br>
+          • <b>Luz:</b> Suave e indirecta (1.500–3.000 lux). Cero sol directo.<br>
+          • <b>Nutrición:</b> CERO fertilizante hasta que haya raíces visibles.<br>
+          • <b>Sustrato:</b> Poroso (perlita / jiffy hidratado) sin encharcar la base.
+        </div>
+      </div>`;
+    });
   }
+
+  // DATOS NORMALES DE LA PLANTA ADULTA
+  h += `<div class="card">
+    <h3>💧 Cuidados de la Planta Madre</h3>
+    <div style="font-size:13px;color:var(--tierra-2);line-height:1.5">
+      • <b>Riego:</b> Esperar que el sustrato seque parcialmente antes de regar.<br>
+      • <b>Último registro:</b> ${p.lastWater || 'Sin registrar'}.
+    </div>
+    <button class="btn-primary" style="margin-top:10px" onclick="quickWater(${p.id})">💧 Registrar Riego Hoy</button>
+  </div>`;
+
+  document.getElementById('content').innerHTML = h;
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2500);
+// ==================== REDISEÑO: COMPARTIR TARJETAS REDES SOCIALES ====================
+let currentSharePlant = null;
+let currentShareRatio = 'story'; // 'story' (9:16) o 'square' (1:1)
+let currentSharePreset = 'general';
+
+const SHARE_PRESETS = [
+  {id:'general', label:'🌱 Colección', text:'Cuidando con criterio y paciencia.'},
+  {id:'hoja', label:'✨ Nueva hoja', text:'¡Desplegó una hoja nueva y sana!'},
+  {id:'esqueje', label:'✂️ Esquejes', text:'Multiplicando la familia botánica.'},
+  {id:'raices', label:'🌿 Ya tiene raíces', text:'¡Propagación exitosa con raíces fuertes!'},
+  {id:'racha', label:'🔥 Racha activa', text:'Constancia y observación diaria.'}
+];
+
+function openShareModal(plantId, defaultPreset){
+  currentSharePlant = plants.find(x => x.id === plantId);
+  currentSharePreset = defaultPreset || 'general';
+  renderShareModal();
 }
 
-function toggleSol() {
-  document.querySelector('.app').classList.toggle('sol');
+function renderShareModal(){
+  const p = currentSharePlant;
+  const s = sp(p.esp);
+
+  let modal = document.getElementById('share-modal-container');
+  if(!modal){
+    modal = document.createElement('div');
+    modal.id = 'share-modal-container';
+    modal.className = 'share-modal-bg';
+    document.body.appendChild(modal);
+  }
+
+  modal.innerHTML = `<div class="share-modal">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <strong style="font-size:16px;color:var(--tierra)">Crear Tarjeta para Redes</strong>
+      <button onclick="closeShareModal()" style="border:none;background:none;font-size:18px;cursor:pointer">✕</button>
+    </div>
+
+    <!-- SELECTOR DE FORMATO -->
+    <div class="share-ratio">
+      <button class="${currentShareRatio==='story'?'sel':''}" onclick="setShareRatio('story')">📱 Historia (9:16)</button>
+      <button class="${currentShareRatio==='square'?'sel':''}" onclick="setShareRatio('square')">📷 Cuadrada (1:1)</button>
+    </div>
+
+    <!-- SELECTOR DE CELEBRACIÓN -->
+    <div class="share-presets">
+      ${SHARE_PRESETS.map(pr => `<button class="share-chip ${currentSharePreset===pr.id?'sel':''}" onclick="setSharePreset('${pr.id}')">${pr.label}</button>`).join('')}
+    </div>
+
+    <!-- VISTA PREVIA DEL CANVAS -->
+    <div class="share-preview-box">
+      <canvas id="share-canvas"></canvas>
+    </div>
+
+    <div style="font-size:11px;color:var(--tenue);text-align:center">
+      🔒 Privacidad protegida: Se omiten notas privadas, lote y datos de ubicación.
+    </div>
+
+    <button class="btn-primary" onclick="downloadShareCard()">Descargar Tarjeta 📥</button>
+  </div>`;
+
+  drawShareCanvas();
 }
 
-goHome();
-</script>
-</body>
-</html>
+function setShareRatio(r){ currentShareRatio = r; renderShareModal(); }
+function setSharePreset(p){ currentSharePreset = p; renderShareModal(); }
+function closeShareModal(){ const m = document.getElementById('share-modal-container'); if(m) m.remove(); }
+
+function drawShareCanvas(){
+  const canvas = document.getElementById('share-canvas');
+  if(!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const p = currentSharePlant;
+  const s = sp(p.esp);
+  const preset = SHARE_PRESETS.find(x => x.id === currentSharePreset) || SHARE_PRESETS[0];
+
+  const w = 1080;
+  const h = currentShareRatio === 'story' ? 1920 : 1080;
+  canvas.width = w;
+  canvas.height = h;
+
+  // Fondo cálido premium
+  ctx.fillStyle = '#F5F4EC';
+  ctx.fillRect(0, 0, w, h);
+
+  // Marco elegante
+  ctx.strokeStyle = '#D5DED7';
+  ctx.lineWidth = 12;
+  ctx.strokeRect(30, 30, w - 60, h - 60);
+
+  // Espacio central de foto / arte
+  const photoY = currentShareRatio === 'story' ? 240 : 160;
+  const photoH = currentShareRatio === 'story' ? 900 : 560;
+
+  ctx.fillStyle = '#E3ECE6';
+  ctx.roundRect(8
