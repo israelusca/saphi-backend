@@ -1,3 +1,4 @@
+
 <!doctype html>
 <html lang="es">
 <head>
@@ -17,6 +18,7 @@
 <title>Saphi · Cultiva con criterio</title>
 <style>
 :root{
+  --app-height:100dvh;
   --crema:#FBF6EC;--ambar:#E4A62C;--ambar-osc:#C6871A;--terracota:#C15B33;--terracota-osc:#A94A26;
   --tierra:#5B3A22;--tierra-2:#7A5334;--verde:#4F8B4A;--verde-bg:#E9F1E2;--verde-osc:#3F7A3B;
   --texto:#3A2E22;--tenue:#8A7A66;--card:#FFFFFF;--linea:#EDE3D0;--crema-2:#FDF3DC;
@@ -25,10 +27,10 @@
 }
 *{box-sizing:border-box}
 body{margin:0;background:#EBE2CE;color:var(--texto);font-family:var(--fb);
-  min-height:100vh;display:flex;justify-content:center;align-items:flex-start}
-.app{width:100%;max-width:430px;height:100vh;height:100dvh;background:var(--crema);position:relative;overflow:hidden;
+  min-height:var(--app-height);height:var(--app-height);overflow:hidden;display:flex;justify-content:center;align-items:flex-start}
+.app{width:100%;max-width:430px;height:var(--app-height);background:var(--crema);position:relative;overflow:hidden;
   box-shadow:0 0 40px rgba(0,0,0,.12);display:flex;flex-direction:column}
-@media(min-width:520px){.app{margin:22px 0;height:calc(100vh - 44px);height:calc(100dvh - 44px);border-radius:30px}}
+@media(min-width:520px){.app{margin:22px 0;height:calc(var(--app-height) - 44px);border-radius:30px}}
 
 /* top bar */
 .topbar{padding:16px 18px 12px;padding-top:calc(16px + env(safe-area-inset-top,0px));background:linear-gradient(180deg,var(--crema-2),var(--crema));
@@ -55,7 +57,7 @@ body{margin:0;background:#EBE2CE;color:var(--texto);font-family:var(--fb);
 .app.sol .fab{color:#fff!important}
 
 /* content */
-.content{flex:1;overflow-y:auto;padding:6px 16px 96px}
+.content{flex:1;min-height:0;overflow-y:auto;padding:6px 16px 96px}
 .content::-webkit-scrollbar{display:none}
 h2.sc{font-family:var(--ft);font-weight:700;font-size:20px;color:var(--tierra);margin:12px 2px 4px}
 .sub{color:var(--tenue);font-size:13px;margin:0 2px 14px}
@@ -1119,9 +1121,8 @@ h2.sc{
   right:auto;
   width:min(680px,calc(100% - 20px));
   transform:translateX(-50%);
-  bottom:10px;
+  bottom:calc(8px + env(safe-area-inset-bottom,0px));
   padding:6px;
-  padding-bottom:calc(6px + env(safe-area-inset-bottom,0px));
   justify-content:stretch;
   gap:3px;
   background:rgba(255,255,255,.97);
@@ -1161,7 +1162,7 @@ h2.sc{
 .nav button.on .ic{transform:none}
 .fab{
   right:22px;
-  bottom:84px;
+  bottom:calc(82px + env(safe-area-inset-bottom,0px));
   width:58px;
   height:58px;
   border-radius:18px;
@@ -1271,6 +1272,17 @@ h2.sc{
 .identify-match-s{font-family:var(--font-botanical);font-style:italic;color:var(--tenue);font-size:14px}
 .identify-match button{width:100%;min-height:42px;margin-top:10px;border:0;border-radius:12px;background:var(--brand-sun);color:#30250A;font-size:12px;font-weight:800;cursor:pointer}
 .identify-warning{padding:11px;border-radius:12px;background:#FFF0E9;color:var(--terracota-osc);font-size:12px;line-height:1.5}
+.identify-or{display:flex;align-items:center;gap:10px;margin:15px 0 4px;color:var(--tenue);font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.4px}
+.identify-or::before,.identify-or::after{content:"";flex:1;height:1px;background:var(--linea)}
+.ai-disclaimer{margin-top:11px;padding:10px 12px;border:1px solid #E6D2A6;border-radius:12px;background:#FCF6E7;color:#6B551E;font-size:11.5px;line-height:1.55}
+.ai-disclaimer a{color:#128C4B;font-weight:800;text-decoration:none;border-bottom:1.5px solid #9FE0B9}
+.ai-disclaimer a:hover{border-bottom-color:#128C4B}
+.app.sol .ai-disclaimer{background:#fff!important;color:#000!important;border:2px solid #000!important}
+.app.sol .ai-disclaimer a{color:#000!important;border-bottom:2px solid #000!important}
+.search-empty{padding:11px;border-radius:12px;background:#F4F1E8;color:var(--tenue);font-size:12.5px;line-height:1.55;text-align:center}
+.biochar-note{margin:10px 0 2px;padding:9px 11px;border:1px solid #E6D2A6;border-radius:11px;background:#FCF6E7;color:#6B551E;font-size:11.5px;line-height:1.5}
+.biochar-note.subtle{border-color:var(--linea);background:var(--crema-2);color:var(--tenue)}
+.app.sol .biochar-note{background:#fff!important;color:#000!important;border:2px solid #000!important}
 .step-panel .field:last-child{margin-bottom:0}
 .step-panel .results{max-height:320px;overflow:auto;border-radius:14px;scrollbar-width:thin}
 .step-panel .res{min-height:58px;padding:10px 11px;border-radius:12px}
@@ -1286,6 +1298,32 @@ h2.sc{
 .step-summary>div{padding:12px;border:1px solid var(--linea);border-radius:14px;background:#FAFBF9}
 .step-summary small{display:block;color:var(--tenue);font-size:10px;font-weight:800;letter-spacing:.08em;text-transform:uppercase}
 .step-summary strong{display:block;margin-top:4px;color:var(--tierra);font-size:14px}
+/* Registro de lote (modo Campo) */
+.reg-modes{display:flex;gap:6px;margin-bottom:10px;background:var(--crema-2);padding:4px;border-radius:12px}
+.reg-mode{flex:1;min-height:40px;padding:8px 4px;border:0;border-radius:9px;background:transparent;color:var(--tierra-2);font-size:12px;font-weight:800;cursor:pointer;line-height:1.15}
+.reg-mode.on{background:var(--verde);color:#fff;box-shadow:var(--sombra-sm)}
+.reg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.reg-grid.two{grid-template-columns:1fr 1fr}
+.reg-grid .field.mini:first-child{grid-column:1/-1}
+.field.mini{margin:0}
+.field.mini label{font-size:11px}
+.field.mini input{min-height:46px;margin-top:5px}
+.reg-area{display:flex;gap:8px;align-items:stretch;margin-top:5px}
+.reg-area input{flex:1;min-height:46px;margin-top:0}
+.reg-unit{display:flex;flex:0 0 auto;background:var(--crema-2);border-radius:11px;padding:3px}
+.reg-unit button{min-width:44px;padding:0 8px;border:0;border-radius:9px;background:transparent;color:var(--tierra-2);font-size:13px;font-weight:800;cursor:pointer}
+.reg-unit button.on{background:var(--verde);color:#fff}
+.reg-cant{width:100%;min-height:52px;padding:12px 14px;border:1px solid var(--linea-fuerte);border-radius:13px;font-size:20px;font-weight:800;color:var(--tierra);text-align:center}
+.reg-presets{display:flex;flex-wrap:wrap;gap:7px;margin-top:9px}
+.reg-presets button{flex:1;min-width:56px;min-height:38px;border:1px solid var(--linea);border-radius:10px;background:#fff;color:var(--tierra-2);font-size:13px;font-weight:800;cursor:pointer}
+.reg-presets button:hover{border-color:var(--verde);background:var(--verde-bg);color:var(--verde-osc)}
+.reg-pop{margin-top:11px;padding:11px 13px;border-radius:12px;background:var(--verde-bg);color:var(--verde-osc);font-size:13px;font-weight:700;text-align:center}
+.reg-pop-n{font-size:19px;font-weight:900;color:var(--verde-osc)}
+.reg-pop small{font-weight:700;color:var(--tenue)}
+.reg-pop-hint{color:var(--tenue);font-weight:700}
+.app.sol .reg-mode.on,.app.sol .reg-unit button.on{background:#000!important;color:#fff!important}
+.app.sol .reg-pop{background:#fff!important;color:#000!important;border:2px solid #000!important}
+.app.sol .reg-pop-n{color:#000!important}
 
 /* Agenda V3 · primero decisiones, después calendario */
 .agenda-shell{max-width:920px;margin:0 auto}
@@ -1306,6 +1344,7 @@ h2.sc{
 .reminder-form{margin:0 0 14px;padding:15px;border:1px solid #C8D7D0;border-radius:18px;background:#F2F7F4}
 .reminder-form h3{margin:0 0 12px;color:var(--tierra);font-size:16px}
 .reminder-form-grid{display:grid;grid-template-columns:1.35fr .8fr;gap:9px}
+.reminder-form-grid .wide{grid-column:1/-1}
 .reminder-form label{display:block;color:var(--tierra-2);font-size:12px;font-weight:800}
 .reminder-form input,.reminder-form select{width:100%;min-height:45px;margin-top:5px;padding:9px 11px;border:1px solid var(--linea-fuerte);border-radius:12px;background:#fff;color:var(--texto);font-size:14px;outline:none}
 .reminder-form-actions{display:flex;gap:8px;margin-top:10px}
@@ -1317,8 +1356,15 @@ h2.sc{
 .agenda-week{margin:0 0 14px;padding:11px;border:1px solid var(--linea);border-radius:18px;background:#fff}
 .agenda-week .wknav{margin:0 0 9px}
 .agenda-week .wk{margin:0}
-.agenda-week .d{position:relative;min-height:71px;padding-bottom:7px}
-.day-count{position:absolute;right:4px;top:4px;min-width:17px;height:17px;display:grid;place-items:center;padding:0 4px;border-radius:999px;background:var(--tierra);color:#fff;font-size:9px;font-weight:850}
+.agenda-week .wk .d{position:relative;flex:1;min-width:0;min-height:72px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:11px 2px 8px;text-align:center;overflow:hidden}
+.agenda-week .wk .dl{font-size:10px;font-weight:800;color:var(--tenue);text-transform:uppercase;line-height:1;letter-spacing:.2px}
+.agenda-week .wk .dd{font-weight:800;font-size:16px;color:var(--tierra);line-height:1}
+.agenda-week .wk .d.today .dd{color:var(--terracota)}
+.agenda-week .wk .dm{font-size:14px;line-height:1}
+.day-meta{display:block;min-height:0;line-height:1}
+.day-count{position:absolute;top:5px;right:4px;min-width:15px;height:15px;display:grid;place-items:center;padding:0 4px;border-radius:999px;background:var(--terracota);color:#fff;font-size:9px;font-weight:900;line-height:1;box-shadow:0 1px 4px rgba(0,0,0,.22)}
+.agenda-week .wk .d.sel .day-count{background:var(--terracota-osc)}
+.reminder-time{display:inline-flex;align-items:center;margin-right:5px;padding:2px 6px;border-radius:7px;background:var(--verde-bg);color:var(--verde-osc);font-size:10px;font-weight:900;font-variant-numeric:tabular-nums}
 .agenda-day-title{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;margin:18px 2px 9px}
 .agenda-day-title h3{margin:0;color:var(--tierra);font-size:18px;letter-spacing:-.3px}
 .agenda-day-title span{color:var(--tenue);font-size:12px;font-weight:750}
@@ -1605,9 +1651,14 @@ h2.sc{
 .app.sol .reminder-form-actions .save,.app.sol .st-btns button:first-child{background:#000!important;color:#fff!important;border:2px solid #000!important}
 .app.sol .shop-card-icon *,.app.sol .shop-interest *,.app.sol .shop-contact *,.app.sol .confirm-cancel *{color:#fff!important}
 .app.sol .tag,.app.sol .chip,.app.sol .pc-state,.app.sol .prop-pill,.app.sol .pc-lineage,
-.app.sol .ai-quota,.app.sol .res-origin,.app.sol .field-only,.app.sol .day-count,.app.sol .shop-need-badge,.app.sol .shop-card-rank{
+.app.sol .ai-quota,.app.sol .res-origin,.app.sol .field-only,.app.sol .shop-need-badge,.app.sol .shop-card-rank{
   background:#fff!important;color:#000!important;border:1px solid #000!important
 }
+/* Modo Sol: alto contraste SIN perder el código de color de severidad (urgente vs. al día) */
+.app.sol .pc-state{background:#fff!important;color:#075a27!important;border:2px solid #075a27!important}
+.app.sol .pc-state.warn{background:#9a1f0d!important;color:#fff!important;border:2px solid #000!important}
+.app.sol .pc-state.warn *{color:#fff!important}
+.app.sol .day-count{background:#9a1f0d!important;color:#fff!important;border:2px solid #000!important}
 .app.sol input::placeholder,.app.sol textarea::placeholder{color:#333!important;opacity:1}
 .app.sol button:disabled{background:#ddd!important;color:#111!important;border-color:#111!important;opacity:1}
 
@@ -1643,7 +1694,7 @@ h2.sc{
 
 @media(min-width:520px){
   body{padding:18px}
-  .app{margin:0;height:calc(100vh - 36px);height:calc(100dvh - 36px);border-radius:28px}
+  .app{margin:0;height:calc(var(--app-height) - 36px);border-radius:28px}
   .topbar{padding-left:24px;padding-right:24px}
   .content{padding-left:24px;padding-right:24px}
   .nav{left:50%;right:auto;width:min(680px,calc(100% - 40px));bottom:14px}
@@ -2156,6 +2207,26 @@ const SPECIES=[
  {id:'wallisia_cyanea',t:'t2',n:'Pluma rosa',sci:'Wallisia cyanea',mix:'t2_epifita',ec:'Nativa de Ecuador',nota:'Bromelia epífita antes llamada Tillandsia cyanea; luz filtrada y humedad con ventilación.'},
  {id:'zamia_lindenii',t:'t6',n:'Zamia de Linden',sci:'Zamia lindenii',mix:'t6_jardin',ec:'Nativa de Ecuador',nota:'Cícada de crecimiento lento y conservación delicada; solo plantas propagadas legalmente.'},
  {id:'palma_cera_ec',t:'t6',n:'Palma de cera ecuatoriana',sci:'Ceroxylon echinulatum',mix:'t6_jardin',ec:'Nativa andina',nota:'Palma de bosque montano; clima fresco húmedo y mucho espacio vertical.'},
+
+ // -- Cultivos de campo del Ecuador (Costa y comerciales) --
+ {id:'arroz',t:'t7',n:'Arroz',sci:'Oryza sativa',mix:'t7_fertil',ec:'Costa · cereal',fruto:true,nota:'Cereal de inundación; suelo nivelado, láminas de agua y buen drenaje al final del ciclo. Base del Litoral (Guayas, Los Ríos).'},
+ {id:'banano',t:'t7',n:'Banano (exportación)',sci:'Musa AAA',mix:'t7_fertil',ec:'Costa · exportación',fruto:true,nota:'Distinto del plátano de freír: dedos más finos y dulces. Mucha agua, potasio alto y deshije constante; principal fruta de exportación.'},
+ {id:'cana_azucar',t:'t7',n:'Caña de azúcar',sci:'Saccharum officinarum',mix:'t7_fertil',ec:'Costa · industrial',fruto:false,nota:'Gramínea perenne para azúcar y panela; sol pleno, calor y riego abundante. Cuenca del Guayas.'},
+ {id:'palma_aceitera',t:'t7',n:'Palma aceitera (africana)',sci:'Elaeis guineensis',mix:'t7_fertil',ec:'Costa · industrial',fruto:true,nota:'Oleaginosa perenne de trópico húmedo; gran espacio, calor constante y drenaje. Aceite rojo de palma.'},
+ {id:'soya',t:'t7',n:'Soya',sci:'Glycine max',mix:'t7_fertil',ec:'Costa · leguminosa',fruto:true,nota:'Leguminosa oleaginosa; fija nitrógeno, ideal en rotación con maíz y arroz. Clima cálido.'},
+ {id:'sorgo',t:'t7',n:'Sorgo',sci:'Sorghum bicolor',mix:'t7_fertil',ec:'Costa · cereal',fruto:true,nota:'Cereal muy resistente a la sequía; alternativa al maíz en zonas secas de la Costa. Grano y forraje.'},
+ {id:'algodon',t:'t7',n:'Algodón',sci:'Gossypium hirsutum',mix:'t7_fertil',ec:'Costa · fibra',fruto:true,nota:'Fibra de clima cálido y seco; sol pleno. Vigila picudo y gusanos de la cápsula.'},
+ {id:'abaca',t:'t7',n:'Abacá',sci:'Musa textilis',mix:'t7_fertil',ec:'Costa · fibra',fruto:false,nota:'Pariente del banano cultivado por su fibra; trópico húmedo con sombra parcial. Manabí y Los Ríos.'},
+ {id:'higuerilla',t:'t7',n:'Higuerilla (ricino)',sci:'Ricinus communis',mix:'t7_fertil',ec:'Costa · oleaginosa',fruto:true,nota:'Oleaginosa rústica de secano; sus semillas son tóxicas (ricina): maneja con cuidado y fuera del alcance de niños y animales.'},
+ {id:'tabaco',t:'t7',n:'Tabaco',sci:'Nicotiana tabacum',mix:'t7_fertil',ec:'Costa · industrial',fruto:false,nota:'Cultivo de hoja para curado; suelo fértil y suelto, sol pleno. Los Ríos y Guayas.'},
+ {id:'yucacampo',t:'t7',n:'Yuca (campo)',sci:'Manihot esculenta',mix:'t7_fertil',ec:'Costa · raíz',fruto:true,nota:'Raíz tropical rústica; se siembra por estacas, tolera suelos pobres. Cosecha a los 8–12 meses.'},
+ {id:'achiote',t:'t7',n:'Achiote / Onoto',sci:'Bixa orellana',mix:'t7_fertil',ec:'Costa · colorante',fruto:true,nota:'Arbusto para el colorante rojo de la semilla; calor, humedad y sol. Uso alimentario y cosmético.'},
+ {id:'mani_campo',t:'t7',n:'Maní (campo)',sci:'Arachis hypogaea',mix:'t7_fertil',ec:'Costa · leguminosa',fruto:true,nota:'Leguminosa que entierra sus frutos; suelo suelto y arenoso, aporque. Manabí y Loja.'},
+ {id:'trigo',t:'t7',n:'Trigo',sci:'Triticum aestivum',mix:'t7_fertil',ec:'Sierra · cereal',fruto:true,nota:'Cereal de clima templado-frío; siembra densa en Sierra. Sol y suelo bien preparado.'},
+ {id:'cebada',t:'t7',n:'Cebada',sci:'Hordeum vulgare',mix:'t7_fertil',ec:'Sierra · cereal',fruto:true,nota:'Cereal andino muy rústico; tolera frío y altura. Grano y forraje.'},
+ {id:'avena',t:'t7',n:'Avena',sci:'Avena sativa',mix:'t7_fertil',ec:'Sierra · cereal/forraje',fruto:true,nota:'Grano y forraje de altura; clima fresco. Muy usada como cobertura y alimento animal.'},
+ {id:'teca',t:'t6',n:'Teca',sci:'Tectona grandis',mix:'t6_jardin',ec:'Costa · forestal',nota:'Madera fina de exportación; pleno sol, buen drenaje y espacio. Plantación de largo plazo en la Costa.'},
+ {id:'balsa',t:'t6',n:'Balsa',sci:'Ochroma pyramidale',mix:'t6_jardin',ec:'Costa · forestal',nota:'Madera ligera de crecimiento rápido; Ecuador es líder mundial. Sol pleno, calor y humedad.'},
 ];
 const MIX={
  t1_base:{cost:0.21,parts:[['Turba+perlita',35,'#8C6239'],['Perlita',25,'#E4A62C'],['Zeolita',25,'#B9A06B'],['Biochar',10,'#5B3A22'],['Humus',5,'#4F8B4A']]},
@@ -2263,6 +2334,8 @@ Object.keys(RIEGO).forEach(t=>{RIEGO[t].tierra=RIEGO[t].grande;});
 Object.keys(RIEGODAYS).forEach(t=>{RIEGODAYS[t].tierra=RIEGODAYS[t].grande;});
 Object.assign(ALIAS,{durazno:'melocoton',capuli:'capulin',tomatearbol:'tomate de arbol tomate arbol',naranjilla:'lulo',boroju:'borojo',achotillo:'rambutan',pepinodulce:'pepino dulce',hierbabuena:'yerbabuena',curcuma:'turmerico',dracenamarginata:'dracena marginata',ficusbenjamina:'ficus llorón benjamina',cheflera:'schefflera cheflera',palmasalon:'palmera de salon salon',impatiens:'alegria alegria del hogar',cartucho:'cala',floripondio:'guanto campana',nopal:'tuna penca opuntia',senecio:'collar de perlas rosario',fucsia:'pena pena zarcillo',maiz:'choclo',vainita:'frejol poroto habichuela',amaranto:'sangorache ataco',mora:'mora de castilla',taxo:'curuba',uvilla:'uchuva aguaymanto',guaba:'guaba de bejuco',col:'repollo',kale:'col rizada berza',mandioca:'yuca cassava'});
 Object.assign(ALIAS,{coladeburro:'cola de burro sedum burrito',poinsetia:'nochebuena flor de pascua pascuero',tagete:'flor de muerto marigold clavelon',hierbalimon:'lemongrass hierba de limon',dienteleon:'taraxaco',frutadepan:'arbol del pan',yaca:'jackfruit jaca',biznaga:'asiento de suegra echinocactus cactus barril',calabacin:'zucchini zapallito italiano',chocho:'tarwi altramuz lupino',rocoto:'locoto manzano',granadilla:'granadilla',arandano:'blueberry mortino',feijoa:'guayaba del pais guayabo',kumquat:'naranjo enano quinoto',colapez:'palma cola de pez caryota',ionantha:'clavel del aire',xerographica:'reina de las tillandsias',plumeria:'franchipan frangipani flor de mayo',adelfa:'laurel de flor oleandro',oxalis:'falso trebol trebol morado',rucula:'arugula oruga',mani:'cacahuate cacahuete',damasco:'albaricoque chabacano'});
+// Cultivos de campo del Ecuador (Costa y comerciales)
+Object.assign(ALIAS,{arroz:'arrozal paddy costa cereal grano',banano:'guineo banano de exportacion costa cereal',cana_azucar:'cana de azucar caña panela costa',palma_aceitera:'palma africana aceite de palma elaeis costa',soya:'soja costa leguminosa grano',sorgo:'costa cereal grano',algodon:'algodon fibra costa',abaca:'canamo de manila fibra banano costa',higuerilla:'ricino castor costa oleaginosa',tabaco:'costa hoja',yucacampo:'yuca cassava mandioca campo costa raiz',achiote:'onoto bija annatto colorante costa',mani_campo:'mani cacahuate cacahuete costa leguminosa',trigo:'sierra cereal grano',cebada:'sierra cereal grano',avena:'sierra cereal forraje grano',teca:'teak madera forestal costa',balsa:'madera de balsa boya forestal costa'});
 Object.assign(ALIAS,{
  monstera_lechleriana:'monstera ecuador fenestrada',monstera_dubia:'monstera shingle teja',monstera_pinnatipartita:'monstera pinnada',monstera_spruceana:'monstera karsteniana',monstera_subpinnata:'monstera pinnada hojas divididas',monstera_obliqua:'monstera rara agujeros',monstera_standleyana:'philodendron cobra monstera cobra',monstera_siltepecana:'monstera silver plateada',monstera_acacoyaguensis:'monstera gigante',monstera_thai:'thai constellation monstera variegada',monstera_albo:'albo borsigiana variegata monstera blanca',monstera_aurea:'aurea monstera amarilla variegada',
  phalaenopsis_hibrida:'orquidea mariposa phal',cattleya_maxima:'orquidea ecuatoriana cattleya maxima',dendrobium_nobile:'orquidea caña nobile',dendrobium_bigibbum:'dendrobium phalaenopsis denphal',paphiopedilum:'orquidea zapatilla zapato de venus',phragmipedium_besseae:'orquidea zapatilla roja ecuador',dracula_vampira:'orquidea vampiro dracula ecuador',dracula_mopsus:'orquidea dracula ecuador',dracula_cordobae:'orquidea dracula ecuador',masdevallia:'orquidea andina',epidendrum:'orquidea crucifijo',sobralia:'orquidea terrestre',pleurothallis:'orquidea miniatura',lepanthes:'orquidea miniatura',stelis:'orquidea miniatura',comparettia_speciosa:'orquidea ecuador comparettia',miltoniopsis:'orquidea pensamiento pansy orchid',brassavola_nodosa:'dama de noche orquidea',vanilla_planifolia:'vainilla orquidea',
@@ -2283,11 +2356,12 @@ function fmtDur(m){m=Math.round(m);if(m<=0)return 'menos de 1 mes';const y=Math.
   return y+' '+(y===1?'año':'años')+' y '+mo+' '+(mo===1?'mes':'meses');}
 // cosecha: días aprox. desde la siembra hasta cosechar (solo comestibles T7). Las que no están → cosecha continua (hierbas de hoja)
 const COSECHA={rabano:30,lechuga:55,espinaca:45,acelga:55,cilantro:45,cebollin:60,zanahoria:80,tomate:95,aji:100,pepino:60,fresa:70,brocoli:85,apio:110,
- pepinodulce:120,papa:120,camote:120,maiz:100,zapallo:120,zambo:150,col:90,coliflor:85,remolacha:70,nabo:55,vainita:60,arveja:70,haba:95,cebolla:120,ajo:150,berenjena:100,kale:60,quinua:150,amaranto:120,melloco:180,oca:200,mashua:210,jengibre:240,curcuma:270,mandioca:300,calabacin:60,sandia:90,melon:90,okra:60,rucula:35,berro:60,yacon:200,jicama:150,chocho:180,mani:130};
+ pepinodulce:120,papa:120,camote:120,maiz:100,zapallo:120,zambo:150,col:90,coliflor:85,remolacha:70,nabo:55,vainita:60,arveja:70,haba:95,cebolla:120,ajo:150,berenjena:100,kale:60,quinua:150,amaranto:120,melloco:180,oca:200,mashua:210,jengibre:240,curcuma:270,mandioca:300,calabacin:60,sandia:90,melon:90,okra:60,rucula:35,berro:60,yacon:200,jicama:150,chocho:180,mani:130,
+ arroz:120,soya:110,sorgo:115,algodon:170,tabaco:120,trigo:150,cebada:150,avena:150,mani_campo:130,yucacampo:330};
 // frutales y perennes: no van por ciclo de días sino por temporada
 const PERENNE=new Set(['maracuya','papaya','platano','pina','guayaba','limon','aguacate',
  'durazno','manzana','pera','ciruela','capuli','higo','membrillo','granada','tomatearbol','babaco','chirimoya','nispero','uva','mora','taxo','uvilla','guaba',
- 'mango','naranja','mandarina','toronja','lima','guanabana','zapote','caimito','araza','boroju','cacao','cafe','achotillo','pitahaya','coco','noni','carambola','naranjilla','pomarrosa','mamey','tamarindo','cereza','damasco','kiwi','frambuesa','arandano','granadilla','feijoa','olivo','kumquat','nuez','almendro','litchi','yaca','frutadepan','datil','alcachofa','esparrago','cocona','chontaduro','copoazu','sachainchi']);
+ 'mango','naranja','mandarina','toronja','lima','guanabana','zapote','caimito','araza','boroju','cacao','cafe','achotillo','pitahaya','coco','noni','carambola','naranjilla','pomarrosa','mamey','tamarindo','cereza','damasco','kiwi','frambuesa','arandano','granadilla','feijoa','olivo','kumquat','nuez','almendro','litchi','yaca','frutadepan','datil','alcachofa','esparrago','cocona','chontaduro','copoazu','sachainchi','banano','cana_azucar','palma_aceitera','abaca','achiote','teca','balsa']);
 
 const SHOP_PRODUCTS={
  mix_t1:{cat:'Sustrato',em:'◫',name:'Mezcla mineral T1',desc:'Base porosa de drenaje rápido para cactus y suculentas.',check:'Confirma que el envase indique granulometría estable y baja retención.'},
@@ -2541,7 +2615,7 @@ function fillCards(){
       const pc=plantCount(p);return '<div class="gtile" onclick="goFicha('+p.id+')" style="--acc:'+TACC[s.t]+'"><div class="gt-img" style="'+(p.photo?'background-image:url('+p.photo+')':'background:'+ty.hero)+'">'+(p.photo?'':illo(s.t,54))+'<span class="gt-tag">'+ty.tag+'</span></div><div class="gt-info"><div class="gt-name">'+esc(p.nombre)+(pc>1?' ×'+pc:'')+'</div>'+(p.loc&&LUGARES[p.loc]?'<div class="gt-loc">'+LUGARES[p.loc].n+'</div>':'')+(p.parentId&&pm?'<span class="prop-pill">'+pm.em+' '+pm.n+'</span>':'')+'<span class="gt-state '+(rs.needs?'warn':'')+'">'+rs.label+'</span></div></div>';}).join('')+'</div>';
   }else{
     const grouped=(listSort==='tipo'||listSort==='lugar');let lastG=null;
-    arr.forEach(p=>{const s=sp(p.esp),ty=TYPES[s.t],rs=riegoShort(p,s),mother=plants.find(x=>x.id===p.parentId),pm=p.propagation&&(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato);
+    arr.forEach(p=>{const s=sp(p.esp),ty=TYPES[s.t],rs=riegoShort(p,s),mother=plantById(p.parentId),pm=p.propagation&&(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato);
       if(grouped){const g=(listSort==='tipo'?s.t:(p.loc||''));if(g!==lastG){lastG=g;h+='<div class="grp-h">'+(listSort==='tipo'?TYPES[s.t].badge:(p.loc&&LUGARES[p.loc]?LUGARES[p.loc].em+' '+LUGARES[p.loc].n:'📍 Sin lugar'))+'</div>';}}
       const pc=plantCount(p);h+='<div class="plant-card'+(p.parentId?' child':'')+'" onclick="goFicha('+p.id+')" style="--acc:'+TACC[s.t]+'">'
         +'<div class="thumb" style="'+(p.photo?'background-image:url('+p.photo+');background-size:cover;background-position:center':'background:'+ty.hero)+'">'+(p.photo?'':illo(s.t,42))+'</div>'
@@ -2560,8 +2634,8 @@ function renderAdd(pre,keep){
     addStep=1;
     let _em=0;
     if(ed&&pre){const baseISO=pre.potSince||pre.lastRepot;if(baseISO)_em=Math.max(0,monthsBetween(pd(baseISO),new Date()));}
-    draft=ed&&pre?{nombre:pre.nombre,esp:pre.esp,region:pre.region,alt:pre.alt||'',pot:pre.pot,cant:pre.cant||1,loc:pre.loc||'',light:(pre.light!=null?pre.light:''),lot:pre.lot||'',stage:pre.stage||'',potY:Math.floor(_em/12),potM:_em%12}
-                  :{nombre:'',esp:'',region:'',alt:'',pot:'mediana',cant:1,loc:'',light:'',lot:'',stage:'',potY:0,potM:0};
+    draft=ed&&pre?{nombre:pre.nombre,esp:pre.esp,region:pre.region,alt:pre.alt||'',pot:pre.pot,cant:pre.cant||1,loc:pre.loc||'',light:(pre.light!=null?pre.light:''),lot:pre.lot||'',stage:pre.stage||'',potY:Math.floor(_em/12),potM:_em%12,regMode:pre.regMode||'cantidad',regArea:pre.regArea||'',regUnit:pre.regUnit||'m2',regRowSp:pre.regRowSp||'',regPlantSp:pre.regPlantSp||'',regRows:pre.regRows||'',regPerRow:pre.regPerRow||'',sowDate:pre.sowDate||''}
+                  :{nombre:'',esp:'',region:'',alt:'',pot:field?'tierra':'mediana',cant:1,loc:'',light:'',lot:'',stage:'',potY:0,potM:0,regMode:'cantidad',regArea:'',regUnit:'m2',regRowSp:'',regPlantSp:'',regRows:'',regPerRow:'',sowDate:''};
   }
   const catalogueCount=SPECIES.filter(s=>s.id.indexOf('otra')!==0).length;
   let h='<section class="add-shell"><header class="add-head"><div class="add-kicker">'+(field?'MODO CAMPO':'MODO HOGAR')+' · '+(ed?'Actualizar ficha':'Nueva ficha')+'</div><h2>'+(ed?'Edita sin perder la historia':field?'Abre un registro de cultivo':'Registra lo que sí importa')+'</h2><p>'+(ed?'Los cambios se aplican a la ficha existente y conservan su diario.':field?'Identifica el material, ubica el lote y registra su etapa. Después podrás añadir mediciones y observaciones.':'Tres pasos breves. Lo demás se aprende observando la planta con el tiempo.')+'</p></header>';
@@ -2572,10 +2646,11 @@ function renderAdd(pre,keep){
     h+='<div class="field"><label>'+(field?'Código o nombre del registro':'Nombre de esta planta')+'</label><input id="f-nombre" placeholder="'+(field?'Ej. MON-03 · Parcela norte':'Ej. Monstera de la sala')+'" value="'+esc(draft.nombre)+'" autocomplete="off" autocapitalize="words" autocorrect="off" spellcheck="false" name="saphi-nick" oninput="draft.nombre=this.value"></div>';
     if(field)h+='<div class="field"><label>Lote, parcela o ensayo <span class="opt-lbl">(opcional)</span></label><input id="f-lot" placeholder="Ej. Invernadero A · Bloque 2" value="'+esc(draft.lot)+'" oninput="draft.lot=this.value"><div class="hint">Permite agrupar registros que comparten manejo o ubicación experimental.</div></div>';
     h+='<div class="field"><label>Especie o nombre común</label><div class="catalogue-note"><span><b>'+catalogueCount+' plantas</b> en el catálogo</span><span>Comunes · exóticas · Ecuador</span></div>'
-      +'<input id="f-search" placeholder="Busca monstera, orquídea, guayusa…" autocomplete="off" autocorrect="off" spellcheck="false" oninput="searchPlants(this.value)">'
-      +'<div class="quick-searches"><button type="button" onclick="presetPlantSearch(\'monstera\')">Monsteras</button><button type="button" onclick="presetPlantSearch(\'orquídea\')">Orquídeas</button><button type="button" onclick="presetPlantSearch(\'Ecuador\')">Nativas de Ecuador</button></div>'
-      +'<div class="identify-ai"><div class="identify-ai-head"><div><strong>¿No conoces la especie?</strong><span>Sube una foto clara de hojas, tallo o flor. Saphi la compara con su catálogo.</span></div><span class="ai-quota" id="identify-quota">'+aiQuotaLabel('identify')+'</span></div><label class="identify-ai-upload"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePlantIdentify(event)"><span class="upload-ic">⌕</span><span class="upload-copy"><b>Identificar especie con IA</b><small>Tomar foto o elegir imagen</small></span></label><div id="identify-preview" class="identify-preview" style="display:none"></div><div id="identify-result" class="identify-result"></div></div>'
+      +'<input id="f-search" placeholder="Busca monstera, arroz, cacao, guayusa…" autocomplete="off" autocorrect="off" spellcheck="false" oninput="searchPlants(this.value)">'
+      +'<div class="quick-searches"><button type="button" onclick="presetPlantSearch(\'monstera\')">Monsteras</button><button type="button" onclick="presetPlantSearch(\'orquídea\')">Orquídeas</button><button type="button" onclick="presetPlantSearch(\'Ecuador\')">Nativas de Ecuador</button>'+(field?'<button type="button" onclick="presetPlantSearch(\'costa\')">Cultivos de costa</button><button type="button" onclick="presetPlantSearch(\'cereal\')">Cereales</button>':'')+'</div>'
       +'<div id="f-results" class="results"></div><div id="f-chosen" class="chosen" style="display:none"></div><div id="f-assist"></div>'
+      +'<div class="identify-or"><span>o identifícala con una foto</span></div>'
+      +'<div class="identify-ai"><div class="identify-ai-head"><div><strong>¿No conoces la especie?</strong><span>Sube una foto clara de hojas, tallo o flor. Saphi la compara con su catálogo.</span></div><span class="ai-quota" id="identify-quota">'+aiQuotaLabel('identify')+'</span></div><label class="identify-ai-upload"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handlePlantIdentify(event)"><span class="upload-ic">⌕</span><span class="upload-copy"><b>Identificar especie con IA</b><small>Tomar foto o elegir imagen</small></span></label><div id="identify-preview" class="identify-preview" style="display:none"></div><div id="identify-result" class="identify-result"></div>'+aiDisclaimer('identify')+'</div>'
       +'<button type="button" class="assist" onclick="openAsistente()">No aparece → identificar por necesidades</button></div>';
   }else if(addStep===2){
     h+='<h3 class="step-title">'+(field?'¿Dónde está el cultivo?':'¿En qué entorno vive?')+'</h3><p class="step-copy">'+(field?'Registra condiciones mínimas para interpretar después los datos de manejo.':'Región, lugar y luz cambian más el cuidado que una receta genérica descargada de internet.')+'</p>';
@@ -2597,8 +2672,21 @@ function renderAdd(pre,keep){
       +'<div class="agewrap" id="age-steppers"><div class="agecol"><span class="agelbl">Años</span><div class="stepper2"><button type="button" onclick="incAge(\'y\',-1)">−</button><span id="age-y">'+(draft.potY||0)+'</span><button type="button" onclick="incAge(\'y\',1)">+</button></div></div>'
       +'<div class="agecol"><span class="agelbl">Meses</span><div class="stepper2"><button type="button" onclick="incAge(\'m\',-1)">−</button><span id="age-m">'+(draft.potM||0)+'</span><button type="button" onclick="incAge(\'m\',1)">+</button></div></div></div>'
       +'<div class="hint" id="age-hint">'+ageHint()+'</div></div>';
-    h+='<div class="field"><label>Cantidad de plantas en esta ficha</label><div class="stepper"><button type="button" onclick="incCant(-1)">−</button><span id="f-cant">'+(draft.cant||1)+'</span><button type="button" onclick="incCant(1)">+</button></div><div class="hint">Si alguna vive en otra maceta o condición, conviene darle su propia ficha.</div></div>';
-    if(field)h+='<div class="field"><label>Etapa del cultivo <span class="opt-lbl">(opcional)</span></label><select onchange="draft.stage=this.value"><option value="">Sin definir</option>'+Object.keys(FIELD_STAGES).map(k=>'<option value="'+k+'"'+(draft.stage===k?' selected':'')+'>'+FIELD_STAGES[k]+'</option>').join('')+'</select><div class="hint">La etapa ayuda a interpretar riego, nutrición y observaciones; no cambia automáticamente las dosis.</div></div>';
+    if(field){
+      // Registro de LOTE para modo Campo: por cantidad, por superficie o por surcos (sin registrar planta por planta).
+      h+='<div class="field"><label>Registro del lote</label>'
+        +'<div class="reg-modes" id="reg-modes">'
+        +'<button type="button" class="reg-mode'+(draft.regMode==='cantidad'?' on':'')+'" onclick="setRegMode(\'cantidad\')">N.º de plantas</button>'
+        +'<button type="button" class="reg-mode'+(draft.regMode==='area'?' on':'')+'" onclick="setRegMode(\'area\')">Por superficie</button>'
+        +'<button type="button" class="reg-mode'+(draft.regMode==='surcos'?' on':'')+'" onclick="setRegMode(\'surcos\')">Por surcos</button>'
+        +'</div><div id="reg-body">'+regBodyHtml()+'</div>'
+        +'<div class="reg-pop" id="reg-pop">'+regPopHtml()+'</div>'
+        +'<div class="hint">Un lote = una ficha. En cultivos de miles de plantas no registres una por una: escribe el total, o deja que Saphi lo estime por área (marco de plantación) o por surcos.</div></div>';
+      h+='<div class="field"><label>Fecha de siembra o trasplante <span class="opt-lbl">(opcional)</span></label><input id="f-sow" type="date" value="'+esc(draft.sowDate||'')+'" oninput="draft.sowDate=this.value" max="'+todayISO()+'"><div class="hint">Sirve para estimar el ciclo hasta cosecha y ordenar la agenda del cultivo.</div></div>';
+      h+='<div class="field"><label>Etapa del cultivo <span class="opt-lbl">(opcional)</span></label><select onchange="draft.stage=this.value"><option value="">Sin definir</option>'+Object.keys(FIELD_STAGES).map(k=>'<option value="'+k+'"'+(draft.stage===k?' selected':'')+'>'+FIELD_STAGES[k]+'</option>').join('')+'</select><div class="hint">La etapa ayuda a interpretar riego, nutrición y observaciones; no cambia automáticamente las dosis.</div></div>';
+    }else{
+      h+='<div class="field"><label>Cantidad de plantas en esta ficha</label><div class="stepper"><button type="button" onclick="incCant(-1)">−</button><span id="f-cant">'+(draft.cant||1)+'</span><button type="button" onclick="incCant(1)">+</button></div><div class="hint">Si alguna vive en otra maceta o condición, conviene darle su propia ficha.</div></div>';
+    }
   }
   h+='</div><div class="form-actions">';
   if(addStep>1)h+='<button class="form-back" type="button" onclick="addBack()" aria-label="Volver al paso anterior">‹</button>';
@@ -2633,16 +2721,85 @@ function incAge(which,d){
 function pickLoc(k){draft.loc=(draft.loc===k?'':k);document.querySelectorAll('#f-loc .locopt').forEach(o=>o.classList.toggle('sel',o.dataset.l===draft.loc));}
 function pickLight(k){draft.light=(draft.light===k?'':k);document.querySelectorAll('#f-light .opt').forEach(o=>o.classList.toggle('sel',draft.light!==''&&(+o.dataset.lz)===draft.light));}
 function incCant(d){draft.cant=Math.max(1,(draft.cant||1)+d);const el=document.getElementById('f-cant');if(el)el.textContent=draft.cant;}
+// ---------- registro de LOTE (modo Campo): cantidad · superficie · surcos ----------
+function fnum(v){const n=parseFloat(String(v==null?'':v).replace(',','.'));return isFinite(n)?n:0;}
+function regPop(){
+  if(draft.regMode==='area'){
+    const a=fnum(draft.regArea)*(draft.regUnit==='ha'?10000:1),rs=fnum(draft.regRowSp),ps=fnum(draft.regPlantSp);
+    return (a>0&&rs>0&&ps>0)?Math.round(a/(rs*ps)):0;
+  }
+  if(draft.regMode==='surcos'){
+    const r=Math.round(fnum(draft.regRows)),pr=Math.round(fnum(draft.regPerRow));
+    return (r>0&&pr>0)?r*pr:0;
+  }
+  return Math.max(1,Math.round(fnum(draft.cant))||1);
+}
+function regBodyHtml(){
+  const m=draft.regMode;
+  if(m==='area'){
+    return '<div class="reg-grid">'
+      +'<div class="field mini"><label>Área sembrada</label><div class="reg-area"><input id="reg-area" type="number" inputmode="decimal" placeholder="Ej. 1" value="'+esc(draft.regArea||'')+'" oninput="draft.regArea=this.value;recalcPop()"><div class="reg-unit"><button type="button" class="'+(draft.regUnit!=='ha'?'on':'')+'" onclick="setRegUnit(\'m2\')">m²</button><button type="button" class="'+(draft.regUnit==='ha'?'on':'')+'" onclick="setRegUnit(\'ha\')">ha</button></div></div></div>'
+      +'<div class="field mini"><label>Entre hileras (m)</label><input id="reg-rowsp" type="number" inputmode="decimal" placeholder="Ej. 0,80" value="'+esc(draft.regRowSp||'')+'" oninput="draft.regRowSp=this.value;recalcPop()"></div>'
+      +'<div class="field mini"><label>Entre plantas (m)</label><input id="reg-plantsp" type="number" inputmode="decimal" placeholder="Ej. 0,30" value="'+esc(draft.regPlantSp||'')+'" oninput="draft.regPlantSp=this.value;recalcPop()"></div>'
+      +'</div>';
+  }
+  if(m==='surcos'){
+    return '<div class="reg-grid two">'
+      +'<div class="field mini"><label>N.º de surcos / hileras</label><input id="reg-rows" type="number" inputmode="numeric" placeholder="Ej. 40" value="'+esc(draft.regRows||'')+'" oninput="draft.regRows=this.value;recalcPop()"></div>'
+      +'<div class="field mini"><label>Plantas por surco</label><input id="reg-perrow" type="number" inputmode="numeric" placeholder="Ej. 120" value="'+esc(draft.regPerRow||'')+'" oninput="draft.regPerRow=this.value;recalcPop()"></div>'
+      +'</div>';
+  }
+  return '<input id="reg-cant" class="reg-cant" type="number" inputmode="numeric" min="1" placeholder="Ej. 500" value="'+(draft.cant>1?draft.cant:'')+'" oninput="draft.cant=Math.max(1,Math.round(fnum(this.value))||1);recalcPop()">'
+    +'<div class="reg-presets">'+[10,50,100,500,1000,5000].map(v=>'<button type="button" onclick="setRegCant('+v+')">'+v.toLocaleString('es-EC')+'</button>').join('')+'</div>';
+}
+function regPopHtml(){
+  const p=regPop();
+  if(draft.regMode==='cantidad')return '<span class="reg-pop-n">'+p.toLocaleString('es-EC')+'</span> planta'+(p===1?'':'s')+' en esta ficha';
+  if(!p)return '<span class="reg-pop-hint">Completa los datos para estimar la población…</span>';
+  return '<span class="reg-pop-n">≈ '+p.toLocaleString('es-EC')+'</span> planta'+(p===1?'':'s')+' estimada'+(p===1?'':'s')+' <small>(por '+(draft.regMode==='area'?'marco de plantación':'surcos')+')</small>';
+}
+function setRegMode(m){draft.regMode=m;const b=document.getElementById('reg-body');if(b)b.innerHTML=regBodyHtml();document.querySelectorAll('#reg-modes .reg-mode').forEach((el,i)=>el.classList.toggle('on',['cantidad','area','surcos'][i]===m));recalcPop();}
+function setRegUnit(u){draft.regUnit=u;const b=document.getElementById('reg-body');if(b)b.innerHTML=regBodyHtml();recalcPop();}
+function setRegCant(v){draft.regMode='cantidad';draft.cant=v;const i=document.getElementById('reg-cant');if(i)i.value=v;recalcPop();}
+function recalcPop(){draft.cant=regPop()||draft.cant;const el=document.getElementById('reg-pop');if(el)el.innerHTML=regPopHtml();}
+// Filas de detalle del lote (modo Campo) para la ficha
+function loteRows(p){
+  let r='';const cant=plantCount(p);
+  if(p&&p.regMode==='area'&&p.regArea){const u=p.regUnit==='ha'?'ha':'m²';r+='<tr><td>Superficie</td><td>'+esc(String(p.regArea))+' '+u+((p.regRowSp&&p.regPlantSp)?' · marco '+esc(String(p.regRowSp))+'×'+esc(String(p.regPlantSp))+' m':'')+'</td></tr><tr><td>Población</td><td>≈ '+cant.toLocaleString('es-EC')+' plantas</td></tr>';}
+  else if(p&&p.regMode==='surcos'&&p.regRows){r+='<tr><td>Surcos</td><td>'+esc(String(p.regRows))+' × '+esc(String(p.regPerRow||''))+' plantas</td></tr><tr><td>Población</td><td>'+cant.toLocaleString('es-EC')+' plantas</td></tr>';}
+  else if(cant>1){r+='<tr><td>Población</td><td>'+cant.toLocaleString('es-EC')+' plantas</td></tr>';}
+  if(p&&p.sowDate){try{r+='<tr><td>Siembra</td><td>'+fmt(pd(p.sowDate))+'</td></tr>';}catch(e){}}
+  return r;
+}
 // ---------- buscador de plantas ----------
-function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');}
+function norm(s){return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/\s+/g,' ').trim();}
 function searchPlants(q){
   const el=document.getElementById('f-results');if(!el)return;
   const a=document.getElementById('f-assist');if(a)a.innerHTML='';
-  q=norm(q).trim();
-  if(!q){el.innerHTML='';return;}
-  const hits=SPECIES.filter(s=>s.id.indexOf('otra')!==0)
-    .filter(s=>norm(s.n+' '+s.sci+' '+(s.ec||'')+' '+(ALIAS[s.id]||'')).indexOf(q)>=0).slice(0,12);
-  if(!hits.length){el.innerHTML='<div class="muted" style="padding:8px 2px">Sin resultados. Usa el asistente 👇</div>';return;}
+  const raw=norm(q);
+  if(!raw){el.innerHTML='';return;}
+  const terms=raw.split(' ').filter(Boolean);
+  const scored=[];
+  for(const s of SPECIES){
+    if(s.id.indexOf('otra')===0)continue;
+    const name=norm(s.n),sci=norm(s.sci),ec=norm(s.ec||''),al=norm(ALIAS[s.id]||''),tag=norm(TYPES[s.t].badge||'');
+    const hay=name+' '+sci+' '+ec+' '+al+' '+tag;
+    if(!terms.every(t=>hay.indexOf(t)>=0))continue; // búsqueda AND: todos los términos deben aparecer
+    let score;
+    if(name===raw)score=100;
+    else if(name.indexOf(raw)===0)score=60;
+    else if((' '+name).indexOf(' '+raw)>=0)score=42;       // coincide al inicio de una palabra del nombre
+    else if(name.indexOf(raw)>=0)score=28;
+    else if(al.indexOf(raw)>=0)score=20;                    // alias (choclo→maíz, mortiño→arándano…)
+    else if(sci.indexOf(raw)>=0)score=15;
+    else score=7;
+    if(ec.indexOf(raw)>=0)score+=4;
+    score-=Math.min(9,name.length/6);                       // desempate: nombres más cortos primero
+    scored.push({s,score});
+  }
+  scored.sort((x,y)=>y.score-x.score||x.s.n.localeCompare(y.s.n,'es'));
+  const hits=scored.slice(0,14).map(x=>x.s);
+  if(!hits.length){el.innerHTML='<div class="search-empty">Sin coincidencias para «'+esc((q||'').trim())+'».<br>Prueba otro nombre común, o usa <b>identificar por necesidades</b> 👇</div>';return;}
   el.innerHTML=hits.map(s=>'<div class="res" onclick="chooseSpecies(\''+s.id+'\')"><div class="res-main"><div class="rn">'+esc(s.n)+'</div><div class="rs">'+(s.sci!=='—'?esc(s.sci):'')+'</div>'+(s.ec?'<span class="res-origin">'+esc(s.ec)+'</span>':'')+'</div><span class="rt">'+TYPES[s.t].tag+'</span></div>').join('');
 }
 function chooseSpecies(id){draft.esp=id;const s=sp(id);
@@ -2731,7 +2888,7 @@ function nextRiego(p,s){const days=RIEGODAYS[s.t][p.pot];if(!p.lastWater)return{
   const last=pd(p.lastWater),next=new Date(last);next.setDate(last.getDate()+days);
   const today=new Date();today.setHours(12,0,0,0);const diff=Math.round((next-today)/86400000);
   if(diff<0)return{txt:'atrasada '+(-diff)+'d',cls:'warn'};if(diff===0)return{txt:'toca hoy',cls:'warn'};return{txt:'en '+diff+'d',cls:''};}
-function doCare(pid,kind,from){const p=plants.find(x=>x.id===pid);if(!p)return;const t=todayISO(),v=from||view,keepScroll=(v==='calendar'||v==='ficha'||v==='home'||v==='list'),scrollY=keepScroll&&content?content.scrollTop:0;
+function doCare(pid,kind,from){const p=plantById(pid);if(!p)return;const t=todayISO(),v=from||view,keepScroll=(v==='calendar'||v==='ficha'||v==='home'||v==='list'),scrollY=keepScroll&&content?content.scrollTop:0;
   if(kind==='water'){p.lastWater=(p.lastWater===t)?null:(logAction(),t);}else{p.lastFert=(p.lastFert===t)?null:(logAction(),t);}
   save();if(v==='ficha')goFicha(pid);else if(v==='list')renderList();else if(v==='home')renderHome();else renderCalendar();
   if(keepScroll)setTimeout(()=>{if(content)content.scrollTop=scrollY;},0);
@@ -2739,7 +2896,7 @@ function doCare(pid,kind,from){const p=plants.find(x=>x.id===pid);if(!p)return;c
 function quickWater(pid,ev){ev.stopPropagation();doCare(pid,'water','list');}
 function quickWaterHome(pid,ev){ev.stopPropagation();doCare(pid,'water','home');}
 function nextIndivName(base){const names=new Set(plants.map(x=>x.nombre));let i=2;while(names.has(base+' '+i))i++;return base+' '+i;}
-function separarUna(pid){const p=plants.find(x=>x.id===pid);if(!p||(p.cant||1)<2)return;
+function separarUna(pid){const p=plantById(pid);if(!p||(p.cant||1)<2)return;
   p.cant=(p.cant||1)-1;
   const copy={id:Date.now(),nombre:nextIndivName(p.nombre),esp:p.esp,region:p.region,alt:p.alt||null,pot:p.pot,cant:1,loc:p.loc||''};
   if(p.lastWater)copy.lastWater=p.lastWater;if(p.lastFert)copy.lastFert=p.lastFert;if(p.potSince)copy.potSince=p.potSince;if(p.lastRepot)copy.lastRepot=p.lastRepot;
@@ -2750,10 +2907,10 @@ function onPhoto(pid,ev){const f=ev.target.files[0];if(!f)return;const rd=new Fi
     if(w>hh){if(w>max){hh=Math.round(hh*max/w);w=max;}}else{if(hh>max){w=Math.round(w*max/hh);hh=max;}}
     const c=document.createElement('canvas');c.width=w;c.height=hh;c.getContext('2d').drawImage(img,0,0,w,hh);
     let data;try{data=c.toDataURL('image/jpeg',0.75);}catch(err){toast('No se pudo procesar la foto');return;}
-    const p=plants.find(x=>x.id===pid);if(!p)return;p.photo=data;try{save();}catch(e2){}goFicha(pid);toast('📷 Foto agregada');};
+    const p=plantById(pid);if(!p)return;p.photo=data;try{save();}catch(e2){}goFicha(pid);toast('📷 Foto agregada');};
     img.src=e.target.result;};
   rd.readAsDataURL(f);}
-function removePhoto(pid){const p=plants.find(x=>x.id===pid);if(p){delete p.photo;save();goFicha(pid);toast('Foto quitada');}}
+function removePhoto(pid){const p=plantById(pid);if(p){delete p.photo;save();goFicha(pid);toast('Foto quitada');}}
 // ---------- transición suave entre pantallas ----------
 function playView(){const c=content;if(!c)return;c.scrollTop=0;c.classList.remove('view-anim');void c.offsetWidth;c.classList.add('view-anim');}
 // ---------- trasplante ----------
@@ -2768,7 +2925,7 @@ function trasplanteInfo(p,s){const iv=TRASPLANTE[s.t];if(!iv||p.pot==='tierra')r
   else if(left<=cerca){estado='le queda poco';when='Pronto';}
   else{estado='aún le falta';when='Programado';}
   return{aplica:true,due:due,txt:due?'Le toca trasplante':'Trasplante',sub:lleva+' · '+cada+' → '+estado,when:when};}
-function doRepot(pid){const p=plants.find(x=>x.id===pid);if(!p)return;p.lastRepot=todayISO();logAction();save();goFicha(pid);toast('🪴 Trasplante registrado');}
+function doRepot(pid){const p=plantById(pid);if(!p)return;p.lastRepot=todayISO();logAction();save();goFicha(pid);toast('🪴 Trasplante registrado');}
 // ---------- ubicación y luz ----------
 function luzInfo(p,s){const need=LUZNEED[s.t];if(need==null)return null;
   const real=(p.light===0||p.light===1||p.light===2);
@@ -2789,7 +2946,7 @@ function cosechaInfo(p,s){if(s.t!=='t7')return null;
   const base=p.sowed?pd(p.sowed):new Date(p.id);
   const nd=new Date(base);nd.setDate(base.getDate()+d);const now=new Date();now.setHours(12,0,0,0);
   return{cont:false,days:d,nd:nd,left:Math.round((nd-now)/86400000),setable:!!p.sowed};}
-function setSowed(pid){const p=plants.find(x=>x.id===pid);if(!p)return;p.sowed=todayISO();save();goFicha(pid);toast('📌 Fecha de siembra guardada');}
+function setSowed(pid){const p=plantById(pid);if(!p)return;p.sowed=todayISO();save();goFicha(pid);toast('📌 Fecha de siembra guardada');}
 // ---------- mini-diario ----------
 let pendingDiaryPhoto=null;
 function onDiaryPhoto(pid,ev){const f=ev.target.files[0];if(!f)return;const rd=new FileReader();
@@ -2805,10 +2962,10 @@ function addDiary(pid){const inp=document.getElementById('diary-txt');const txt=
   const gv=id=>{const el=document.getElementById(id);if(!el||el.value==='')return undefined;const n=parseFloat(el.value);return isNaN(n)?undefined:n;};
   const hh=gv('diary-h'),ph=gv('diary-ph'),ec=gv('diary-ec');
   if(!txt&&!pendingDiaryPhoto&&hh===undefined&&ph===undefined&&ec===undefined){toast('Escribe algo, toma una foto o anota una medida');return;}
-  const p=plants.find(x=>x.id===pid);if(!p)return;if(!p.diary)p.diary=[];
+  const p=plantById(pid);if(!p)return;if(!p.diary)p.diary=[];
   const e={t:new Date().toISOString(),txt:txt};if(pendingDiaryPhoto)e.photo=pendingDiaryPhoto;if(hh!==undefined)e.h=hh;if(ph!==undefined)e.ph=ph;if(ec!==undefined)e.ec=ec;
   p.diary.push(e);if(/hoja nueva|nuevo brote|brot[oó]/i.test(txt))p.celebration='newleaf';else if(hh!==undefined&&p.diary.filter(x=>typeof x.h==='number').length>=2)p.celebration='progress';pendingDiaryPhoto=null;logAction();save();goFicha(pid);toast('📔 ¡Anotado! ✓');}
-function delDiary(pid,t){const p=plants.find(x=>x.id===pid);if(!p||!p.diary)return;p.diary=p.diary.filter(e=>e.t!==t);save();goFicha(pid);}
+function delDiary(pid,t){const p=plantById(pid);if(!p||!p.diary)return;p.diary=p.diary.filter(e=>e.t!==t);save();goFicha(pid);}
 function diaryDate(iso){const d=new Date(iso);return d.getDate()+' '+MESES[d.getMonth()]+' '+d.getFullYear()+' · '+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 function diaryEntry(p,e){let chips='';
   if(typeof e.h==='number')chips+='<span class="dm-chip">📏 '+e.h+' cm</span>';
@@ -2829,7 +2986,7 @@ function drawSaphiMark(ctx,cx,cy,scale){
 }
 function sharePill(ctx,text,left,top,bg,fg,alignRight){ctx.save();ctx.font='800 24px Nunito, system-ui, sans-serif';const w=ctx.measureText(text).width+42,h=50,a=alignRight?left-w:left;ctx.fillStyle=bg;rr(ctx,a,top,w,h,25);ctx.fill();ctx.fillStyle=fg;ctx.textBaseline='middle';ctx.textAlign='left';ctx.fillText(text,a+21,top+h/2+1);ctx.restore();}
 async function shareCard(pid){
-  const p=plants.find(x=>x.id===pid);if(!p)return;const s=sp(p.esp),ty=TYPES[s.t];
+  const p=plantById(pid);if(!p)return;const s=sp(p.esp),ty=TYPES[s.t];
   toast('Preparando tu tarjeta…');
   try{await document.fonts.ready;}catch(e){}
   const W=1080,H=1350,pad=48,photoY=48,photoH=640,footerY=1164;const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');const accent=TACC[s.t]||'#E7B23F';
@@ -2885,10 +3042,10 @@ let sharePlantId=null,shareDraft={format:'feed',moment:'garden'};
 function suggestedShareMoment(p){if(p&&p.celebration&&SHARE_MOMENTS[p.celebration])return p.celebration;if(p&&p.propagation&&p.propagation.status==='established')return'rooted';if(p&&p.propagation&&p.propagation.status==='rooting')return'propstarted';return'garden';}
 function celebrationFor(p){const k=suggestedShareMoment(p);if(k==='garden')return null;return{key:k,...SHARE_MOMENTS[k]};}
 function availableShareMoments(p){const a=['garden','newleaf','progress'];if(plants.length===1)a.splice(1,0,'first');if(p&&p.propagation){a.push('propstarted');if(p.propagation.status==='established')a.push('rooted');}return [...new Set(a)];}
-function openShareStudio(pid,moment){const p=plants.find(x=>x.id===pid);if(!p)return;sharePlantId=pid;shareDraft={format:'feed',moment:moment&&SHARE_MOMENTS[moment]?moment:suggestedShareMoment(p)};view='share';setTop('share',p);document.getElementById('fab').style.display='none';renderShareStudio();}
+function openShareStudio(pid,moment){const p=plantById(pid);if(!p)return;sharePlantId=pid;shareDraft={format:'feed',moment:moment&&SHARE_MOMENTS[moment]?moment:suggestedShareMoment(p)};view='share';setTop('share',p);document.getElementById('fab').style.display='none';renderShareStudio();}
 function setShareFormat(k){if(!SHARE_FORMATS[k])return;shareDraft.format=k;renderShareStudio();}
 function setShareMoment(k){if(!SHARE_MOMENTS[k])return;shareDraft.moment=k;renderShareStudio();}
-function renderShareStudio(){const p=plants.find(x=>x.id===sharePlantId);if(!p){goList();return;}const moments=availableShareMoments(p);if(moments.indexOf(shareDraft.moment)<0)shareDraft.moment=moments[0];let h='<section class="share-shell"><header class="share-head"><small>SAPHI · HISTORIAS QUE ECHAN RAÍZ</small><h2>Haz visible el cuidado</h2><p>La planta es protagonista y la marca firma sin gritar. Elige el momento y el formato antes de compartir.</p></header><div class="share-layout"><div class="share-preview" id="share-preview"><span class="loading">Preparando vista previa…</span></div><div class="share-controls"><h3>Formato</h3><div class="share-option-grid">'+Object.keys(SHARE_FORMATS).map(k=>{const f=SHARE_FORMATS[k];return '<button class="share-option'+(shareDraft.format===k?' sel':'')+'" onclick="setShareFormat(\''+k+'\')"><span>'+f.em+'</span>'+f.n+'</button>';}).join('')+'</div><h3>¿Qué quieres celebrar?</h3><div class="moment-grid">'+moments.map(k=>{const m=SHARE_MOMENTS[k];return '<button class="moment-option'+(shareDraft.moment===k?' sel':'')+'" onclick="setShareMoment(\''+k+'\')"><b>'+m.em+' '+m.n+'</b><small>'+m.line+'</small></button>';}).join('')+'</div><button class="sharebtn" onclick="exportShareCard()">Compartir o descargar</button><div class="share-privacy"><b>Privacidad primero.</b> La tarjeta no incluye ubicación, lote, agenda, diagnóstico ni notas del diario.</div></div></div></section>';content.innerHTML=h;playView();updateSharePreview();}
+function renderShareStudio(){const p=plantById(sharePlantId);if(!p){goList();return;}const moments=availableShareMoments(p);if(moments.indexOf(shareDraft.moment)<0)shareDraft.moment=moments[0];let h='<section class="share-shell"><header class="share-head"><small>SAPHI · HISTORIAS QUE ECHAN RAÍZ</small><h2>Haz visible el cuidado</h2><p>La planta es protagonista y la marca firma sin gritar. Elige el momento y el formato antes de compartir.</p></header><div class="share-layout"><div class="share-preview" id="share-preview"><span class="loading">Preparando vista previa…</span></div><div class="share-controls"><h3>Formato</h3><div class="share-option-grid">'+Object.keys(SHARE_FORMATS).map(k=>{const f=SHARE_FORMATS[k];return '<button class="share-option'+(shareDraft.format===k?' sel':'')+'" onclick="setShareFormat(\''+k+'\')"><span>'+f.em+'</span>'+f.n+'</button>';}).join('')+'</div><h3>¿Qué quieres celebrar?</h3><div class="moment-grid">'+moments.map(k=>{const m=SHARE_MOMENTS[k];return '<button class="moment-option'+(shareDraft.moment===k?' sel':'')+'" onclick="setShareMoment(\''+k+'\')"><b>'+m.em+' '+m.n+'</b><small>'+m.line+'</small></button>';}).join('')+'</div><button class="sharebtn" onclick="exportShareCard()">Compartir o descargar</button><div class="share-privacy"><b>Privacidad primero.</b> La tarjeta no incluye ubicación, lote, agenda, diagnóstico ni notas del diario.</div></div></div></section>';content.innerHTML=h;playView();updateSharePreview();}
 async function buildShareCanvas(p,formatKey,momentKey){
   const s=sp(p.esp),ty=TYPES[s.t],f=SHARE_FORMATS[formatKey]||SHARE_FORMATS.feed,moment=SHARE_MOMENTS[momentKey]||SHARE_MOMENTS.garden,W=f.w,H=f.h,pad=54,footerH=formatKey==='story'?220:formatKey==='square'?164:186,footerY=H-footerH,photoY=48,photoH=formatKey==='story'?1010:formatKey==='square'?468:610,accent=TACC[s.t]||'#E7B23F';
   const c=document.createElement('canvas');c.width=W;c.height=H;const x=c.getContext('2d');x.fillStyle='#F6F5EF';x.fillRect(0,0,W,H);
@@ -2904,8 +3061,8 @@ async function buildShareCanvas(p,formatKey,momentKey){
   }
   x.fillStyle='#183E34';x.fillRect(0,footerY,W,footerH);x.fillStyle='#E7B23F';x.fillRect(0,footerY,W,8);drawSaphiMark(x,92,footerY+footerH/2-5,.66);x.textAlign='left';x.fillStyle='#FFFFFF';x.font='700 38px Poppins, system-ui, sans-serif';x.fillText('Saphi',158,footerY+footerH/2-4);x.fillStyle='#CFE0D8';x.font='800 20px Nunito, system-ui, sans-serif';x.fillText('GROWSHOP ECUADOR',158,footerY+footerH/2+31);x.textAlign='right';x.fillStyle='#F4D990';x.font='800 24px Nunito, system-ui, sans-serif';x.fillText('@saphigrowshop.ec',W-54,footerY+footerH/2+8);return c;
 }
-async function updateSharePreview(){const box=document.getElementById('share-preview'),p=plants.find(x=>x.id===sharePlantId);if(!box||!p)return;try{await document.fonts.ready;}catch(e){}try{const c=await buildShareCanvas(p,shareDraft.format,shareDraft.moment);if(!document.getElementById('share-preview'))return;box.innerHTML='<img alt="Vista previa de la tarjeta para redes sociales" src="'+c.toDataURL('image/jpeg',.84)+'">';}catch(e){box.innerHTML='<span class="loading">No pude generar la vista previa.</span>';}}
-async function exportShareCard(){const p=plants.find(x=>x.id===sharePlantId);if(!p)return;toast('Preparando imagen…');let c;try{c=await buildShareCanvas(p,shareDraft.format,shareDraft.moment);}catch(e){toast('No pude crear la imagen');return;}c.toBlob(async blob=>{if(!blob){toast('No pude crear la imagen');return;}const slug=slugify(p.nombre),name='saphi-'+slug+'-'+shareDraft.format+'.png',file=new File([blob],name,{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:SHARE_MOMENTS[shareDraft.moment].n+' · Saphi',text:p.nombre+' · @saphigrowshop.ec'});return;}catch(e){if(e&&e.name==='AbortError')return;}}try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();toast('Imagen descargada');}catch(e){toast('No se pudo compartir aquí');}},'image/png');}
+async function updateSharePreview(){const box=document.getElementById('share-preview'),p=plantById(sharePlantId);if(!box||!p)return;try{await document.fonts.ready;}catch(e){}try{const c=await buildShareCanvas(p,shareDraft.format,shareDraft.moment);if(!document.getElementById('share-preview'))return;box.innerHTML='<img alt="Vista previa de la tarjeta para redes sociales" src="'+c.toDataURL('image/jpeg',.84)+'">';}catch(e){box.innerHTML='<span class="loading">No pude generar la vista previa.</span>';}}
+async function exportShareCard(){const p=plantById(sharePlantId);if(!p)return;toast('Preparando imagen…');let c;try{c=await buildShareCanvas(p,shareDraft.format,shareDraft.moment);}catch(e){toast('No pude crear la imagen');return;}c.toBlob(async blob=>{if(!blob){toast('No pude crear la imagen');return;}const slug=slugify(p.nombre),name='saphi-'+slug+'-'+shareDraft.format+'.png',file=new File([blob],name,{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[file]})){try{await navigator.share({files:[file],title:SHARE_MOMENTS[shareDraft.moment].n+' · Saphi',text:p.nombre+' · @saphigrowshop.ec'});return;}catch(e){if(e&&e.name==='AbortError')return;}}try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;a.click();toast('Imagen descargada');}catch(e){toast('No se pudo compartir aquí');}},'image/png');}
 function sparkline(hs){const w=190,ht=46,pad=5;const ys=hs.map(e=>e.h);const mn=Math.min.apply(null,ys),mx=Math.max.apply(null,ys),rng=(mx-mn)||1;
   const pts=hs.map((e,i)=>[pad+(w-2*pad)*(hs.length===1?0.5:i/(hs.length-1)),ht-pad-(ht-2*pad)*((e.h-mn)/rng)]);
   const d=pts.map((p,i)=>(i?'L':'M')+p[0].toFixed(1)+' '+p[1].toFixed(1)).join(' ');
@@ -3022,14 +3179,16 @@ const REMINDER_TYPES={observar:{n:'Observación',em:'👁️'},riego:{n:'Riego',
 function customReminders(){try{const a=JSON.parse(localStorage.getItem('saphi_reminders_v1'));return Array.isArray(a)?a:[];}catch(e){return [];}}
 function saveCustomReminders(a){try{localStorage.setItem('saphi_reminders_v1',JSON.stringify(a.slice(-500)));}catch(e){}}
 let reminderFormOpen=false;
+function defaultReminderTime(){const d=new Date();d.setMinutes(Math.ceil(d.getMinutes()/30)*30,0,0);if(d.getDate()!==new Date().getDate())return '09:00';return String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
 function toggleReminderForm(){reminderFormOpen=!reminderFormOpen;renderCalendar();if(reminderFormOpen)setTimeout(()=>{const e=document.getElementById('reminder-title');if(e)e.focus();},20);}
 function saveCustomReminder(){
-  const tx=document.getElementById('reminder-title'),dt=document.getElementById('reminder-date'),pl=document.getElementById('reminder-plant'),ty=document.getElementById('reminder-type');
+  const tx=document.getElementById('reminder-title'),dt=document.getElementById('reminder-date'),tm=document.getElementById('reminder-time'),pl=document.getElementById('reminder-plant'),ty=document.getElementById('reminder-type');
   const title=tx?tx.value.trim():'';if(!title){toast('Escribe qué quieres recordar');return;}if(!dt||!dt.value){toast('Elige una fecha');return;}
-  const a=customReminders();a.push({id:Date.now(),title:title.slice(0,120),date:dt.value,pid:pl&&pl.value?+pl.value:null,type:ty&&REMINDER_TYPES[ty.value]?ty.value:'observar',done:false,createdAt:new Date().toISOString()});
+  const time=tm&&/^([01]\d|2[0-3]):[0-5]\d$/.test(tm.value)?tm.value:'';
+  const a=customReminders();a.push({id:Date.now(),title:title.slice(0,120),date:dt.value,time:time,pid:pl&&pl.value?+pl.value:null,type:ty&&REMINDER_TYPES[ty.value]?ty.value:'observar',done:false,createdAt:new Date().toISOString()});
   saveCustomReminders(a);reminderFormOpen=false;renderCalendar();toast('Recordatorio guardado');
 }
-function toggleCustomReminder(id){const a=customReminders(),r=a.find(x=>x.id===id);if(!r)return;r.done=!r.done;r.completedAt=r.done?new Date().toISOString():null;saveCustomReminders(a);if(r.done)logAction();renderCalendar();toast(r.done?'✓ Recordatorio completado':'Recordatorio reabierto');}
+function toggleCustomReminder(id){const a=customReminders(),r=a.find(x=>sameId(x.id,id));if(!r)return;r.done=!r.done;r.completedAt=r.done?new Date().toISOString():null;saveCustomReminders(a);if(r.done)logAction();renderCalendar();toast(r.done?'✓ Recordatorio completado':'Recordatorio reabierto');}
 function deleteCustomReminder(id){if(!confirm('¿Eliminar este recordatorio?'))return;saveCustomReminders(customReminders().filter(x=>x.id!==id));renderCalendar();toast('Recordatorio eliminado');}
 function fertDays(type){return({t1:45,t2:30,t4:30,t5:60,t6:14,t7:14})[type]||0;}
 function offsetISO(iso,days){const d=pd(iso);d.setDate(d.getDate()+days);return isoLocal(d);}
@@ -3037,8 +3196,9 @@ function agendaItemsForDate(dateISO){
   const today=todayISO(),isNow=dateISO===today,items=[];
   customReminders().forEach(r=>{
     const dueHere=r.date===dateISO,overdue=isNow&&!r.done&&r.date<today;if(!(dueHere||overdue))return;
-    const p=r.pid?plants.find(x=>x.id===r.pid):null,rt=REMINDER_TYPES[r.type]||REMINDER_TYPES.otro;
-    items.push({kind:'custom',id:r.id,pid:r.pid,icon:rt.em,type:rt.n,name:r.title,reason:(p?esc(p.nombre)+' · ':'')+(overdue?'Pendiente desde '+fmtShort(pd(r.date)):r.done?'Completado':'Programado para este día'),severity:r.done?'done':overdue?'priority':isNow?'today':'upcoming',action:r.done?'Reabrir':'Completar',deletable:true});
+    const p=r.pid?plantById(r.pid):null,rt=REMINDER_TYPES[r.type]||REMINDER_TYPES.otro;
+    const time=r.time&&/^([01]\d|2[0-3]):[0-5]\d$/.test(r.time)?r.time:'';
+    items.push({kind:'custom',id:r.id,pid:r.pid,icon:rt.em,type:rt.n,name:r.title,reason:(time?'<span class="reminder-time">'+time+'</span>':'')+(p?esc(p.nombre)+' · ':'')+(overdue?'Pendiente desde '+fmtShort(pd(r.date)):r.done?'Completado':time?'Programado':'Programado para este día'),sortTime:time||'99:99',severity:r.done?'done':overdue?'priority':isNow?'today':'upcoming',action:r.done?'Reabrir':'Completar',deletable:true});
   });
   plants.forEach(p=>{const s=sp(p.esp),type=TYPES[s.t].tag,pi=propagationInfo(p);
     if(pi){
@@ -3058,7 +3218,7 @@ function agendaItemsForDate(dateISO){
       const lz=luzInfo(p,s);if(lz&&(lz.status==='poco'||lz.status==='mucho'))items.push({kind:'open',pid:p.id,icon:lz.status==='poco'?'☀️':'🌤️',type:'Ubicación',name:p.nombre,reason:lz.status==='poco'?'La ubicación registrada parece tener menos luz de la necesaria.':'La ubicación registrada podría exponerla a demasiado sol.',severity:'review',action:'Revisar luz'});
     }
   });
-  const rank={priority:0,today:1,review:2,upcoming:3,done:4};return items.sort((a,b)=>rank[a.severity]-rank[b.severity]||norm(a.name).localeCompare(norm(b.name)));
+  const rank={priority:0,today:1,review:2,upcoming:3,done:4};return items.sort((a,b)=>rank[a.severity]-rank[b.severity]||String(a.sortTime||'99:99').localeCompare(String(b.sortTime||'99:99'))||norm(a.name).localeCompare(norm(b.name)));
 }
 function agendaCountForDate(iso){return agendaItemsForDate(iso).filter(x=>x.severity!=='done'&&x.severity!=='review').length;}
 function agendaAction(item){
@@ -3106,11 +3266,11 @@ function renderCalendar(){
   let h='<section class="agenda-shell"><header class="agenda-head"><div class="agenda-kicker">'+(isSelectedToday?'HOY · '+fmt(sd.d):'AGENDA · '+fmt(sd.d))+'</div><h2>'+(isSelectedToday?'Primero, lo que importa':'Plan para este día')+'</h2><p>'+(isTech()?'Ordena labores, observaciones y registros de campo sin confundir una fecha estimada con evidencia.':'Las fechas orientan. Antes de regar, abonar o mover una planta, comprueba cómo está de verdad.')+'</p><div class="agenda-stats"><div class="agenda-stat warn"><strong>'+priority.length+'</strong><span>prioridad'+(priority.length===1?'':'es')+'</span></div><div class="agenda-stat"><strong>'+openCount+'</strong><span>por atender</span></div><div class="agenda-stat"><strong>'+doneItems.length+'</strong><span>completado'+(doneItems.length===1?'':'s')+'</span></div></div></header>';
   if(st>0)h+='<div class="streak">🔥 '+st+' día'+(st>1?'s':'')+' registrando cuidados</div>';
   h+='<div class="agenda-toolbar"><button class="agenda-add" onclick="toggleReminderForm()">＋ Nuevo recordatorio</button><button class="agenda-notif '+(notifOn()?'on':'')+'" onclick="toggleNotif()" title="Notificaciones">'+(notifOn()?'🔔 Activas':'🔕 Avisos')+'</button></div>';
-  if(reminderFormOpen){h+='<div class="reminder-form"><h3>Crear un recordatorio útil</h3><div class="reminder-form-grid"><label>Qué quieres recordar<input id="reminder-title" maxlength="120" placeholder="Ej. Revisar raíces después del trasplante"></label><label>Fecha<input id="reminder-date" type="date" value="'+selectedISO+'"></label><label>Planta<select id="reminder-plant"><option value="">General</option>'+plants.map(p=>'<option value="'+p.id+'">'+esc(p.nombre)+'</option>').join('')+'</select></label><label>Tipo<select id="reminder-type">'+Object.keys(REMINDER_TYPES).map(k=>'<option value="'+k+'">'+REMINDER_TYPES[k].em+' '+REMINDER_TYPES[k].n+'</option>').join('')+'</select></label></div><div class="reminder-form-actions"><button class="cancel" onclick="toggleReminderForm()">Cancelar</button><button class="save" onclick="saveCustomReminder()">Guardar recordatorio</button></div></div>';}
+  if(reminderFormOpen){h+='<div class="reminder-form"><h3>Crear un recordatorio útil</h3><div class="reminder-form-grid"><label class="wide">Qué quieres recordar<input id="reminder-title" maxlength="120" placeholder="Ej. Revisar raíces después del trasplante"></label><label>Fecha<input id="reminder-date" type="date" value="'+selectedISO+'"></label><label>Hora<input id="reminder-time" type="time" value="'+defaultReminderTime()+'"></label><label>Planta<select id="reminder-plant"><option value="">General</option>'+plants.map(p=>'<option value="'+p.id+'">'+esc(p.nombre)+'</option>').join('')+'</select></label><label>Tipo<select id="reminder-type">'+Object.keys(REMINDER_TYPES).map(k=>'<option value="'+k+'">'+REMINDER_TYPES[k].em+' '+REMINDER_TYPES[k].n+'</option>').join('')+'</select></label></div><div class="reminder-form-actions"><button class="cancel" onclick="toggleReminderForm()">Cancelar</button><button class="save" onclick="saveCustomReminder()">Guardar recordatorio</button></div></div>';}
   h+='<div class="sub-row"><div></div><div class="view-toggle"><button class="vbtn tx'+(calView==='semana'?' on':'')+'" onclick="setCalView(\'semana\')">Semana</button><button class="vbtn tx'+(calView==='mes'?' on':'')+'" onclick="setCalView(\'mes\')">Mes</button></div></div>';
   if(calView==='mes'){h+=monthGrid(calMonth)+'</section>';content.innerHTML=h;playView();return;}
   h+='<div class="agenda-week"><div class="wknav"><button onclick="calWeek(-1)" aria-label="Semana anterior">‹</button><b>'+(calOffset===0?'Semana actual':(calOffset<0?'Hace '+(-calOffset)+' sem':'En +'+calOffset+' sem'))+' · '+fmt(days[0].d)+'–'+fmt(days[6].d)+'</b><button onclick="calWeek(1)" aria-label="Semana siguiente">›</button></div>';
-  h+='<div class="wk">'+days.map((x,i)=>{const n=agendaCountForDate(isoLocal(x.d));return '<div class="d'+(i===sel?' sel':'')+(x.today?' today':'')+'" onclick="calPick('+i+')"><div class="dl">'+dl[i]+'</div><div class="dd">'+x.d.getDate()+'</div><div class="dm">'+x.m.em+'</div>'+(n?'<span class="day-count">'+n+'</span>':'')+'</div>';}).join('')+'</div></div>';
+  h+='<div class="wk">'+days.map((x,i)=>{const n=agendaCountForDate(isoLocal(x.d));return '<div class="d'+(i===sel?' sel':'')+(x.today?' today':'')+'" onclick="calPick('+i+')"><div class="day-meta"><span class="dl">'+dl[i]+'</span>'+(n?'<span class="day-count" aria-label="'+n+' recordatorio'+(n===1?'':'s')+'">'+n+'</span>':'')+'</div><div class="dd">'+x.d.getDate()+'</div><div class="dm">'+x.m.em+'</div></div>';}).join('')+'</div></div>';
   if(isSelectedToday&&wn)h+='<div class="agenda-weather"><span>'+WX[wx].em+'</span><div><b>'+WX[wx].n+' registrado</b>'+wn.replace(/^\S+\s*/,'')+'</div></div>';
   h+='<div class="agenda-day-title"><h3>'+(isSelectedToday?'Hoy':fmt(sd.d))+'</h3><span>'+openCount+' pendiente'+(openCount===1?'':'s')+'</span></div>';
   if(priority.length)h+='<div class="agenda-section"><div class="agenda-section-head"><h3>Atención prioritaria</h3><span>No significa “actuar sin mirar”</span></div>'+priority.map(agendaItemHTML).join('')+'</div>';
@@ -3132,7 +3292,9 @@ function saveNew(){
   if(!draft.esp){toast('Busca o elige tu planta');return;}
   if(!draft.region){toast('Elige tu región');return;}
   buzz(20);
-  const data={nombre:draft.nombre.trim(),esp:draft.esp,region:draft.region,alt:draft.alt?parseInt(draft.alt):null,pot:draft.pot,cant:draft.cant||1,loc:draft.loc||'',light:(draft.light===0||draft.light===1||draft.light===2)?draft.light:null,lot:(draft.lot||'').trim(),stage:draft.stage||''};
+  const isField=isTech();const popField=isField?(regPop()||draft.cant||1):(draft.cant||1);
+  const data={nombre:draft.nombre.trim(),esp:draft.esp,region:draft.region,alt:draft.alt?parseInt(draft.alt):null,pot:draft.pot,cant:popField,loc:draft.loc||'',light:(draft.light===0||draft.light===1||draft.light===2)?draft.light:null,lot:(draft.lot||'').trim(),stage:draft.stage||''};
+  if(isField){data.regMode=draft.regMode||'cantidad';data.sowDate=draft.sowDate||'';if(data.regMode==='area'){data.regArea=draft.regArea||'';data.regUnit=draft.regUnit||'m2';data.regRowSp=draft.regRowSp||'';data.regPlantSp=draft.regPlantSp||'';}else if(data.regMode==='surcos'){data.regRows=draft.regRows||'';data.regPerRow=draft.regPerRow||'';}}
   if(draft.pot!=='tierra'){const tot=(draft.potY||0)*12+(draft.potM||0);const d=new Date();d.setMonth(d.getMonth()-tot);data.potSince=isoLocal(d);data.lastRepot=null;}
   if(editingId!=null){const p=plantById(editingId);if(!p){toast('No encontré esa ficha para guardar');goList();return;}Object.assign(p,data);save();toast('Cambios guardados ✔️');const id=p.id;editingId=null;goFicha(id);return;}
   const p={id:Date.now(),...data,celebration:plants.length?'garden':'first'};plants.unshift(p);save();toast('¡Ficha creada! 🌵');goFicha(p.id);
@@ -3167,11 +3329,11 @@ function propGuide(s,method){
   return base+special;
 }
 function openPropagation(pid){
-  const p=plants.find(x=>x.id===pid);if(!p)return;propMotherId=pid;const methods=propMethodsFor(sp(p.esp));propDraft={method:methods[0],name:nextIndivName(p.nombre+' · esquejes'),started:todayISO(),qty:3};view='propagate';setTop('prop',p);document.getElementById('fab').style.display='none';renderPropagation();
+  const p=plantById(pid);if(!p)return;propMotherId=pid;const methods=propMethodsFor(sp(p.esp));propDraft={method:methods[0],name:nextIndivName(p.nombre+' · esquejes'),started:todayISO(),qty:3};view='propagate';setTop('prop',p);document.getElementById('fab').style.display='none';renderPropagation();
 }
 function pickPropMethod(k){if(!PROP_METHODS[k])return;propDraft.method=k;renderPropagation();}
 function renderPropagation(){
-  const p=plants.find(x=>x.id===propMotherId);if(!p){goList();return;}const s=sp(p.esp),methods=propMethodsFor(s),pm=PROP_METHODS[propDraft.method];
+  const p=plantById(propMotherId);if(!p){goList();return;}const s=sp(p.esp),methods=propMethodsFor(s),pm=PROP_METHODS[propDraft.method];
   let h='<section class="prop-shell"><header class="prop-head"><small>PROPAGAR · NUEVA PLANTA</small><h2>Una rama del árbol familiar</h2><p>La propagación se guardará como una ficha propia, vinculada visualmente a su planta madre y con recordatorios según la técnica.</p></header>';
   h+='<div class="mother-strip"><div class="ms-mark">↳</div><div><small>Planta madre</small><strong>'+esc(p.nombre)+' · '+esc(s.n)+'</strong></div></div>';
   h+='<div class="step-panel"><h3 class="step-title">Elige la técnica</h3><p class="step-copy">Saphi muestra primero los métodos más razonables para este tipo de planta. No todos funcionan igual en todas las especies.</p><div class="method-grid">'+methods.map(k=>{const m=PROP_METHODS[k];return '<button type="button" class="method-card'+(propDraft.method===k?' sel':'')+'" onclick="pickPropMethod(\''+k+'\')"><span style="font-size:20px">'+m.em+'</span><b>'+m.n+'</b><span>'+m.short+'</span></button>';}).join('')+'</div>';
@@ -3186,15 +3348,15 @@ function renderPropagation(){
   content.innerHTML=h;playView();
 }
 function savePropagation(){
-  const mother=plants.find(x=>x.id===propMotherId);if(!mother)return;const s=sp(mother.esp),name=(propDraft.name||'').trim(),qty=Math.max(1,Math.min(999,parseInt(propDraft.qty)||1));if(!name){toast('Ponle un nombre al lote de esquejes');return;}if(!propDraft.started){toast('Elige la fecha de inicio');return;}if(propNeedsNode(s)){const n=document.getElementById('prop-node');if(!n||!n.checked){toast('Confirma que los cortes incluyen un nodo viable');return;}}
+  const mother=plantById(propMotherId);if(!mother)return;const s=sp(mother.esp),name=(propDraft.name||'').trim(),qty=Math.max(1,Math.min(999,parseInt(propDraft.qty)||1));if(!name){toast('Ponle un nombre al lote de esquejes');return;}if(!propDraft.started){toast('Elige la fecha de inicio');return;}if(propNeedsNode(s)){const n=document.getElementById('prop-node');if(!n||!n.checked){toast('Confirma que los cortes incluyen un nodo viable');return;}}
   const id=Date.now(),m=PROP_METHODS[propDraft.method];const child={id:id,nombre:name,esp:mother.esp,region:mother.region,alt:mother.alt||null,pot:'chica',cant:qty,loc:mother.loc||'',light:null,lot:mother.lot||'',stage:'establecimiento',parentId:mother.id,celebration:'propstarted',propagation:{method:propDraft.method,started:propDraft.started,lastCheck:propDraft.started,status:'rooting',motherName:mother.nombre,checkEvery:m.every,initialCount:qty,deadCount:0,rootedCount:0,plantedCount:0},diary:[{t:new Date().toISOString(),txt:'Propagación iniciada · '+qty+' esqueje'+(qty>1?'s':'')+' · '+m.n+' · planta madre: '+mother.nombre}]};
   plants.unshift(child);save();propMotherId=null;toast('Nueva propagación registrada');goFicha(id);
 }
 function propagationInfo(p){
   if(!p.propagation||p.propagation.status!=='rooting')return null;const pr=p.propagation,m=PROP_METHODS[pr.method]||PROP_METHODS.sustrato,every=pr.checkEvery||m.every,last=pr.lastCheck||pr.started||todayISO(),due=offsetISO(last,every),late=Math.max(0,Math.round((pd(todayISO())-pd(due))/86400000)),initial=pr.initialCount!=null?pr.initialCount:(p.cant!=null?p.cant:1),dead=Math.min(initial,pr.deadCount||0),alive=Math.max(0,initial-dead),rooted=Math.min(alive,pr.rootedCount||0),planted=Math.min(rooted,pr.plantedCount||0),lost=alive===0;return{m:m,due:due,late:late,needs:!lost&&due<=todayISO(),label:lost?'lote sin supervivientes':due<=todayISO()?(late?'revisión atrasada '+late+'d':'revisar hoy'):'próxima revisión '+fmtShort(pd(due)),initial:initial,dead:dead,alive:alive,rooted:rooted,planted:planted,lost:lost};
 }
-function logPropagationCheck(pid,from){const p=plants.find(x=>x.id===pid);if(!p||!p.propagation)return;p.propagation.lastCheck=todayISO();if(!p.diary)p.diary=[];p.diary.push({t:new Date().toISOString(),txt:(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato).task+' · realizado'});logAction();save();if(from==='ficha')goFicha(pid);else renderCalendar();toast('Revisión registrada');}
-function changePropagationCount(pid,kind,delta){const p=plants.find(x=>x.id===pid),pr=p&&p.propagation;if(!p||!pr||pr.status!=='rooting')return;const info=propagationInfo(p);let changed=false;
+function logPropagationCheck(pid,from){const p=plantById(pid);if(!p||!p.propagation)return;p.propagation.lastCheck=todayISO();if(!p.diary)p.diary=[];p.diary.push({t:new Date().toISOString(),txt:(PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato).task+' · realizado'});logAction();save();if(from==='ficha')goFicha(pid);else renderCalendar();toast('Revisión registrada');}
+function changePropagationCount(pid,kind,delta){const p=plantById(pid),pr=p&&p.propagation;if(!p||!pr||pr.status!=='rooting')return;const info=propagationInfo(p);let changed=false;
   if(kind==='dead'){const before=pr.deadCount||0;pr.deadCount=Math.max(0,Math.min(info.initial,before+delta));changed=pr.deadCount!==before;const alive=Math.max(0,info.initial-pr.deadCount);pr.rootedCount=Math.min(pr.rootedCount||0,alive);pr.plantedCount=Math.min(pr.plantedCount||0,pr.rootedCount||0);p.cant=alive;}
   else if(kind==='rooted'){const before=pr.rootedCount||0,alive=Math.max(0,info.initial-(pr.deadCount||0));pr.rootedCount=Math.max(0,Math.min(alive,before+delta));changed=pr.rootedCount!==before;pr.plantedCount=Math.min(pr.plantedCount||0,pr.rootedCount);}
   else if(kind==='planted'){const before=pr.plantedCount||0;pr.plantedCount=Math.max(0,Math.min(pr.rootedCount||0,before+delta));changed=pr.plantedCount!==before;}
@@ -3204,11 +3366,11 @@ function changePropagationCount(pid,kind,delta){const p=plants.find(x=>x.id===pi
   p.diary.push({t:new Date().toISOString(),txt:'Propagación · '+(delta>0?labels[kind][0]:labels[kind][1])});
   logAction();save();goFicha(pid);
 }
-function finishPropagation(pid){const p=plants.find(x=>x.id===pid);if(!p||!p.propagation)return;const info=propagationInfo(p);if(!info||info.lost){toast('No hay esquejes vivos para establecer');return;}if(info.rooted<info.alive){toast('Registra primero cuántos esquejes desarrollaron raíces');return;}p.propagation.plantedCount=info.alive;p.propagation.status='established';p.propagation.established=todayISO();p.cant=info.alive;p.celebration='rooted';p.lastWater=null;p.potSince=todayISO();if(!p.diary)p.diary=[];p.diary.push({t:new Date().toISOString(),txt:'Propagación establecida · '+info.alive+' planta'+(info.alive>1?'s':'')+' pasan a manejo normal'});logAction();save();goFicha(pid);toast('🌱 Lote establecido en sustrato');}
+function finishPropagation(pid){const p=plantById(pid);if(!p||!p.propagation)return;const info=propagationInfo(p);if(!info||info.lost){toast('No hay esquejes vivos para establecer');return;}if(info.rooted<info.alive){toast('Registra primero cuántos esquejes desarrollaron raíces');return;}p.propagation.plantedCount=info.alive;p.propagation.status='established';p.propagation.established=todayISO();p.cant=info.alive;p.celebration='rooted';p.lastWater=null;p.potSince=todayISO();if(!p.diary)p.diary=[];p.diary.push({t:new Date().toISOString(),txt:'Propagación establecida · '+info.alive+' planta'+(info.alive>1?'s':'')+' pasan a manejo normal'});logAction();save();goFicha(pid);toast('🌱 Lote establecido en sustrato');}
 
 // ---------- render: ficha ----------
 function renderFicha(p){
-  const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix],pi=propagationInfo(p),mother=plants.find(x=>x.id===p.parentId),children=plants.filter(x=>x.parentId===p.id);
+  const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix],pi=propagationInfo(p),mother=plantById(p.parentId),children=plants.filter(x=>sameId(x.parentId,p.id));
   const cam='<label class="hero-cam"><input type="file" accept="image/*" style="display:none" onchange="onPhoto('+p.id+',event)">📷</label>';
   let h='<section class="plant-shell"><div class="plant-intro plant-section" id="plant-summary">';
   if(p.photo){h+='<div class="hero photo" style="background-image:url('+p.photo+')"><div class="hero-ov"></div><span class="badge">'+ty.badge+'</span><button class="hero-rm" onclick="removePhoto('+p.id+')" aria-label="Quitar foto">✕</button>'+cam+'</div>';}
@@ -3262,6 +3424,7 @@ function renderFicha(p){
   h+='<div class="card"><h3>🪴 Tu sustrato · Mezcla '+ty.mixName+extra+'</h3><p class="muted">'+ty.mixDesc+'</p>';
   h+='<div class="mix">'+m.parts.map(pt=>'<i style="width:'+pt[1]+'%;background:'+pt[2]+'"></i>').join('')+'</div>';
   h+='<div class="legend">'+m.parts.map(pt=>'<span><i class="dot" style="background:'+pt[2]+'"></i>'+pt[0]+' '+pt[1]+'%</span>').join('')+'</div>';
+  h+=biocharNote(m);
   h+='<div class="cost">$'+m.cost.toFixed(2).replace('.',',')+' <small>/ litro</small></div>';
   h+='</div>'+renderShopPreview(p);
   if(!pi)h+='<div class="card"><h3>🔔 Próximo cuidado</h3>'+reminders(p,s)+'</div>';
@@ -3377,15 +3540,15 @@ function slugify(s){return (''+(s||'x')).toLowerCase().normalize('NFD').replace(
 async function saveText(text,mime,filename){const blob=new Blob([text],{type:mime});
   try{if(window.claude&&window.claude.use){const dl=await window.claude.use('downloads');if(dl){await dl.save({filename:filename,data:blob});toast('Guardado ⬇️');return;}}}catch(e){if(e&&e.code==='declined'){toast('Cancelado');return;}}
   try{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();toast('Descargado ⬇️');}catch(e){toast('No se pudo exportar aquí');}}
-function exportDiarioCSV(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const dz=(p.diary||[]);
+function exportDiarioCSV(pid){const p=plantById(pid);if(!p)return;const dz=(p.diary||[]);
   if(!dz.length){toast('El diario está vacío');return;}
   const rows=[['Fecha','Nota','Altura_cm','pH','CE_mS']];
   dz.slice().sort((a,b)=>new Date(a.t)-new Date(b.t)).forEach(e=>{rows.push([new Date(e.t).toLocaleString(),(e.txt||''),(e.h!=null?e.h:''),(e.ph!=null?e.ph:''),(e.ec!=null?e.ec:'')]);});
   const csv='﻿'+rows.map(r=>r.map(c=>'"'+String(c).replace(/"/g,'""')+'"').join(',')).join('\r\n');
   saveText(csv,'text/csv','saphi-diario-'+slugify(p.nombre)+'.csv');}
-function printFicha(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix],pi=propagationInfo(p);
+function printFicha(pid){const p=plantById(pid);if(!p)return;const s=sp(p.esp),ty=TYPES[s.t],m=MIX[s.mix],pi=propagationInfo(p);
   const pc=plantCount(p);let a='<div class="pr-h"><div class="pr-logo">🌱 Saphi Growshop Ecuador</div><div class="pr-title">'+esc(p.nombre)+(pc>1?' ×'+pc:'')+'</div><div class="pr-sci">'+esc(s.sci)+' · '+ty.badge+'</div></div>';
-  a+='<table class="pr-t"><tr><td>Región</td><td>'+REGIONS[p.region].n+(p.region==='sierra'&&p.alt?' · '+p.alt+' m s.n.m.':'')+'</td></tr>'+(p.loc&&LUGARES[p.loc]?'<tr><td>Ubicación</td><td>'+LUGARES[p.loc].n+'</td></tr>':'')+(p.lot?'<tr><td>Lote / parcela</td><td>'+esc(p.lot)+'</td></tr>':'')+(p.stage&&FIELD_STAGES[p.stage]?'<tr><td>Etapa</td><td>'+FIELD_STAGES[p.stage]+'</td></tr>':'')+(p.parentId||p.propagation?'<tr><td>Origen</td><td>'+(p.propagation?esc((PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato).n)+' · madre: '+esc(p.propagation.motherName||'sin vínculo'):'Planta registrada')+'</td></tr>':'')+'<tr><td>Maceta</td><td>'+POTS[p.pot].n+'</td></tr></table>';
+  a+='<table class="pr-t"><tr><td>Región</td><td>'+REGIONS[p.region].n+(p.region==='sierra'&&p.alt?' · '+p.alt+' m s.n.m.':'')+'</td></tr>'+(p.loc&&LUGARES[p.loc]?'<tr><td>Ubicación</td><td>'+LUGARES[p.loc].n+'</td></tr>':'')+(p.lot?'<tr><td>Lote / parcela</td><td>'+esc(p.lot)+'</td></tr>':'')+(p.stage&&FIELD_STAGES[p.stage]?'<tr><td>Etapa</td><td>'+FIELD_STAGES[p.stage]+'</td></tr>':'')+loteRows(p)+(p.parentId||p.propagation?'<tr><td>Origen</td><td>'+(p.propagation?esc((PROP_METHODS[p.propagation.method]||PROP_METHODS.sustrato).n)+' · madre: '+esc(p.propagation.motherName||'sin vínculo'):'Planta registrada')+'</td></tr>':'')+'<tr><td>Maceta</td><td>'+POTS[p.pot].n+'</td></tr></table>';
   if(pi){a+='<h3>Seguimiento de propagación</h3><table class="pr-t"><tr><td>Método</td><td>'+pi.m.n+'</td></tr><tr><td>Iniciales</td><td>'+pi.initial+'</td></tr><tr><td>Vivos</td><td>'+pi.alive+'</td></tr><tr><td>Bajas</td><td>'+pi.dead+'</td></tr><tr><td>Con raíz</td><td>'+pi.rooted+'</td></tr><tr><td>Plantados</td><td>'+pi.planted+'</td></tr><tr><td>Próxima revisión</td><td>'+pi.label+'</td></tr></table><p>Durante el enraizamiento no se aplican automáticamente los rangos de una planta adulta. Se evalúan humedad, oxígeno, firmeza del corte, supervivencia y formación de raíces.</p>';}else{
   a+='<h3>Sustrato · Mezcla '+ty.mixName+'</h3><table class="pr-t">'+m.parts.map(pt=>'<tr><td>'+pt[0]+'</td><td>'+pt[1]+'%</td></tr>').join('')+'<tr><td>Costo aprox.</td><td>$'+m.cost.toFixed(2).replace('.',',')+' / litro</td></tr></table>';
   a+='<h3>Cuidados</h3><table class="pr-t"><tr><td>Riego</td><td>'+RIEGO[s.t][p.pot]+'</td></tr><tr><td>Abono</td><td>'+abonoLabel(s)[0]+'</td></tr><tr><td>Luz</td><td>'+LUZTXT[LUZNEED[s.t]]+'</td></tr></table>';
@@ -3398,7 +3561,7 @@ function printFicha(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const s
 const SAPHI_API_ORIGIN='https://saphi-backend.vercel.app';
 const VERCEL_API_URL=SAPHI_API_ORIGIN+'/api/diagnose';
 const VERCEL_IDENTIFY_URL=SAPHI_API_ORIGIN+'/api/identify';
-let luxStream=null,luxInterval=null,rainDelayActive=false;
+let luxStream=null,luxInterval=null,rainDelayActive=false,luxCancelled=false;
 let luxMode='plant',luxCurLevel=null,luxCurLux=0;
 // luz que pide cada tipo (lux aprox. de referencia · horticultura)
 const LUXTARGET={t1:'pleno sol · 20.000–50.000+ lux',t2:'indirecta brillante · 5.000–15.000 lux',t3:'mucha luz, casi pleno sol · 15.000–40.000 lux',t4:'indirecta, sin sol fuerte · 3.000–12.000 lux',t5:'tolera poca luz · 1.000–8.000 lux',t6:'sol · 20.000–50.000+ lux',t7:'sol pleno 6 h+ · 25.000–60.000+ lux',t8:'indirecta brillante · 5.000–15.000 lux'};
@@ -3448,6 +3611,15 @@ function applySymptomDiag(pid,key){const d=SYMPTOM_DIAG[key];if(!d)return;const 
   res.scrollIntoView({behavior:'smooth',block:'nearest'});}
 // Dos cupos independientes por dispositivo. El backend debe volver a validarlos por usuario/día.
 const AI_DAILY_LIMIT=5;
+// ---------- WhatsApp de soporte (provisional) + leyenda "la IA puede fallar" ----------
+const SAPHI_WA='593996269232'; // 0996269232 en formato internacional (Ecuador +593). Actualizar cuando haya el definitivo.
+function waLink(msg){return 'https://wa.me/'+SAPHI_WA+(msg?'?text='+encodeURIComponent(msg):'');}
+function aiDisclaimer(ctx){
+  const msg=ctx==='health'
+    ? 'Hola Saphi 🌱, la IA me sugirió un diagnóstico y quiero confirmarlo. Adjunto una foto de mi planta para una asesoría más personalizada.'
+    : 'Hola Saphi 🌱, quiero confirmar la identificación/estado de una planta. Adjunto una foto para una asesoría más personalizada.';
+  return '<div class="ai-disclaimer">⚠️ <b>La IA puede equivocarse.</b> Antes de actuar, revisa tú mismo que las plagas o características que señala <b>sí estén presentes</b> en tu planta. Si no las ves o tienes dudas, es mejor verificar con nosotros por <a href="'+waLink(msg)+'" target="_blank" rel="noopener">WhatsApp</a> para darte una asesoría más personalizada.</div>';
+}
 let ownerAccessVerified=false;
 function ownerKey(){try{return localStorage.getItem('saphi_owner_key')||'';}catch(e){return '';}}
 function ownerHeaders(){const h={'Content-Type':'application/json'},k=ownerKey();if(k)h['X-Saphi-Owner-Key']=k;return h;}
@@ -3509,7 +3681,7 @@ async function handlePlantIdentify(ev){
     if(res)res.innerHTML='<div class="identify-match"><div class="identify-match-k">'+(low?'Coincidencia para confirmar':'Coincidencia en Saphi')+(pct?' · '+pct+'%':'')+'</div><div class="identify-match-n">'+esc(s.n)+'</div><div class="identify-match-s">'+esc(s.sci)+'</div><span class="res-origin">'+esc(TYPES[s.t].badge)+(s.ec?' · '+esc(s.ec):'')+'</span>'+(low?'<div class="identify-warning" style="margin-top:9px">La confianza es baja. Compárala visualmente antes de guardarla.</div>':'')+'<button type="button" onclick="applyIdentifiedPlant(\''+s.id+'\')">Usar esta identificación</button></div>';
   }catch(e){if(res)res.innerHTML='<div class="identify-warning"><b>No pude conectar con la identificación por IA.</b><br>Necesita internet y el endpoint seguro de Saphi. La búsqueda manual sigue disponible.</div>';}
 }
-async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;const p=plants.find(x=>x.id===pid);const s=p?sp(p.esp):null;
+async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;const p=plantById(pid);const s=p?sp(p.esp):null;
   const prev=document.getElementById('diag-prev'),res=document.getElementById('diag-result');
   if(!ownerKey()&&aiQuotaLeft('health')<=0){if(res)res.innerHTML='<div class="diag-card warn"><b>Llegaste al límite de '+AI_DAILY_LIMIT+' diagnósticos por IA de hoy.</b><br>Vuelve mañana, o usa el diagnóstico por síntoma de aquí abajo. 👇</div>';ev.target.value='';return;}
   if(res)res.innerHTML='<div class="diag-loading">🔎 Analizando la foto…</div>';
@@ -3523,18 +3695,19 @@ async function handleLeafUpload(pid,ev){const f=ev.target.files[0];if(!f)return;
     if(!r.ok){const msg=j&&(j.error||j.result||j.message);if(res)res.innerHTML='<div class="diag-card warn"><b>'+esc(msg||'No pude conectar con el diagnóstico por IA.')+'</b><br>Mientras tanto, elige el síntoma que ves aquí abajo. 👇</div>';return;}
     if(!serverQuota)aiQuotaInc('health');
     const txt=j?(j.result||j.diagnosis||j.text||j.message||JSON.stringify(j)):'Sin respuesta.';
-    if(res)res.innerHTML='<div class="diag-card"><div class="diag-card-h">🌿 Diagnóstico de Saphi</div><div class="diag-card-b diag-rich">'+fmtDiag(txt)+'</div><div class="hint" style="margin-top:10px">Acceso IA: '+aiQuotaLabel('health')+'.</div></div>';
+    if(res)res.innerHTML='<div class="diag-card"><div class="diag-card-h">🌿 Diagnóstico de Saphi</div><div class="diag-card-b diag-rich">'+fmtDiag(txt)+'</div>'+aiDisclaimer('health')+'<div class="hint" style="margin-top:10px">Acceso IA: '+aiQuotaLabel('health')+'.</div></div>';
   }catch(e){if(res)res.innerHTML='<div class="diag-card warn"><b>No pude conectar con el diagnóstico por IA.</b><br>Funciona en la versión instalada/hosteada con internet. Mientras tanto, elige el síntoma que ves abajo. 👇</div>';}
 }
 function openDiag(pid){view='diag';const nav=document.querySelector('.nav');if(nav)nav.style.display='';document.getElementById('fab').style.display='none';setTop('list');renderDiag(pid);}
 function openDiagGlobal(){closeMenu();openDiag(null);}
-function renderDiag(pid){const p=(pid!=null)?plants.find(x=>x.id===pid):null;const s=p?sp(p.esp):null;
+function renderDiag(pid){const p=(pid!=null)?plantById(pid):null;const s=p?sp(p.esp):null;
   const back=(pid!=null)?'goFicha('+pid+')':'openTools()';
   let h='<button class="back-lnk" onclick="'+back+'">‹ '+(pid!=null?'Volver a la ficha':'Volver a Herramientas')+'</button>';
   h+='<h2 class="sc">🔬 '+(p?'Revisar salud · '+esc(p.nombre):'Analizar planta con IA')+'</h2><p class="sub">Sube o toma una foto de la hoja y te decimos qué puede tener.</p>';
   h+='<label class="diag-up"><input type="file" accept="image/*" capture="environment" style="display:none" onchange="handleLeafUpload('+pid+',event)"><span>📷 Tomar o subir foto de la hoja</span></label>';
   h+='<p class="hint" style="text-align:center;margin-top:8px">🤖 Diagnóstico por IA: <b>'+aiQuotaLabel('health')+'</b>.</p>';
   h+='<div id="diag-prev" class="diag-prev" style="display:none"></div>';
+  h+=aiDisclaimer('health');
   h+='<div id="diag-result" class="diag-result"></div>';
   h+='<div class="diag-manual"><div class="dm-h">¿Sin internet? Elige el síntoma que ves:</div><div class="dm-grid">'+Object.keys(SYMPTOM_DIAG).map(k=>'<button class="dm-btn" onclick="applySymptomDiag('+pid+',\''+k+'\')">'+SYMPTOM_DIAG[k].ic+' '+SYMPTOM_DIAG[k].t+'</button>').join('')+'</div></div>';
   content.innerHTML=h;playView();}
@@ -3560,14 +3733,24 @@ function renderTools(){
   h+='</div><div class="care-rule" style="margin-top:14px"><span>!</span><div><strong>Una calculadora no prescribe.</strong> Confirma dosis con la etiqueta vigente, el análisis de suelo o agua y las condiciones del cultivo.</div></div></section>';
   content.innerHTML=h;playView();
 }
+// Desglose comercial: sacos cerrados de 50 kg + resto a granel (más útil para comprar).
+function sacoDesglose(kg){kg=Math.max(0,kg);if(kg<0.5)return '—';const full=Math.floor(kg/50);const rem=Math.round(kg-full*50);if(full<=0)return nf(kg,0)+' kg (menos de un saco)';let s='<b>'+full+'</b> saco'+(full>1?'s':'')+' de 50 kg';if(rem>0)s+=' + '+rem+' kg a granel';return s;}
+// Aviso de biochar en polvo: por encima de ~8% conviene compensar con perlita gruesa (≥25%) para no compactar el medio.
+function biocharNote(m){
+  const sumPart=key=>(m&&m.parts?m.parts:[]).reduce((a,pt)=>a+(norm(pt[0]).indexOf(key)>=0?(+pt[1]||0):0),0);
+  const bio=sumPart('biochar'),per=sumPart('perlita');
+  if(bio>8&&per<25)return '<div class="biochar-note">⚠️ <b>Biochar '+bio+'%:</b> si el tuyo es <b>polvo fino</b>, sube la perlita gruesa a <b>≥25%</b> (aquí va '+per+'%) para no compactar el medio y mantener la aireación por encima del 18%.</div>';
+  if(bio>=5)return '<div class="biochar-note subtle">🪵 Si tu biochar es polvo fino, no pases del 5–8% sin acompañarlo de perlita gruesa; así evitas que el sustrato se compacte.</div>';
+  return '';
+}
 function calcNPK(){
   const n=numv('c-n'),p=numv('c-p'),k=numv('c-k');let area=numv('c-area');if(area<=0)area=10000;const ha=area/10000;
   const dap=p>0?p/0.46:0;const nDap=dap*0.18;let restoN=n-nDap;const cubierto=restoN<0;if(restoN<0)restoN=0;const urea=restoN/0.46;const mop=k>0?k/0.60:0;
   const dapT=dap*ha,ureaT=urea*ha,mopT=mop*ha;const sac=x=>x/50;
   let h='<div class="calc-res">Para <b>'+nf(area,0)+' m²</b> · objetivo '+nf(n,0)+'-'+nf(p,0)+'-'+nf(k,0)+' kg/ha:<br>'
-    +'🟦 <b>Urea (46-0-0):</b> '+nf(ureaT,1)+' kg · '+nf(sac(ureaT),1)+' sacos de 50 kg<br>'
-    +'🟩 <b>DAP (18-46-0):</b> '+nf(dapT,1)+' kg · '+nf(sac(dapT),1)+' sacos<br>'
-    +'🟥 <b>Muriato de potasio (0-0-60):</b> '+nf(mopT,1)+' kg · '+nf(sac(mopT),1)+' sacos'
+    +'🟦 <b>Urea (46-0-0):</b> '+nf(ureaT,1)+' kg → '+sacoDesglose(ureaT)+'<br>'
+    +'🟩 <b>DAP (18-46-0):</b> '+nf(dapT,1)+' kg → '+sacoDesglose(dapT)+'<br>'
+    +'🟥 <b>Muriato de potasio (0-0-60):</b> '+nf(mopT,1)+' kg → '+sacoDesglose(mopT)
     +(cubierto?'<br><span style="color:var(--terracota)">El DAP ya aporta todo el N necesario: no hace falta urea.</span>':'')
     +'<div class="tech-src">Método: DAP para cubrir el P₂O₅ → se resta el N que aporta el DAP → la urea cubre el N restante → el muriato cubre el K₂O. Fuentes: FUNAAB PCP 301; Univ. of Arkansas Extension FSA2223.</div></div>';
   document.getElementById('c-npk-res').innerHTML=h;buzz(15);
@@ -3596,7 +3779,7 @@ function calcGermination(){
   const pct=ok/total*100;box.innerHTML='<div class="calc-res"><b>'+nf(pct,1)+' %</b> de germinación o emergencia ('+nf(ok,0)+' de '+nf(total,0)+').<div class="tech-src">Porcentaje = observadas ÷ total × 100. Registra fecha, lote y criterio de evaluación para poder comparar.</div></div>';buzz(15);
 }
 // ---------- luxómetro ----------
-function stopLuxCamera(){try{if(luxInterval){clearInterval(luxInterval);luxInterval=null;}if(luxStream){luxStream.getTracks().forEach(t=>t.stop());luxStream=null;}}catch(e){}}
+function stopLuxCamera(){luxCancelled=true;try{if(luxInterval){clearInterval(luxInterval);luxInterval=null;}if(luxStream){luxStream.getTracks().forEach(t=>t.stop());luxStream=null;}const v=document.getElementById('lux-video');if(v){try{v.pause();}catch(e){}v.srcObject=null;}}catch(e){}}
 // ⚠️ CÓDIGO CRÍTICO PARA FUNCIONAMIENTO EN ANDROID / IOS
 // Clasifica el lux aproximado en 4 tramos (idx 0-3) y lo mapea al nivel 0/1/2 de la app.
 // ⚠️ La cámara del celular auto-ajusta el brillo: el valor es ORIENTATIVO, no un lux calibrado.
@@ -3608,6 +3791,7 @@ function luxClassify(lx){
 }
 // ⚠️ CÓDIGO CRÍTICO PARA FUNCIONAMIENTO EN ANDROID / IOS
 function startLuxCamera(expectedType){
+  luxCancelled = false; // bandera de cancelación: si el usuario sale antes de resolver el permiso, cortamos el stream
   const video = document.getElementById('lux-video');
   const reading = document.getElementById('lux-reading');
   const pill = document.getElementById('lux-pill');
@@ -3629,9 +3813,12 @@ function startLuxCamera(expectedType){
   navigator.mediaDevices.getUserMedia(constraints)
     .catch(() => navigator.mediaDevices.getUserMedia({ video: true, audio: false }))
     .then(stream => {
+      // Si el usuario ya salió del luxómetro mientras se resolvía el permiso: cortar de inmediato (evita cámara encendida y drenaje de batería).
+      if (luxCancelled || !document.getElementById('lux-video')) { stream.getTracks().forEach(t => t.stop()); return; }
       luxStream = stream; video.srcObject = stream;
-      video.onloadedmetadata = () => { video.play().catch(() => {}); };
+      video.onloadedmetadata = () => { if (luxCancelled) { stream.getTracks().forEach(t => t.stop()); return; } video.play().catch(() => {}); };
       luxInterval = setInterval(() => {
+        if (luxCancelled) { clearInterval(luxInterval); luxInterval = null; if (luxStream) { luxStream.getTracks().forEach(t => t.stop()); luxStream = null; } return; }
         if (video.videoWidth > 0 && !video.paused) {
           ctx.drawImage(video, 0, 0, 32, 32);
           const data = ctx.getImageData(0, 0, 32, 32).data;
@@ -3682,7 +3869,7 @@ function openLuxForRegister(){luxMode='register';view='lux';const nav=document.q
 function backToAddKeepDraft(){view='add';setTop('add');document.getElementById('fab').style.display='none';renderAdd(editingId!=null?plantById(editingId):null,true);}
 function useLuxForRegister(){if(luxCurLevel!=null)draft.light=luxCurLevel;stopLuxCamera();backToAddKeepDraft();toast('Luz medida ✔️');}
 function renderLux(pid){luxCurLevel=null;luxCurLux=0;
-  const p=(pid!=null)?plants.find(x=>x.id===pid):null;const s=p?sp(p.esp):null;
+  const p=(pid!=null)?plantById(pid):null;const s=p?sp(p.esp):null;
   // en modo registro comparamos con la especie que se está registrando (si ya la eligió)
   const regType=(luxMode==='register'&&draft&&draft.esp)?sp(draft.esp).t:null;
   const expectedType=s?s.t:regType;
@@ -3707,7 +3894,7 @@ function batchWaterLocation(locKey){const t=todayISO();let n=0;plants.forEach(p=
 function checkSmartWeather(){return {heladas:plants.some(p=>p.region==='sierra'&&(p.alt||0)>=2400), lluvia:getWx()==='lluvia'};}
 function nextRiegoISO(p,s){if(!p.lastWater)return todayISO();const nd=pd(p.lastWater);nd.setDate(nd.getDate()+(RIEGODAYS[s.t][p.pot]||7));return isoLocal(nd);}
 function googleCalUrl(plant,nextDateStr){const title='💧 Regar '+plant.nombre;const details='Recordatorio de Saphi para '+plant.nombre+' en maceta '+(POTS[plant.pot]?POTS[plant.pot].n:'—')+'.';const start=nextDateStr.replace(/-/g,'')+'T083000';const end=nextDateStr.replace(/-/g,'')+'T090000';return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&details='+encodeURIComponent(details)+'&dates='+start+'/'+end;}
-function addCalReminder(pid){const p=plants.find(x=>x.id===pid);if(!p)return;const s=sp(p.esp),pi=propagationInfo(p);if(pi&&pi.lost){toast('Este lote ya no necesita revisiones');return;}let url;if(pi){const date=pi.due.replace(/-/g,''),title=pi.m.em+' Revisar propagación · '+p.nombre,details=pi.m.task+'. Observa raíces, olor, firmeza y humedad antes de intervenir.';url='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&details='+encodeURIComponent(details)+'&dates='+date+'T083000/'+date+'T090000';}else url=googleCalUrl(p,nextRiegoISO(p,s));try{window.open(url,'_blank');}catch(e){location.href=url;}}
+function addCalReminder(pid){const p=plantById(pid);if(!p)return;const s=sp(p.esp),pi=propagationInfo(p);if(pi&&pi.lost){toast('Este lote ya no necesita revisiones');return;}let url;if(pi){const date=pi.due.replace(/-/g,''),title=pi.m.em+' Revisar propagación · '+p.nombre,details=pi.m.task+'. Observa raíces, olor, firmeza y humedad antes de intervenir.';url='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(title)+'&details='+encodeURIComponent(details)+'&dates='+date+'T083000/'+date+'T090000';}else url=googleCalUrl(p,nextRiegoISO(p,s));try{window.open(url,'_blank');}catch(e){location.href=url;}}
 function rainActive(){try{return (Date.now()-(+localStorage.getItem('saphi_raindelay')||0))<48*3600*1000;}catch(e){return false;}}
 function isOutdoor(p){return ['patio','terraza','balcon','jardin','azotea','exterior'].indexOf(p.loc)>=0;}
 function setRainDelay(){try{localStorage.setItem('saphi_raindelay',Date.now());}catch(e){}toast('🌧️ Pausa de riego 48 h para el exterior');if(view==='home')renderHome();else renderList();}
@@ -3742,7 +3929,8 @@ document.addEventListener('click',closeMenu);
 document.addEventListener('click',event=>{
   const button=event.target.closest('button');if(!button||!content)return;
   const action=String(button.getAttribute('onclick')||'');
-  if(button.closest('.ficha-nav')||action.indexOf('applySymptomDiag')>=0||action.indexOf('jumpToolsCalculators')>=0)return;
+  // Acciones que redibujan/mueven a otro paso dentro de la MISMA vista: no forzar restauración de scroll (evita saltos bruscos en el registro por pasos).
+  if(button.closest('.ficha-nav')||/applySymptomDiag|jumpToolsCalculators|addNext|addBack|openAsistente|asistYes|asistNo|resolveType|setFieldReg/.test(action))return;
   const beforeView=view,beforeTop=content.scrollTop;
   requestAnimationFrame(()=>requestAnimationFrame(()=>{if(view===beforeView&&content.scrollTop!==beforeTop)content.scrollTop=beforeTop;}));
 },true);
@@ -3770,21 +3958,25 @@ async function toggleNotif(){
   notifyNow('🌱 Saphi','Listo: te avisaré cuando toque regar tus plantas.');
   if(view==='home')renderHome();else if(view==='calendar')renderCalendar();
 }
-function notifyNow(title,body){
+function notifyNow(title,body,tag){
   if(!('Notification'in window)||Notification.permission!=='granted')return;
   try{
     if(navigator.serviceWorker&&navigator.serviceWorker.ready){
-      navigator.serviceWorker.ready.then(reg=>reg.showNotification(title,{body:body,icon:APP_ICON,badge:APP_ICON,tag:'saphi-riego'})).catch(()=>{try{new Notification(title,{body:body});}catch(e){}});
+      navigator.serviceWorker.ready.then(reg=>reg.showNotification(title,{body:body,icon:APP_ICON,badge:APP_ICON,tag:tag||'saphi-riego'})).catch(()=>{try{new Notification(title,{body:body});}catch(e){}});
     }else{new Notification(title,{body:body});}
   }catch(e){}
 }
-// Avisa una vez al día sobre revisiones de riego y recordatorios propios.
+// Los avisos generales salen una vez al día; los que tienen hora se notifican una vez al vencer.
 function maybeNotifyToday(){
   if(!notifOn()||!('Notification'in window)||Notification.permission!=='granted')return;
   const t=todayISO();let last=null;try{last=localStorage.getItem('saphi_notif_day');}catch(e){}
+  const now=new Date(),clock=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
+  let sent;try{sent=new Set(JSON.parse(localStorage.getItem('saphi_notified_reminders')||'[]'));}catch(e){sent=new Set();}
+  const timed=customReminders().filter(r=>!r.done&&r.date===t&&r.time&&r.time<=clock&&!sent.has(String(r.id)));
+  if(timed.length){const body=timed.length===1?timed[0].time+' · '+timed[0].title:timed.length+' recordatorios programados ya necesitan atención';notifyNow('🌱 Saphi · recordatorio',body,'saphi-timed-'+t+'-'+clock);timed.forEach(r=>sent.add(String(r.id)));try{localStorage.setItem('saphi_notified_reminders',JSON.stringify([...sent].slice(-600)));}catch(e){}}
   if(last===t)return;
   const need=plants.filter(p=>riegoShort(p,sp(p.esp)).needs);
-  const own=customReminders().filter(r=>!r.done&&r.date<=t);
+  const own=customReminders().filter(r=>!r.done&&(r.date<t||(r.date===t&&!r.time)));
   if(!need.length&&!own.length)return;
   try{localStorage.setItem('saphi_notif_day',t);}catch(e){}
   const parts=[];if(need.length)parts.push(need.length+' planta'+(need.length>1?'s':'')+' por observar');if(own.length)parts.push(own.length+' recordatorio'+(own.length>1?'s':'')+' pendiente'+(own.length>1?'s':''));
@@ -3812,6 +4004,15 @@ async function subscribeWebPush(){
 
 // ---------- init ----------
 // ---------- ergonomía de campo ----------
+function syncAppViewport(){
+  const viewport=window.visualViewport,height=viewport&&viewport.height?viewport.height:window.innerHeight;
+  if(height>0)document.documentElement.style.setProperty('--app-height',Math.round(height)+'px');
+}
+syncAppViewport();
+window.addEventListener('resize',syncAppViewport,{passive:true});
+window.addEventListener('orientationchange',syncAppViewport,{passive:true});
+window.addEventListener('pageshow',syncAppViewport,{passive:true});
+if(window.visualViewport){window.visualViewport.addEventListener('resize',syncAppViewport,{passive:true});window.visualViewport.addEventListener('scroll',syncAppViewport,{passive:true});}
 function buzz(ms){try{if(navigator.vibrate)navigator.vibrate(ms||25);}catch(e){}}
 function solOn(){try{return localStorage.getItem('saphi_sol')==='1';}catch(e){return false;}}
 function applySol(){const a=document.querySelector('.app');if(a)a.classList.toggle('sol',solOn());}
